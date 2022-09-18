@@ -28115,5 +28115,90 @@ class BioGenderSeeder extends Seeder
             'status' => 'sinónimo',
             'bio_family_id' => BioFamily::firstWhere('scientific_name', '=', 'Fundulidae')->id
         ]);
+
+        //added manualy
+
+        BioGender::create([
+            'id' => '3011',
+            'scientific_name' => 'Amphispizopsis',
+            'common_name' => '',
+            'status' => 'No disponible',
+            'bio_family_id' => BioFamily::firstWhere('scientific_name', '=', 'Passerellidae')->id
+        ]);
+
+
+        BioGender::create([
+            'id' => '3012',
+            'scientific_name' => 'Corthylio',
+            'common_name' => '',
+            'status' => 'válido',
+            'bio_family_id' => BioFamily::firstWhere('scientific_name', '=', 'Regulidae')->id
+        ]);
+
+
+        BioGender::create([
+            'id' => '3013',
+            'scientific_name' => 'Dasypterus',
+            'common_name' => '',
+            'status' => 'sinónimo',
+            'bio_family_id' => BioFamily::firstWhere('scientific_name', '=', 'Vespertilionidae')->id
+        ]);
+
+
+        BioGender::create([
+            'id' => '3014',
+            'scientific_name' => 'Gardnerycteris',
+            'common_name' => '',
+            'status' => 'válido',
+            'bio_family_id' => BioFamily::firstWhere('scientific_name', '=', 'Phyllostomidae')->id
+        ]);
+
+        BioGender::create([
+            'id' => '3015',
+            'scientific_name' => 'Heterogeomys',
+            'common_name' => '',
+            'status' => 'válido',
+            'bio_family_id' => BioFamily::firstWhere('scientific_name', '=', 'Geomyidae')->id
+        ]);
+
+        BioGender::create([
+            'id' => '3016',
+            'scientific_name' => 'Nannopterum',
+            'common_name' => '',
+            'status' => 'válido',
+            'bio_family_id' => BioFamily::firstWhere('scientific_name', '=', 'Phalacrocoracidae')->id
+        ]);
+
+        BioGender::create([
+            'id' => '3017',
+            'scientific_name' => 'Neomonachus',
+            'common_name' => '',
+            'status' => 'válido',
+            'bio_family_id' => BioFamily::firstWhere('scientific_name', '=', 'Phocidae')->id
+        ]);
+
+        BioGender::create([
+            'id' => '3018',
+            'scientific_name' => 'Ramosomyia',
+            'common_name' => '',
+            'status' => 'válido',
+            'bio_family_id' => BioFamily::firstWhere('scientific_name', '=', 'Trochilidae')->id
+        ]);
+
+        BioGender::create([
+            'id' => '3019',
+            'scientific_name' => 'Ramphotrigon',
+            'common_name' => '',
+            'status' => 'válido',
+            'bio_family_id' => BioFamily::firstWhere('scientific_name', '=', 'Tyrannidae')->id
+        ]);
+
+        BioGender::create([
+            'id' => '3020',
+            'scientific_name' => 'Urile',
+            'common_name' => '',
+            'status' => 'válido',
+            'bio_family_id' => BioFamily::firstWhere('scientific_name', '=', 'Phalacrocoracidae')->id
+        ]);
     }
 }

@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
                 BioOrderSeeder::class,
                 BioFamilySeeder::class,
                 BioGenderSeeder::class,
+                BioSpeciesSeeder::class,
             ]
         );
     }
