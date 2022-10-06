@@ -38,11 +38,11 @@ const submit = () => {
             {{ status }}
         </div>
 
-        <form @submit.prevent="submit" class="bg-brownbg py-6 px-6 md:w-[60%] xl:w-[40%] w-full rounded my-10">
+        <form @submit.prevent="submit" class="bg-brownbg py-6 px-6 sm:w-[60%] xl:w-[40%] w-full rounded my-10">
             <div class="logos flex flex-col justify-center items-center">
-                <h1 class="font-['Roboto'] text-xl md:text-2xl uppercase font-medium text-center">Laboratorio de biología <br/> de la conservación</h1>
+                <h1 class="font-['Roboto'] text-xl md:text-2xl my-5 uppercase font-medium text-center">Laboratorio de biología <br/> de la conservación</h1>
                 <h2 class="font-['Libre_Barcode_128_Text'] text-7xl">BIOTECA</h2>
-                <p class="text-zinc-600">sistema de gestión de <br/> colecciones biológicas</p>
+                <p class="text-zinc-600 capitalize mb-5">sistema de gestión de <br/> colecciones biológicas</p>
             </div>
             <div class="flex flex-col justify-center items-center">
                 <InputLabel for="email" value="Usuario" />

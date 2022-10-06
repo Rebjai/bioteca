@@ -32,7 +32,8 @@ Route::get(
 );
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    $title = 'Colección';
+    return Inertia::render('Dashboard', compact('title'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__ . '/auth.php';

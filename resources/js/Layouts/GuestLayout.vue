@@ -11,9 +11,8 @@ defineProps({
 </script>
 
 <template>
-    <div class="min-h-screen flex flex-col sm:justify-center items-center sm:pt-0 bg-gray-100">
-        <div
-            class="grid grid-cols-2 md:grid-cols-3 bg-green-700 min-w-full justify-items-center justify-between px-5 py-2 items-center">
+    <div
+            class="grid grid-cols-2 top-0 md:grid-cols-3 bg-green-700 min-w-full justify-items-center justify-between px-5 py-2 items-center">
             <!-- <div class="min-w-full logos flex justify-evenly items-center"> -->
 
             <a href="/" class="">
@@ -40,6 +39,9 @@ defineProps({
                     class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</Link>
             </template>
         </div>
+    <div class="min-h-[80vh] flex flex-col sm:justify-center items-center sm:pt-0 bg-gray-100">
+        
+        
 
 
         <div class="w-full mt-6 bg-white flex justify-center shadow-md overflow-hidden sm:rounded-lg">
