@@ -23,5 +23,12 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('pass1234')
             ]
         );
+        User::create(
+            [
+                'name' => 'José Canseco',
+                'email' => 'l17920314@voaxaca.tecnm.mx',
+                'password' => Hash::make('pass1234')
+            ]
+        );
     }
 }
