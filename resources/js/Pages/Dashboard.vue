@@ -26,8 +26,8 @@ function addSpecimen(evt) {
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded flex flex-col justify-center">
-                    <primary-button class="m-5" @click="addSpecimen">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded flex flex-col justify-center items-center">
+                    <primary-button class="m-5 max-w-sm" @click="addSpecimen">
                         Añadir nuevo
                     </primary-button>
                     <!-- <button class="bg-green-800 text-zinc-100 font-bold tracking-wide rounded" >Añadir nuevo</button> -->

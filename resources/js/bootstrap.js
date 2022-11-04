@@ -8,7 +8,8 @@ window._ = _;
  */
 
 import axios from 'axios';
-window.axios = axios;
+const axiosInstance = axios.create({baseURL: 'localhost:8888'})
+window.axios = axiosInstance;
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
