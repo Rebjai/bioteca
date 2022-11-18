@@ -6,18 +6,17 @@ import axios from 'axios';
 // import { Multiselect } from 'vue-multiselect';
 const props = defineProps({ specimen: Object })
 const speciesOptions = ref([{}, '', ''])
-    const props = defineProps({specimen:Object})
-    
-    const specimen = useForm(props.specimen?props.specimen:
-        {
-            species: {
-                id: null,
-                genus_id: 0,
-                scientific_name:'',
-                status: ''
-            }
+const locationOptions = ref([{}, '', ''])
+const specimen = useForm(props.specimen ? props.specimen :
+    {
+        species: {
+            id: null,
+            genus_id: 0,
+            scientific_name: '',
+            status: ''
         }
-    )
+    }
+)
 
 
 function addSpecimen(e) {
@@ -31,6 +30,12 @@ async function searchSpecies(search, loading) {
     console.log(res.data);
 }
 
+async function searchLocations(search, loading) {
+    console.log({ search });
+    const res = await axios.get('/api/locations/search', { params: { name: search.target.value } })
+    locationOptions.value = res.data[0]
+    console.log(res.data);
+}
 
 
 
@@ -49,11 +54,17 @@ async function searchSpecies(search, loading) {
 
             </multiselect>
             <label for="especie">Lugar De Colecta:</label>
-                <input type="text" placeholder="lugar de colecta">
-                <primary-button class="mt-5">{{specimen.id?'editar':'agregar'}}</primary-button>
-            </div>
-        </form>
-    </template>
+            <multiselect placeholder="Selecciona una opción" label="name" @input="searchLocations"
+                :options="locationOptions" :allow-empty="false" v-model="specimen.location">
+
+            </multiselect>
+            
+            <label for="latitude">Latitud:</label>
+            <input type="text" id="latitude" name="latitude" placeholder="Latitud">
+            <label for="longitude">longitud:</label>
+            <input type="text" id="longitude" name="longitude" placeholder="Longitud">
+            <label for="altitude">altitud:</label>
+            <input type="text" id="altitude" name="altitude" placeholder="Altitud">
             <primary-button class="mt-5">{{ specimen.id ? 'editar' : 'agregar'}}</primary-button>
         </div>
     </form>
