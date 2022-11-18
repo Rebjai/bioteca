@@ -33,5 +33,14 @@ class DatabaseSeeder extends Seeder
                 BioSpeciesSeeder::class,
             ]
         );
+
+        // location seeder
+        $this->call(
+            [
+                StateSeeder::class,
+                MunicipalitySeeder::class,
+                LocationSeeder::class,
+            ]
+        );
     }
 }
