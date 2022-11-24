@@ -40,6 +40,7 @@ class DatabaseSeeder extends Seeder
                 StateSeeder::class,
                 MunicipalitySeeder::class,
                 LocationSeeder::class,
+                LocationSeeder2::class,
             ]
         );
     }
