@@ -44,7 +44,6 @@ class DatabaseSeeder extends Seeder
                 LocationSeeder3::class,
                 LocationSeeder4::class,
                 LocationSeeder5::class,
-                LocationSeeder6::class,
             ]
         );
     }
