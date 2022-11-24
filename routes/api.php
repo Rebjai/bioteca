@@ -18,16 +18,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(
     function () {
-        
+
         Route::get(
             '/user',
             function (Request $request) {
                 return $request->user();
             }
         );
-        
-        
     }
 );
-Route::get('species/search', [speciesAPIController::class, 'search']);
-Route::get('locations/search', [LocationController::class, 'search']);
+Route::middleware('throttle:search')->group(
+    function () {
+        Route::get('species/search', [speciesAPIController::class, 'search']);
+        Route::get('locations/search', [LocationController::class, 'search']);
+    }
+);
