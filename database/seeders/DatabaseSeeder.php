@@ -41,6 +41,10 @@ class DatabaseSeeder extends Seeder
                 MunicipalitySeeder::class,
                 LocationSeeder::class,
                 LocationSeeder2::class,
+                LocationSeeder3::class,
+                LocationSeeder4::class,
+                LocationSeeder5::class,
+                LocationSeeder6::class,
             ]
         );
     }
