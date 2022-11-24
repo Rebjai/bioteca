@@ -20,18 +20,52 @@ class LocationController extends Controller
     public function search(Request $request)
     {
         $data = $request->query('name');
-        if (!$data) {
-            return Location::limit(10)->get();
-        }
+        $splitted = explode(',', $data);
+        $location = $splitted[0];
+        $municipality = count($splitted) > 1 ? $splitted[1] : null;
+        $state = count($splitted) > 2 ? $splitted[2] : null;
+        $municipality_id = $request->query('municipality_id');
+        
 
-        $species = Location::where('name', 'ilike', "%{$data}%")
-            // ->orWhere('common_name', 'like', "%{$data}%")->limit(50)
-            ->limit(10)
-            ->get();
-
+        $species = Location::whereRaw('upper(name) like ?', '%' . strtoupper($location) . '%');
+        $species->when(
+            $municipality_id,
+            function ($q, $municipality_id) {
+                return $q->where('municipality_id', '=', $municipality_id);
+            }
+        );
+        $species->when(
+            $municipality,
+            function ($q, $municipality) {
+                return $q->orWhereHas(
+                    'municipality',
+                    function ($q) use ($municipality) {
+                        $q->where('name', 'like', '%' . $municipality . '%');
+                    }
+                );
+            }
+        );
+        $species->when(
+            $state,
+            function ($q, $state) {
+                return $q->whereHas(
+                    'municipality.state',
+                    function ($q) use ($state) {
+                        $q->whereRaw('upper(name) like ?', '%' . strtoupper($state) . '%');
+                    }
+                );
+            }
+        );
+        // ->orWhere('type', 'like', '%' . $data . '%')
+        // ->orWhereHas(
+        //     'municipality',
+        //     function ($q) use ($data) {
+        //         $q->where('name', 'like', '%' . $data . '%');
+        //     }
+        // )
         return Response::json(
             [
-                $species
+                $species->limit(20)->get()
             ]
         );
     }

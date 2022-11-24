@@ -31,7 +31,7 @@ class speciesAPIController extends Controller
             return BioSpecies::limit(10)->get();
         }
 
-        $species = BioSpecies::where('scientific_name', 'ilike', "%{$data}%")
+        $species = BioSpecies::where('scientific_name', 'like', "%{$data}%")
             // ->orWhere('common_name', 'like', "%{$data}%")->limit(50)
             ->limit(20)
             ->get();

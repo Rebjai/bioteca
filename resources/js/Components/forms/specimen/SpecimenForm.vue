@@ -5,8 +5,8 @@ import { ref } from '@vue/reactivity';
 import axios from 'axios';
 // import { Multiselect } from 'vue-multiselect';
 const props = defineProps({ specimen: Object })
-const speciesOptions = ref([{}, '', ''])
-const locationOptions = ref([{}, '', ''])
+const speciesOptions = ref([''])
+const locationOptions = ref([''])
 const specimen = useForm(props.specimen ? props.specimen :
     {
         species: {
@@ -20,7 +20,7 @@ const specimen = useForm(props.specimen ? props.specimen :
 
 
 function addSpecimen(e) {
-    console.log({specimen});
+    console.log({ specimen });
 }
 
 async function searchSpecies(search, loading) {
@@ -32,12 +32,15 @@ async function searchSpecies(search, loading) {
 
 async function searchLocations(search, loading) {
     console.log({ search });
+    // if (search.target.value.length < 3) {
+    //     return
+    // }
     const res = await axios.get('/api/locations/search', { params: { name: search.target.value } })
     locationOptions.value = res.data[0]
     console.log(res.data);
 }
 
-
+searchLocations({target:{value:''}})
 
 </script>
         
@@ -54,11 +57,11 @@ async function searchLocations(search, loading) {
 
             </multiselect>
             <label for="especie">Lugar De Colecta:</label>
-            <multiselect placeholder="Selecciona una opción" label="name" @input="searchLocations"
+            <multiselect placeholder="Selecciona una opción" label="name" @input="searchLocations" :preserveSearch="true" :internalSearch="false"
                 :options="locationOptions" :allow-empty="false" v-model="specimen.location">
 
             </multiselect>
-            
+
             <label for="latitude">Latitud:</label>
             <input type="text" id="latitude" name="latitude" placeholder="Latitud">
             <label for="longitude">longitud:</label>
