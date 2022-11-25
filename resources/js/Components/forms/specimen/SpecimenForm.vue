@@ -3,6 +3,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { useForm } from '@inertiajs/inertia-vue3'
 import { ref } from '@vue/reactivity';
 import axios from 'axios';
+import { Inertia } from '@inertiajs/inertia';
 // import { Multiselect } from 'vue-multiselect';
 const props = defineProps({ specimen: Object })
 const speciesOptions = ref([''])
@@ -21,6 +22,9 @@ const specimen = useForm(props.specimen ? props.specimen :
 
 function addSpecimen(e) {
     console.log({ specimen });
+    Inertia.get(route('specimen.edit', 1))
+    console.log('wololo');
+
 }
 
 async function searchSpecies(search, loading) {
@@ -45,7 +49,7 @@ searchLocations({target:{value:''}})
 </script>
         
 <template>
-    <form action="#" @submit="addSpecimen" :close-on-select="false" class="bg-zinc-300 w-full rounded p-8">
+    <form action="#" @submit.prevent="addSpecimen" :close-on-select="false" class="bg-zinc-300 w-full rounded p-8">
         <div class="row flex flex-col items-center ">
 
             <label for="especie">Especie:</label>

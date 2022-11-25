@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Specimen\SpecimenController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -31,9 +32,14 @@ Route::get(
     }
 );
 
-Route::get('/dashboard', function () {
-    $title = 'Colección';
-    return Inertia::render('Dashboard', compact('title'));
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get(
+    '/dashboard',
+    function () {
+        $title = 'Colección';
+        return Inertia::render('Dashboard', compact('title'));
+    }
+)->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::resource('specimen', SpecimenController::class);
 
 require __DIR__ . '/auth.php';
