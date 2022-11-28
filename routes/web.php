@@ -36,11 +36,12 @@ Route::get(
 Route::get(
     '/dashboard',
     function () {
-        $title = 'Colección';
+        $title = 'Dashboard';
         return Inertia::render('Dashboard', compact('title'));
     }
 )->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::resource('collection', SpecimenController::class);
 Route::resource('specimen', SpecimenController::class);
 Route::resource('mammal-measure', MammalMeasureController::class);
 

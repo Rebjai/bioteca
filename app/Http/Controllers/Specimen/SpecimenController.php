@@ -18,7 +18,10 @@ class SpecimenController extends Controller
      */
     public function index()
     {
-        //
+        $title = 'Colección';
+        // $specimens = Specimen::with(['species','measurable', 'location'])->get();
+        $specimens = Specimen::with(['species', 'location'])->get();
+        return Inertia::render('collection/index', compact('title', 'specimens'));
     }
 
     /**

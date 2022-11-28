@@ -7,7 +7,7 @@ import { ref } from '@vue/reactivity';
 
 
 const showModal = ref()
-const props = defineProps({specimens:[]})
+const props = defineProps({specimens:{}})
 const specimens = props.specimens ? props.specimens:[]
 
 console.log({specimens});
@@ -15,6 +15,13 @@ function addSpecimen(evt) {
     console.log(showModal.value = true);
     console.log(showModal);
 
+}
+
+function parseCollectionType(type) {
+    if (type === 'App\\Models\\Specimen\\MammalMeasure') {
+        return 'Mamíferos'
+    }
+    
 }
 </script>
 
@@ -24,17 +31,16 @@ function addSpecimen(evt) {
     <div>
 
 
-        <Head title="Dashboard" />
+        <Head title="Colección" />
 
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded flex flex-col justify-center items-center">
-                    <!-- shows address, map with coordinates -->
-                    <!-- <button class="bg-green-800 text-zinc-100 font-bold tracking-wide rounded" >Añadir nuevo</button> -->
-                    <!-- <primary-button class="m-5 max-w-sm" @click="addSpecimen">
+                    <primary-button class="m-5 max-w-sm" @click="addSpecimen">
                         Añadir nuevo
                     </primary-button>
+                    <!-- <button class="bg-green-800 text-zinc-100 font-bold tracking-wide rounded" >Añadir nuevo</button> -->
                     <div class="md:mx-5 p-6 bg-zinc-200 border-b overflow-x-auto border-gray-200 rounded-lg">
                         <table class="min-w-full">
                             <thead class="border-b-2 border-zinc-500 pb-8">
@@ -43,15 +49,16 @@ function addSpecimen(evt) {
                                 <th>Colecta</th>
                                 <th>Nombre</th>
                                 <th>Lugar de Colecta</th>
+                                <!-- shows address, map with coordinates -->
                                 <th>Acciones</th>
                             </thead>
                             <tbody v-if="specimens.length">
                                 <tr v-for="specimen in specimens" :key="specimen.id">
-                                    <td>0</td>
-                                    <td>Mamíferos</td>
-                                    <td>06/10/2022</td>
-                                    <td>mamiferum especialis</td>
-                                    <td>Ex-Hda. de Nazareno, Santa Cruz Xoxocotlán, Oaxaca, C.P. 71230</td>
+                                    <td>{{specimen.id}}</td>
+                                    <td>{{parseCollectionType(specimen.measurable_type)}}</td>
+                                    <td>{{specimen.collection_date}}</td>
+                                    <td>{{specimen.species.scientific_name}}</td>
+                                    <td>{{specimen.location.name}}</td>
                                     <td class="flex flex-col  text-center items-center justify-center">
                                         <Link class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
                                         <button>
@@ -143,7 +150,7 @@ function addSpecimen(evt) {
                                 </td>
                             </tbody>
                         </table>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>

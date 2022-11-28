@@ -2,8 +2,11 @@
 
 namespace App\Models\Specimen;
 
+use App\Models\Catalogs\BioSpecies;
+use App\Models\Location\Location;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Specimen extends Model
@@ -29,5 +32,26 @@ class Specimen extends Model
     public function measurable(): MorphTo
     {
         return $this->morphTo();
+    }
+    
+
+    /**
+     * Get the species that owns the Specimen
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function species(): BelongsTo
+    {
+        return $this->belongsTo(BioSpecies::class, 'species_id');
+    }
+
+    /**
+     * Get the location that owns the Specimen
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function location(): BelongsTo
+    {
+        return $this->belongsTo(Location::class);
     }
 }
