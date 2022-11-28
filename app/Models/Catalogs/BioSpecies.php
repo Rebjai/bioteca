@@ -18,6 +18,6 @@ class BioSpecies extends Model
     public function genus(): BelongsTo
     {
         //TODO: refactor BioGender to BioGenus
-        return $this->belongsTo(BioGender::class);
+        return $this->belongsTo(BioGender::class, 'bio_gender_id');
     }
 }

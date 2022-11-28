@@ -17,6 +17,6 @@ class BioFamily extends Model
      */
     public function order(): BelongsTo
     {
-        return $this->belongsTo(BioOrder::class);
+        return $this->belongsTo(BioOrder::class, 'bio_order_id');
     }
 }

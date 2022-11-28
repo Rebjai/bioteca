@@ -30,5 +30,12 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('pass1234')
             ]
         );
+        User::create(
+            [
+                'name' => 'Rosa María Gómez Ugalde',
+                'email' => 'l17920314@voaxaca.tecnm.mx',
+                'password' => Hash::make('pass1234')
+            ]
+        );
     }
 }

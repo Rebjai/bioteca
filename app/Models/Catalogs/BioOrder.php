@@ -17,6 +17,6 @@ class BioOrder extends Model
      */
     public function class(): BelongsTo
     {
-        return $this->belongsTo(BioClass::class);
+        return $this->belongsTo(BioClass::class, 'bio_class_id');
     }
 }

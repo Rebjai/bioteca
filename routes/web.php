@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Specimen\MammalMeasureController;
 use App\Http\Controllers\Specimen\SpecimenController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -41,5 +42,6 @@ Route::get(
 )->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::resource('specimen', SpecimenController::class);
+Route::resource('mammal-measure', MammalMeasureController::class);
 
 require __DIR__ . '/auth.php';

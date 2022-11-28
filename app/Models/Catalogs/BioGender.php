@@ -16,6 +16,6 @@ class BioGender extends Model
      */
     public function family(): BelongsTo
     {
-        return $this->belongsTo(BioFamily::class);
+        return $this->belongsTo(BioFamily::class, 'bio_family_id');
     }
 }
