@@ -107,8 +107,8 @@ function parseCollectionType(type) {
                                 <td>0</td>
                                 <td>Mamíferos</td>
                                 <td>06/10/2022</td>
-                                <td>mamiferum especialis</td>
-                                <td>Ex-Hda. de Nazareno, Santa Cruz Xoxocotlán, Oaxaca, C.P. 71230</td>
+                                <td>mamiferum exemplaris</td>
+                                <td>Ex-Hda. de Nazareno, Santa Cruz Xoxocotlán, Oaxaca</td>
                                 <td class="flex flex-col  text-center items-center justify-center">
                                     <Link class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
                                     <button>
