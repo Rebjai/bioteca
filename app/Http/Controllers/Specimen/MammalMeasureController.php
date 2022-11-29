@@ -37,9 +37,9 @@ class MammalMeasureController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // return redirect(route({'specimen.edit', }))
     }
-
+    
     /**
      * Display the specified resource.
      *
@@ -62,7 +62,7 @@ class MammalMeasureController extends Controller
         $measures = $mammalMeasure;
         return Inertia::render('collection/SpecimenMeasurements', compact('measures'));
     }
-
+    
     /**
      * Update the specified resource in storage.
      *
@@ -72,7 +72,13 @@ class MammalMeasureController extends Controller
      */
     public function update(Request $request, MammalMeasure $mammalMeasure)
     {
-        //
+        $data = $request->validate(MammalMeasure::$rules);
+        // dd($mammalMeasure, $data);
+        // dd($data);
+        $mammalMeasure->update($data);
+        $mammalMeasure->refresh();
+
+        return redirect(route('collection.edit', $mammalMeasure->specimen_id), 303);
     }
 
     /**

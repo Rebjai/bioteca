@@ -49,11 +49,12 @@ class SpecimenController extends Controller
         if ($species->genus->family->order->class->scientific_name == 'Mammalia') {
             $mammal = MammalMeasure::create();
             $mammal->specimen()->save($specimen);
+            $mammal->specimen_id = $specimen->id;
             $mammal->save();
             // $specimen->measurable_id = $mammal->id;
             // $specimen->measurable_type = 'Mammal';
 
-            return redirect(route('mammal-measure.edit', $mammal->id));
+            return redirect(route('collection.edit', $specimen->id));
         }
         return back(404);
     }
@@ -67,6 +68,7 @@ class SpecimenController extends Controller
     public function show(Specimen $specimen)
     {
         // dd($specimen);
+        $specimen->load('measurable');
         return Inertia::render('collection/SpecimenMeasurements', compact('specimen'));
     }
 
@@ -79,7 +81,9 @@ class SpecimenController extends Controller
     public function edit(Specimen $specimen)
     {
         // dd($specimen);
-        $specimen->load('measurable');
+        // dd($specimen);
+        // dd('aaa');
+        $specimen->load(['measurable', 'species', 'location']);
         return Inertia::render('collection/SpecimenMeasurements', compact('specimen'));
     }
 

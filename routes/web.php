@@ -42,7 +42,7 @@ Route::get(
 )->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::resource('collection', SpecimenController::class)->parameters(['collection' => 'specimen']);
-Route::resource('specimen', SpecimenController::class);
+// Route::resource('specimen', SpecimenController::class);
 Route::resource('mammal-measure', MammalMeasureController::class);
 
 require __DIR__ . '/auth.php';

@@ -7,7 +7,7 @@ import { Inertia } from '@inertiajs/inertia';
 // import { Multiselect } from 'vue-multiselect';
 const props = defineProps({ specimen: Object })
 const speciesOptions = ref([''])
-const locationOptions = ref([''])
+const locationOptions = ref('')
 const specimen = useForm(props.specimen ? props.specimen :
     {
         collection_date: '',
@@ -18,6 +18,8 @@ const specimen = useForm(props.specimen ? props.specimen :
         longitude: '',
         collector: '',
         assistant_id: '',
+        species: null,
+        location:null,
 
     }
 )
@@ -25,16 +27,14 @@ const specimen = useForm(props.specimen ? props.specimen :
 
 function addSpecimen(e) {
     console.log({ specimen });
-    specimen.post(route('specimen.store'))
-    console.log('wololo');
+    specimen.post(route('collection.store'))
 
 }
 
 async function searchSpecies(search, loading) {
     console.log({ search });
     const res = await axios.get('/api/species/search', { params: { name: search.target.value } })
-    speciesOptions.value = res.data[0]
-    console.log(res.data);
+    speciesOptions.value = res.data.length ?res.data[0]: []
 }
 
 async function searchLocations(search, loading) {
@@ -43,8 +43,7 @@ async function searchLocations(search, loading) {
     //     return
     // }
     const res = await axios.get('/api/locations/search', { params: { name: search.target.value } })
-    locationOptions.value = res.data[0]
-    console.log(res.data);
+    locationOptions.value = res.data.length ? res.data[0]: []
 }
 
 function selectSpecies(option, id) {
@@ -77,7 +76,7 @@ searchLocations({ target: { value: '' } })
 
             </multiselect>
             <label for="especie">Lugar De Colecta:</label>
-            <multiselect placeholder="Selecciona una opción" label="name" @input="searchLocations"
+            <multiselect id="species" placeholder="Selecciona una opción" label="name" @input="searchLocations"
                 :preserveSearch="true" :internalSearch="false" :options="locationOptions" :allow-empty="false"
                 @select="selectLocation" v-model="specimen.location">
 

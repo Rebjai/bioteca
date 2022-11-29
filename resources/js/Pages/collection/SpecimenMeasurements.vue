@@ -2,6 +2,27 @@
 import SpecimenForm from '@/Components/forms/specimen/SpecimenForm.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue'
 const props = defineProps({ specimen: {} })
+console.log(props.specimen);
+console.log(props.specimen.measurable?.id);
+const measurable = props.specimen.measurable?.id ? useForm(props.specimen.measurable) :
+    useForm({
+        gender: '',
+        gonads: '',
+        lt: '',
+        lc: '',
+        pt: '',
+        o: '',
+        ab: '',
+        weight: '',
+        skull: false,
+        skin: false,
+        body: false,
+        observations: '',
+    })
+function saveMeasures() {
+
+    measurable.put(route('mammal-measure.update', measurable.id));
+}
 
 </script>
 <template>
@@ -10,73 +31,75 @@ const props = defineProps({ specimen: {} })
         <div id="title" class="text-center font-bold text-xl uppercase py-5">
             <h1>Medidas del espécimen</h1>
         </div>
-        <form action="" class="flex flex-col bg-zinc-300 rounded p-5 items-center content-between">
+        <form action="" class="flex flex-col bg-zinc-300 rounded p-5 items-center content-between"
+            @submit.prevent="saveMeasures()">
             <div class="form-group my-2 flex flex-col text-center">
                 <label for="gender">Sexo</label>
-                <select name="gender" id="gender">
+                <select name="gender" id="gender" v-model="measurable.gender">
                     <option value="">Selecciona una opción</option>
-                    <option value="1">Hembra</option>
-                    <option value="0">Macho</option>
+                    <option :value="false">Hembra</option>
+                    <option :value="true">Macho</option>
                 </select>
             </div>
             <div class="form-group my-2 flex flex-col text-center">
                 <label for="gonads">Medida de Gónadas (mm)</label>
-                <input class="min-w-full border-none rounded drop-shadow-sm " placeholder='N/A' type="number"
-                    name="gonads" id="gonads">
+                <input v-model="measurable.gonads" class="min-w-full border-none rounded drop-shadow-sm "
+                    placeholder='N/A' type="number" name="gonads" id="gonads">
             </div>
             <div class="form-group my-2 flex flex-col text-center">
                 <label for="lt">LT</label>
-                <input class="min-w-full border-none rounded drop-shadow-sm " placeholder='N/A' type="number" name="lt"
-                    id="lt">
+                <input v-model="measurable.lt" class="min-w-full border-none rounded drop-shadow-sm "
+                    placeholder='N/A' type="number" name="lt" id="lt">
             </div>
             <div class="form-group my-2 flex flex-col text-center">
                 <label for="lc">LC</label>
-                <input class="min-w-full border-none rounded drop-shadow-sm " placeholder='N/A' type="number" name="lc"
-                    id="lc">
+                <input v-model="measurable.lc" class="min-w-full border-none rounded drop-shadow-sm "
+                    placeholder='N/A' type="number" name="lc" id="lc">
             </div>
             <div class="form-group my-2 flex flex-col text-center">
                 <label for="pt">PT</label>
-                <input class="min-w-full border-none rounded drop-shadow-sm " placeholder='N/A' type="number" name="pt"
-                    id="pt">
+                <input v-model="measurable.pt" class="min-w-full border-none rounded drop-shadow-sm "
+                    placeholder='N/A' type="number" name="pt" id="pt">
             </div>
             <div class="form-group my-2 flex flex-col text-center">
                 <label for="o">O</label>
-                <input class="min-w-full border-none rounded drop-shadow-sm " placeholder='N/A' type="number" name="o"
-                    id="o">
+                <input v-model="measurable.o" class="min-w-full border-none rounded drop-shadow-sm "
+                    placeholder='N/A' type="number" name="o" id="o">
             </div>
             <div class="form-group my-2 flex flex-col text-center">
-                <label for="o">AB</label>
-                <input class="min-w-full border-none rounded drop-shadow-sm " placeholder='N/A' type="number" name="o"
-                    id="o">
+                <label for="ab">AB</label>
+                <input v-model="measurable.ab" class="min-w-full border-none rounded drop-shadow-sm "
+                    placeholder='N/A' type="number" name="ab" id="ab">
             </div>
             <div class="form-group my-2 flex flex-col text-center">
                 <label for="weight">Peso (gr)</label>
-                <input class="min-w-full border-none rounded drop-shadow-sm " placeholder='N/A' type="number"
-                    name="weight" id="weight">
+                <input v-model="measurable.weight" class="min-w-full border-none rounded drop-shadow-sm "
+                    placeholder='N/A' type="number" name="weight" id="weight">
             </div>
             <div class="options flex min-w-[200px] justify-between items-center">
 
                 <div class="form-group my-2 flex flex-col text-center items-center">
                     <label for="has-skull">Cráneo</label>
-                    <input class="border-none rounded drop-shadow-sm "  type="checkbox"
-                        name="has-skull" id="has-skull">
+                    <input v-model="measurable.skull" class="border-none rounded drop-shadow-sm "
+                        type="checkbox" name="has-skull" id="has-skull">
                 </div>
                 <div class="form-group my-2 flex flex-col text-center items-center">
                     <label for="has-skull">Piel</label>
-                    <input class="border-none rounded drop-shadow-sm "  type="checkbox"
-                        name="has-skull" id="has-skull">
+                    <input v-model="measurable.skin" class="border-none rounded drop-shadow-sm "
+                        type="checkbox" name="has-skull" id="has-skull">
                 </div>
                 <div class="form-group my-2 flex flex-col text-center items-center">
                     <label for="has-body">Cuerpo</label>
-                    <input class="border-none rounded drop-shadow-sm "  type="checkbox"
-                        name="has-body" id="has-body">
+                    <input v-model="measurable.body" class="border-none rounded drop-shadow-sm "
+                        type="checkbox" name="has-body" id="has-body">
                 </div>
             </div>
             <div class="form-group my-2 flex flex-col text-center flex flex-col">
                 <label for="has-skull">Observaciones</label>
-                <textarea name="observations" id="observations" cols="30" rows="5"></textarea>
+                <textarea v-model="measurable.observations" name="observations" id="observations" cols="30"
+                    rows="5"></textarea>
             </div>
-            <primary-button class="mt-5 capitalize">{{ specimen.id ? 'Guardar' : 'agregar'}}</primary-button>
+            <primary-button class="mt-5 capitalize">{{ measurable.id ? 'Guardar' : 'agregar' }}</primary-button>
         </form>
     </div>
     <div class="bg-white m-5 rounded-lg p-5 max-h-full drop-shadow">
@@ -89,6 +112,7 @@ const props = defineProps({ specimen: {} })
 
 <script>
 import Layout from '@/Layouts/AuthenticatedLayout.vue';
+import { useForm } from '@inertiajs/inertia-vue3';
 
 
 export default {
