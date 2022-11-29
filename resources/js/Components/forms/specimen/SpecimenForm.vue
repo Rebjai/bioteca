@@ -48,7 +48,7 @@ async function searchLocations(search, loading) {
 }
 
 function selectSpecies(option, id) {
-    console.log({option}, {id});
+    console.log({ option }, { id });
     specimen.species_id = option.id
 }
 function selectLocation(option, id) {
@@ -65,7 +65,7 @@ searchLocations({ target: { value: '' } })
         <div class="row flex flex-col items-center ">
 
             <label for="collection-date">Fecha de colecta:</label>
-            <input v-model="specimen.collection_date" type="date" name="collection-date" id="collection-date">
+            <input class="min-w-full rounded border-none drop-shadow-sm " v-model="specimen.collection_date" type="date" name="collection-date" id="collection-date">
 
             <label for="especie">Especie:</label>
             <!-- <multiselect class="min-w-[200px]" label="scientific_name" v-model="specimen.species" :options="speciesOptions"
@@ -83,20 +83,37 @@ searchLocations({ target: { value: '' } })
 
             </multiselect>
 
-            <label for="latitude">Latitud:</label>
-            <input v-model="specimen.latitude" type="text" id="latitude" name="latitude" placeholder="Latitud">
-            <label for="longitude">longitud:</label>
-            <input v-model="specimen.longitude" type="text" id="longitude" name="longitude" placeholder="Longitud">
-            <label for="altitude">altitud:</label>
-            <input v-model="specimen.altitude" type="text" id="altitude" name="altitude" placeholder="Altitud">
-            <label for="collector">Colector:</label>
-            <input v-model="specimen.collector" type="text" name="collector" id="collector"
+            <div id="coordinates" class="py-5">
+
+                <h1 class="mb-3 font-bold text-xl text-center">Coordenadas <span class="font-thin text-sm">(Grados
+                        Decimales)</span></h1>
+                <div class="flex flex-col lg:flex-row">
+                    <div class="flex flex-col p-3 capitalize">
+                        <label for="latitude">Latitud:</label>
+                        <input class="min-w-full rounded border-none drop-shadow-sm " v-model="specimen.latitude" type="text" id="latitude" name="latitude"
+                            placeholder="Latitud">
+                    </div>
+                    <div class="flex flex-col p-3 capitalize">
+                        <label for="longitude">longitud:</label>
+                        <input class="min-w-full rounded border-none drop-shadow-sm " v-model="specimen.longitude" type="text" id="longitude" name="longitude"
+                            placeholder="Longitud">
+                    </div>
+                    <div class="flex flex-col p-3 capitalize">
+                        <label for="altitude">altitud <span class="text-sm lowercase font-thin">(msnm)</span>:</label>
+                        <input class="min-w-full rounded border-none drop-shadow-sm " v-model="specimen.altitude" type="text" id="altitude" name="altitude"
+                            placeholder="Altitud">
+                    </div>
+
+                </div>
+            </div>
+            <label for="collector">Nombre del colector:</label>
+            <input class="min-w-full rounded border-none drop-shadow-sm " v-model="specimen.collector" type="text" name="collector" id="collector"
                 placeholder="Nombre del colector">
             <label for="assistant_id">Preparador:</label>
-            <input v-model="specimen.assistant_id" type="text" id="assistant_id" name="assistant_id"
+            <input class="min-w-full rounded border-none drop-shadow-sm " v-model="specimen.assistant_id" type="text" id="assistant_id" name="assistant_id"
                 placeholder="Preparador">
 
-            <primary-button class="mt-5">{{ specimen.id ? 'editar' : 'agregar'}}</primary-button>
+            <primary-button class="mt-5 capitalize">{{ specimen.id ? 'Guardar' : 'agregar'}}</primary-button>
         </div>
     </form>
 </template>

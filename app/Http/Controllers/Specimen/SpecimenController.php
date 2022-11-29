@@ -64,9 +64,10 @@ class SpecimenController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Specimen $specimen)
     {
-        //
+        // dd($specimen);
+        return Inertia::render('collection/SpecimenMeasurements', compact('specimen'));
     }
 
     /**
@@ -75,10 +76,11 @@ class SpecimenController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Specimen $specimen)
     {
-        // dd('a');
-        return Inertia::render('collection/SpecimenMeasurements');
+        // dd($specimen);
+        $specimen->load('measurable');
+        return Inertia::render('collection/SpecimenMeasurements', compact('specimen'));
     }
 
     /**
@@ -101,6 +103,6 @@ class SpecimenController extends Controller
      */
     public function destroy($id)
     {
-        //
+        dd('por implementar');
     }
 }

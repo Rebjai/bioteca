@@ -44,23 +44,23 @@ function parseCollectionType(type) {
                     <div class="md:mx-5 p-6 bg-zinc-200 border-b overflow-x-auto border-gray-200 rounded-lg">
                         <table class="min-w-full">
                             <thead class="border-b-2 border-zinc-500 pb-8">
-                                <th>#</th>
-                                <th>Colección</th>
-                                <th>Colecta</th>
-                                <th>Nombre</th>
-                                <th>Lugar de Colecta</th>
+                                <th class="px-5">#</th>
+                                <th class="px-5">Colección</th>
+                                <th class="px-5">Colecta</th>
+                                <th class="px-5">Nombre</th>
+                                <th class="px-5">Lugar de Colecta</th>
                                 <!-- shows address, map with coordinates -->
                                 <th>Acciones</th>
                             </thead>
                             <tbody v-if="specimens.length">
                                 <tr v-for="specimen in specimens" :key="specimen.id">
-                                    <td>{{specimen.id}}</td>
-                                    <td>{{parseCollectionType(specimen.measurable_type)}}</td>
-                                    <td>{{specimen.collection_date}}</td>
-                                    <td>{{specimen.species.scientific_name}}</td>
-                                    <td>{{specimen.location.name}}</td>
+                                    <td class="px-3">{{specimen.id}}</td>
+                                    <td class="px-3">{{parseCollectionType(specimen.measurable_type)}}</td>
+                                    <td class="px-3">{{specimen.collection_date}}</td>
+                                    <td class="px-3">{{specimen.species.scientific_name}}</td>
+                                    <td class="px-3">{{specimen.location.name}}</td>
                                     <td class="flex flex-col  text-center items-center justify-center">
-                                        <Link class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
+                                        <Link :href="route('collection.show', specimen.id)" class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
                                         <button>
                                             <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -74,7 +74,7 @@ function parseCollectionType(type) {
                                             </div>
                                         </button>
                                         </Link>
-                                        <Link class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
+                                        <Link :href="route('collection.edit', specimen.id)" class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
                                         <button>
                                             <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -87,7 +87,7 @@ function parseCollectionType(type) {
 
                                         </button>
                                         </Link>
-                                        <Link class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
+                                        <Link :href="route('collection.destroy', specimen.id)" class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
                                         <button>
                                             <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -155,8 +155,11 @@ function parseCollectionType(type) {
             </div>
         </div>
     </div>
-    <BioModal :isShowing="showModal" @close="showModal = false">
-        <SpecimenForm />
+    <BioModal :isShowing="showModal" @close="showModal = false" title="Datos Generales">
+        <div class="bg-zinc-100 rounded-lg py-5 max-h-full">
+            <h1 class="text-center text-2xl mb-5 font-bold">Datos Generales</h1>
+            <SpecimenForm />
+        </div>
 
     </BioModal>
 </template>
