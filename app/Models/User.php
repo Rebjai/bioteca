@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -21,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -41,4 +44,71 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * The attributes that should be appended.
+     *
+     * @var array<string, string>
+     */
+    protected $appends = [
+        'role_name',
+        'profile',
+    ];
+
+    /**
+     * Attribute getter.
+     *
+     * 
+     */
+    public function roleName(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => $this->getRoleName($this->role),
+            // set: fn ($value) => $value,
+        );
+    }
+/**
+     * Attribute getter.
+     *
+     * * @param int role_id Description
+     * 
+     */
+    public function getRoleName(int $role_id = 0)
+    {
+        if ($role_id == 0) {
+            return 'No Role';
+        }
+        if ($role_id == 1) {
+            return 'Assistant';
+        }
+        if ($role_id == 10) {
+            return 'Admin';
+        }
+    }
+
+    public function profile(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => $this->getProfile($this->role),
+            set: fn ($value) => $value,
+        );
+    }
+    /**
+     * Attribute getter.
+     *
+     * * @param int role_id Description
+     * 
+     */
+    public function getProfile(int $role_id = 0)
+    {
+        if ($role_id == 0) {
+            return 'No Role';
+        }
+        if ($role_id == 1) {
+            return Assistant::where('user_id', '=', $this->id)->first();
+        }
+        if ($role_id == 10) {
+            return 'Admin';
+        }
+    }
 }
