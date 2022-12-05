@@ -54,6 +54,9 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('collection.index')" :active="route().current('collection.index')">
                                     Colección
                                 </NavLink>
+                                <NavLink v-if="$page.props.auth" :href="route('user.index')" :active="route().current('user.index')">
+                                    Usuarios
+                                </NavLink>
                             </div>
                         </div>
 
