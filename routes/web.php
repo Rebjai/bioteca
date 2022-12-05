@@ -3,6 +3,7 @@
 use App\Http\Controllers\Specimen\MammalMeasureController;
 use App\Http\Controllers\Specimen\SpecimenController;
 use App\Http\Controllers\Tags\TagController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -46,5 +47,6 @@ Route::get('collection/{specimen}/tag', [TagController::class, 'show']);
 Route::resource('collection', SpecimenController::class)->parameters(['collection' => 'specimen']);
 // Route::resource('specimen', SpecimenController::class);
 Route::resource('mammal-measure', MammalMeasureController::class);
+Route::resource('user', UserController::class);
 
 require __DIR__ . '/auth.php';
