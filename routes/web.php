@@ -41,10 +41,15 @@ Route::get(
     [DashboardController::class, 'index']
 )->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('collection/{specimen}/tag', [TagController::class, 'show']);
-Route::resource('collection', SpecimenController::class)->parameters(['collection' => 'specimen']);
+Route::middleware(['auth', 'verified'])->group(
+    function () {
+        Route::get('collection/{specimen}/tag', [TagController::class, 'show']);
+        Route::resource('collection', SpecimenController::class)->parameters(['collection' => 'specimen']);
+        Route::resource('mammal-measure', MammalMeasureController::class);
+        Route::resource('user', UserController::class);
+
+    }
+);
 // Route::resource('specimen', SpecimenController::class);
-Route::resource('mammal-measure', MammalMeasureController::class);
-Route::resource('user', UserController::class);
 
 require __DIR__ . '/auth.php';
