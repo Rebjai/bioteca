@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Specimen\MammalMeasureController;
 use App\Http\Controllers\Specimen\SpecimenController;
 use App\Http\Controllers\Tags\TagController;
@@ -37,10 +38,7 @@ Route::get(
 
 Route::get(
     '/dashboard',
-    function () {
-        $title = 'Dashboard';
-        return Inertia::render('Dashboard', compact('title'));
-    }
+    [DashboardController::class, 'index']
 )->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('collection/{specimen}/tag', [TagController::class, 'show']);
