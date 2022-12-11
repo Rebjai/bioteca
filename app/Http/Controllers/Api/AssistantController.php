@@ -7,6 +7,8 @@ use App\Models\Assistant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
+// use Illuminate\Support\Facades\Response;
+
 class AssistantController extends Controller
 {
 
@@ -18,9 +20,9 @@ class AssistantController extends Controller
      */
     public function search(Request $request)
     {
-        $data = $request->name;
+        $data = $request->query('name');
         $id = is_numeric($data) ? $data : null;
-        // dd($data);
+        $name = !is_numeric($data) && $data !== null ? $data : null;
         $assistants = Assistant::when(
             $id,
             function ($q, $id) {
@@ -29,22 +31,19 @@ class AssistantController extends Controller
         );
 
         $assistants->when(
-            $data,
-            function ($q, $data) {
+            $name,
+            function ($q, $name) {
                 return $q->whereHas(
                     'user',
-                    function ($q) use ($data) {
-                        $q->whereRaw('upper(name) like ?', '%' . strtoupper($data) . '%');
+                    function ($q) use ($name) {
+                        $q->whereRaw('upper(users.name) like ?', '%' . strtoupper($name) . '%');
                     }
                 );
             }
         );
         return Response::json(
-            [
-                Assistant::latest()->limit(10)->get()
-            ]
+            [$assistants->limit(10)->get()]
         );
-        //
     }
 
 

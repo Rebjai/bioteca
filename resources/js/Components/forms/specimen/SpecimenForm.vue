@@ -46,7 +46,7 @@ async function searchLocations(search, loading) {
 
 async function searchAssistants(search, loading) {
     console.log({ search });
-    const res = await axios.get('/api/assistants/search', { params: { search: search.target.value } })
+    const res = await axios.get('/api/assistants/search', { params: { name: search.target.value } })
     assistantOptions.value = res.data.length ? res.data[0]: []
 }
 

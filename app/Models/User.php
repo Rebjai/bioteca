@@ -52,7 +52,7 @@ class User extends Authenticatable
      */
     protected $appends = [
         'role_name',
-        'profile',
+        // 'profile',
     ];
 
     /**
