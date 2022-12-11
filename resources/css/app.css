@@ -3,3 +3,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.slide-down{
+    animation: slide-down 2.5s ease-out;
+}
+@keyframes slide-down {
+    from {
+      transform: translateY(-50%);
+      filter: opacity(0);
+    }
+    to {
+        transform: translateY(0);
+        filter: opacity(1);
+    }
+  }

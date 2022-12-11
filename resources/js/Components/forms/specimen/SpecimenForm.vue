@@ -7,7 +7,8 @@ import { Inertia } from '@inertiajs/inertia';
 // import { Multiselect } from 'vue-multiselect';
 const props = defineProps({ specimen: Object })
 const speciesOptions = ref([''])
-const locationOptions = ref('')
+const locationOptions = ref([''])
+const assistantOptions = ref([''])
 const specimen = useForm(props.specimen ? props.specimen :
     {
         collection_date: '',
@@ -39,11 +40,14 @@ async function searchSpecies(search, loading) {
 
 async function searchLocations(search, loading) {
     console.log({ search });
-    // if (search.target.value.length < 3) {
-    //     return
-    // }
     const res = await axios.get('/api/locations/search', { params: { name: search.target.value } })
     locationOptions.value = res.data.length ? res.data[0]: []
+}
+
+async function searchAssistants(search, loading) {
+    console.log({ search });
+    const res = await axios.get('/api/assistants/search', { params: { search: search.target.value } })
+    assistantOptions.value = res.data.length ? res.data[0]: []
 }
 
 function selectSpecies(option, id) {
@@ -52,10 +56,14 @@ function selectSpecies(option, id) {
 }
 function selectLocation(option, id) {
     specimen.location_id = option.id
+}
+function selectAssistant(option, id) {
+    specimen.assistant_id = option.id
 
 }
 
 searchLocations({ target: { value: '' } })
+searchAssistants({ target: { value: '' } })
 
 </script>
         
@@ -109,6 +117,11 @@ searchLocations({ target: { value: '' } })
             <input class="min-w-full rounded border-none drop-shadow-sm " v-model="specimen.collector" type="text" name="collector" id="collector"
                 placeholder="Nombre del colector">
             <label for="assistant_id">Preparador:</label>
+            <multiselect id="assistant" placeholder="Selecciona una opción" label="name" @input="searchAssistants"
+                :preserveSearch="true" :internalSearch="false" :options="assistantOptions" :allow-empty="false"
+                @select="selectAssistant" v-model="specimen.assistant">
+
+            </multiselect>
             <input class="min-w-full rounded border-none drop-shadow-sm " v-model="specimen.assistant_id" type="text" id="assistant_id" name="assistant_id"
                 placeholder="Preparador">
 

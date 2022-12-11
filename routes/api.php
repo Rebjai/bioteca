@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AssistantController;
 use App\Http\Controllers\Api\speciesAPIController;
 use App\Http\Controllers\Api\LocationController;
 use Illuminate\Http\Request;
@@ -31,5 +32,6 @@ Route::middleware('throttle:search')->group(
     function () {
         Route::get('species/search', [speciesAPIController::class, 'search']);
         Route::get('locations/search', [LocationController::class, 'search']);
+        Route::get('assistants/search', [AssistantController::class, 'search']);
     }
 );
