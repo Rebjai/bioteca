@@ -41,14 +41,15 @@ class UserSeeder extends Seeder
                 'role' => 10,
             ]
         );
-        User::create(
-            [
-                'name' => 'asistente',
-                'email' => 'assistant@voaxaca.tecnm.mx',
-                'password' => Hash::make('pass1234'),
-                'role' => 1,
-            ]
-        );
-        Assistant::create(['user_id'=>4]);
+        Assistant::factory()->count(10)->create();
+        // User::create(
+        //     [
+        //         'name' => 'asistente',
+        //         'email' => 'assistant@voaxaca.tecnm.mx',
+        //         'password' => Hash::make('pass1234'),
+        //         'role' => 1,
+        //     ]
+        // );
+        // Assistant::create(['user_id'=>4]);
     }
 }
