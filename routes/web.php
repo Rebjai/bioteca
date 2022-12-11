@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\Species\SpeciesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,10 +44,17 @@ Route::get(
     }
 )->middleware(['auth', 'verified'])->name('dashboard');
 
+
+
+
+
 Route::get('collection/{specimen}/tag', [TagController::class, 'show']);
 Route::resource('collection', SpecimenController::class)->parameters(['collection' => 'specimen']);
 // Route::resource('specimen', SpecimenController::class);
 Route::resource('mammal-measure', MammalMeasureController::class);
 Route::resource('user', UserController::class);
+Route::resource('species', SpeciesController::class);
+
+
 
 require __DIR__ . '/auth.php';
