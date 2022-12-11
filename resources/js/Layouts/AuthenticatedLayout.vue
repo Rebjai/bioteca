@@ -39,10 +39,12 @@ const showingNavigationDropdown = ref(false);
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
                                 <Link :href="route('dashboard')">
+                                    
                                 <!-- <ApplicationLogo class="block h-9 w-auto" /> -->
                                 <p class="font-['Libre_Barcode_128_Text'] text-2xl text-zinc-200">BIOTECA</p>
 
-                                </Link>
+                                
+                            </Link>
                             </div>
 
 
@@ -57,6 +59,11 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink v-if="$page.props.auth" :href="route('user.index')" :active="route().current('user.index')">
                                     Usuarios
                                 </NavLink>
+                              
+                                <NavLink :href="route('species.index')" :active="route().current('species.index')">
+                                    Especies
+                                </NavLink>
+                                
                             </div>
                         </div>
 
