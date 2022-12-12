@@ -18,7 +18,15 @@ class UserController extends Controller
     public function index()
     {
         //
-        $users = User::limit(10)->get();
+        $users = User::paginate(10)->through(
+            function (User $item) {
+                return [
+                    'id' => $item->id,
+                    'name' => $item->name,
+                    'role_name' => $item->roleName
+                ];
+            }
+        );
         // dd($users[2]->role);
         return Inertia::render('User/Index', compact('users'));
     }
@@ -51,8 +59,7 @@ class UserController extends Controller
         $data['password'] = Hash::make('bioteca1234');
         $user = User::create($data);
         if ($user->role_name ==  'Assistant') {
-            Assistant::create(['user_id'=>$user->id]);
-
+            Assistant::create(['user_id' => $user->id]);
         }
         if ($user->role_name ==  'Admin') {
         }
@@ -101,8 +108,8 @@ class UserController extends Controller
         );
         // dd($data);
         if ($data['role'] !== $user->role) {
-            if ($data['role']==1) {
-                Assistant::firstOrCreate(['user_id'=>$user->id], ['user_id'=>$user->id]);
+            if ($data['role'] == 1) {
+                Assistant::firstOrCreate(['user_id' => $user->id], ['user_id' => $user->id]);
             }
         }
         $done = $user->update($data);

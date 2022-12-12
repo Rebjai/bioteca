@@ -31,7 +31,7 @@ class Specimen extends Model
         'collection_date' => 'datetime:d-m-Y',
     ];
 
-    // protected $appends=['collection_name'];
+    protected $appends=['collection_name'];
 
     /**
      * Get the measurable associated with the Specimen

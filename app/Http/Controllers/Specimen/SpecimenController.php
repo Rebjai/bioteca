@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Catalogs\BioSpecies;
 use App\Models\Specimen\MammalMeasure;
 use App\Models\Specimen\Specimen;
+use DateTime;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -20,7 +21,24 @@ class SpecimenController extends Controller
     {
         $title = 'Colección';
         // $specimens = Specimen::with(['species','measurable', 'location'])->get();
-        $specimens = Specimen::with(['species', 'location'])->get();
+        $specimens = Specimen::with(
+            ['species', 'location']
+        )->paginate(5)
+            ->through(
+                function ($item) {
+                    // dd($item)
+                    return [
+                        'id' => $item->id,
+                        'species' => $item->species,
+                        'location' => $item->location,
+                        'collection_name' => $item->collectionName,
+                        'collection_date' => (new DateTime($item->collection_date))->format('d-m-Y'),
+                        // etc
+                    ];
+                }
+            );
+        // ;
+        // $specimens = Specimen::with(['species', 'location'])->get();
         return Inertia::render('collection/index', compact('title', 'specimens'));
     }
 

@@ -4,7 +4,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import BioModal from '@/Components/BioModal.vue';
 import SpecimenForm from '@/Components/forms/specimen/SpecimenForm.vue';
 import { ref } from '@vue/reactivity';
-
+import Pagination from '@/Components/Pagination.vue';
 
 const showModal = ref()
 const props = defineProps({specimens:{}})
@@ -17,12 +17,6 @@ function addSpecimen(evt) {
 
 }
 
-function parseCollectionType(type) {
-    if (type === 'App\\Models\\Specimen\\MammalMeasure') {
-        return 'Mamíferos'
-    }
-    
-}
 </script>
 
 
@@ -40,6 +34,7 @@ function parseCollectionType(type) {
                     <primary-button class="m-5 max-w-sm" @click="addSpecimen">
                         Añadir nuevo
                     </primary-button>
+                    <!-- {{specimens.data}} -->
                     <!-- <button class="bg-green-800 text-zinc-100 font-bold tracking-wide rounded" >Añadir nuevo</button> -->
                     <div class="md:mx-5 p-6 bg-zinc-200 border-b overflow-x-auto border-gray-200 rounded-lg">
                         <table class="min-w-full">
@@ -52,15 +47,15 @@ function parseCollectionType(type) {
                                 <!-- shows address, map with coordinates -->
                                 <th>Acciones</th>
                             </thead>
-                            <tbody v-if="specimens.length">
-                                <tr v-for="specimen in specimens" :key="specimen.id">
+                            <tbody v-if="specimens.data.length">
+                                <tr v-for="specimen in specimens.data" :key="specimen.id">
                                     <td class="px-3">{{specimen.id}}</td>
-                                    <td class="px-3">{{parseCollectionType(specimen.measurable_type)}}</td>
+                                    <td class="px-3">{{specimen.collection_name}}</td>
                                     <td class="px-3">{{specimen.collection_date}}</td>
                                     <td class="px-3">{{specimen.species.scientific_name}}</td>
                                     <td class="px-3">{{specimen.location.name}}</td>
                                     <td class="flex flex-col  text-center items-center justify-center">
-                                        <Link :href="route('collection.show', specimen.id)" class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
+                                        <Link :href="route('collection.tag', specimen.id)" class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
                                         <button>
                                             <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -103,7 +98,7 @@ function parseCollectionType(type) {
                                     </td>
                                 </tr>
                             </tbody>
-                            <tbody v-if="!specimens.length">
+                            <tbody v-if="!specimens.data.length">
                                 <td>0</td>
                                 <td>Mamíferos</td>
                                 <td>06/10/2022</td>
@@ -150,6 +145,7 @@ function parseCollectionType(type) {
                                 </td>
                             </tbody>
                         </table>
+                        <pagination :links="specimens.links"></pagination>
                     </div>
                 </div>
             </div>

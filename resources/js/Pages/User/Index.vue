@@ -4,6 +4,8 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import BioModal from '@/Components/BioModal.vue';
 import UserForm from '@/Components/forms/User/UserForm.vue';
 import { ref } from '@vue/reactivity';
+import Pagination from '@/Components/Pagination.vue';
+
 
 
 const props = defineProps({users:{}})
@@ -40,8 +42,8 @@ function addUser(){
                                 <!-- shows address, map with coordinates -->
                                 <th>Acciones</th>
                             </thead>
-                            <tbody v-if="users.length">
-                                <tr v-for="user in users" :key="user.id">
+                            <tbody v-if="users?.data?.length">
+                                <tr v-for="user in users.data" :key="user.id">
                                     <td class="px-3">{{user.id}}</td>
                                     <!-- <td class="px-3">{{user.species.scientific_name}}</td> -->
                                     <td class="px-3">{{user.name}}</td>
@@ -90,7 +92,7 @@ function addUser(){
                                     </td>
                                 </tr>
                             </tbody>
-                            <tbody v-if="!users.length">
+                            <tbody v-if="!users?.data?.length">
                                 <td>0</td>
                                 <td>Mamíferos</td>
                                 <td>06/10/2022</td>
@@ -137,6 +139,7 @@ function addUser(){
                                 </td>
                             </tbody>
                         </table>
+                        <pagination :links="users.links"></pagination>
                     </div>
                 </div>
             </div>
@@ -153,7 +156,6 @@ function addUser(){
 
 <script>
 import Layout from '@/Layouts/AuthenticatedLayout.vue';
-
 
 export default {
     layout: Layout
