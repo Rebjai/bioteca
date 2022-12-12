@@ -16,7 +16,7 @@ class DashboardController extends Controller
     public function index()
     {
         $title = 'Dashboard';
-        $latest = Specimen::select(['created_at', 'updated_at', 'collection_date', 'id', 'measurable_type'])->latest()->limit(10)->get();
+        $latest = Specimen::select(['created_at', 'updated_at', 'collection_date', 'id', 'measurable_type'])->latest()->limit(5)->get();
         $count = Specimen::count();
         // dd($latest);
         $latest->append('collection_name');
