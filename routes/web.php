@@ -51,7 +51,7 @@ Route::get(
 
 Route::middleware(['auth', 'verified'])->group(
     function () {
-        Route::get('collection/{specimen}/tag', [TagController::class, 'show']);
+        Route::get('collection/{specimen}/tag', [TagController::class, 'show'])->name('collection.tag');
         Route::resource('collection', SpecimenController::class)->parameters(['collection' => 'specimen']);
         Route::resource('mammal-measure', MammalMeasureController::class);
         Route::resource('user', UserController::class);

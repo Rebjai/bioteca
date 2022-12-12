@@ -78,6 +78,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $user->append('profile');
         return Inertia::render('User/Edit', compact('user'));
         //
     }
