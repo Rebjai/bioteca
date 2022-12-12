@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use Database\Seeders\Specimen\SpecimenSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -49,5 +50,7 @@ class DatabaseSeeder extends Seeder
                 // LocationSeeder5::class,
             ]
         );
+        // specimen seeder
+        $this->call(SpecimenSeeder::class);
     }
 }
