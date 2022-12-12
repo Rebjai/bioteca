@@ -23,7 +23,8 @@ class SpecimenController extends Controller
         // $specimens = Specimen::with(['species','measurable', 'location'])->get();
         $specimens = Specimen::with(
             ['species', 'location']
-        )->paginate(5)
+        )->latest()
+            ->paginate(5)
             ->through(
                 function ($item) {
                     // dd($item)
