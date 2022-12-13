@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Specimen\Amphibian;
+use App\Models\Specimen\Bird;
+use App\Models\Specimen\MammalMeasure;
+use App\Models\Specimen\Reptile;
 use App\Models\Specimen\Specimen;
 use DateTime;
 use Illuminate\Http\Request;
@@ -16,15 +20,32 @@ class DashboardController extends Controller
     public function index()
     {
         $title = 'Dashboard';
-        $latest = Specimen::select(['created_at', 'updated_at', 'collection_date', 'id', 'measurable_type'])->latest()->limit(5)->get();
+        $latest = Specimen::select(['created_at', 'updated_at', 'collection_date', 'id', 'measurable_type', 'measurable_id'])->latest()->limit(5)->get();
         $count = Specimen::count();
+        $mammal_count = MammalMeasure::count();
+        $amphibian_count = Amphibian::count();
+        $bird_count = Bird::count();
+        $reptile_count = Reptile::count();
         // dd($latest);
         $latest->append('collection_name');
         $datasets = $this->getCountByMonth();
         $labels = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
         // dd(compact('datasets'));
         // $chartData['labels']= ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
-        return Inertia::render('Dashboard', compact('title', 'latest', 'datasets', 'labels', 'count'));
+        return Inertia::render(
+            'Dashboard',
+            compact(
+                'title',
+                'latest',
+                'datasets',
+                'labels',
+                'count',
+                'mammal_count',
+                'amphibian_count',
+                'bird_count',
+                'reptile_count',
+            )
+        );
     }
 
     /**
@@ -54,9 +75,9 @@ class DashboardController extends Controller
 
         for ($i = 1; $i <= 12; $i++) {
             if (!empty($usermcount[$i])) {
-                $monthlyData[$month[$i-1]] = $usermcount[$i];
+                $monthlyData[$month[$i - 1]] = $usermcount[$i];
             } else {
-                $monthlyData[$month[$i-1]] = 0;
+                $monthlyData[$month[$i - 1]] = 0;
             }
             // $monthlyData[$i] = $month[$i - 1];
         }

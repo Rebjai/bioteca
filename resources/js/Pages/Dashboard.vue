@@ -9,7 +9,17 @@ import { Bar } from "vue-chartjs";
 Chart.register(CategoryScale, LinearScale, BarElement)
 
 const showModal = ref()
-const props = defineProps({ specimens: {}, latest: {}, datasets: {}, labels: {}, count: 0 })
+const props = defineProps({
+    specimens: {},
+    latest: {},
+    datasets: {},
+    labels: {},
+    count: 0,
+    mammal_count: 0,
+    bird_count: 0,
+    amphibian_count: 0,
+    reptile_count: 0,
+})
 const specimens = props.specimens ? props.specimens : []
 const latest = props.latest
 const chartOptions = { animation: { duration: 3000, delay: 800 } }
@@ -28,23 +38,48 @@ function addSpecimen(evt) {
 
 
 <template>
-    <div>
+    <div class="flex justify-center">
 
 
         <Head title="Dashboard" />
 
 
-        <div class="py-12">
+        <div class="py-12 w-full md:w-[80%]">
             <div class="flex justify-center">
                 <div
-                    class="bg-white overflow-hidden shadow-sm sm:rounded m-3 p-6 flex flex-col justify-center items-center">
-                    <h1 class="uppercase font-bold">Total de especímenes: <span class="slide-down inline-block text-2xl">{{count}}</span></h1>
+                    class="bg-white w-full overflow-hidden shadow-sm sm:rounded-lg drop-shadow m-3 p-6 flex flex-col justify-center items-center">
+                    <h1 class="uppercase font-bold">Total de especímenes:
+                        <span class="slide-down m-5 px-2 inline-block text-3xl">{{ count }}</span>
+                    </h1>
+                    <div class="flex w-full justify-evenly">
+                        <div class="collection-type-total capitalize min-h-[100px] min-w-[60px] font-bold text-center">
+                            <img src="s#" class="min-h-[50px]" alt="">
+                            <h1>Mamíferos</h1>
+                            <p class="text-xl tracking-wider slide-up animation-delay">{{ mammal_count }}</p>
+                        </div>
+                        <div class="collection-type-total capitalize min-h-[100px] min-w-[60px] font-bold text-center">
+                            <img src="#" class="min-h-[50px]" alt="">
+                            <h1>Reptiles</h1>
+                            <p class="text-xl tracking-wider slide-up animation-delay">{{ reptile_count }}</p>
+                        </div>
+                        <div class="collection-type-total capitalize min-h-[100px] min-w-[60px] font-bold text-center">
+                            <img src="#" class="min-h-[50px]" alt="">
+                            <h1>Anfibios</h1>
+                            <p class="text-xl tracking-wider slide-up animation-delay">{{ amphibian_count }}</p>
+                        </div>
+                        <div class="collection-type-total capitalize min-h-[100px] min-w-[60px] font-bold text-center">
+                            <img src="#" class="min-h-[50px]" alt="">
+                            <h1>Aves</h1>
+                            <p class="text-xl tracking-wider slide-up animation-delay">{{ bird_count }}</p>
+                        </div>
+                    </div>
                 </div>
 
             </div>
-            <div class="max-w-7xl w-[80%] mx-auto sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between">
+            <div
+                class=" w-full mx-auto sm:px-0 lg:px-0 flex flex-col md:flex-row justify-between justify-items-stretch items-stretch">
                 <div
-                    class="bg-white overflow-hidden shadow-sm sm:rounded m-3 p-6 flex flex-col justify-center items-center">
+                    class="flex-1 bg-white overflow-hidden shadow-sm sm:rounded drop-shadow m-3 p-6 flex flex-col justify-center">
                     <h1 class="font-bold text-xl capitalize">Últimos especímenes modificados</h1>
                     <table>
                         <thead>
@@ -67,11 +102,11 @@ function addSpecimen(evt) {
                         </tbody>
                         <tbody v-if="latest.length">
                             <tr v-for="specimen in latest" :key="specimen.id">
-                                <th>{{ specimen.id }}</th>
-                                <th>{{ specimen.created_at }}</th>
-                                <!-- <th>{{specimen.updated_at}}</th> -->
-                                <th>{{ specimen.collection_date }}</th>
-                                <th>{{ specimen.collection_name }}</th>
+                                <td class="px-2 font-bold text-sm italic">{{ specimen.measurable_id }}</td>
+                                <td class="px-2 font-bold text-sm italic">{{ specimen.created_at }}</td>
+                                <!-- <td>{{specimen.updated_at}}</td> -->
+                                <td class="px-2 font-bold text-sm italic">{{ specimen.collection_date }}</td>
+                                <td class="px-2 font-bold text-sm italic">{{ specimen.collection_name }}</td>
                             </tr>
                         </tbody>
 
@@ -81,7 +116,7 @@ function addSpecimen(evt) {
                 <!-- {{chartData}} -->
                 <!-- {{labels}} -->
                 <div
-                    class="bg-white overflow-hidden shadow-sm sm:rounded m-3 p-6 flex flex-col justify-center items-center">
+                    class="flex-1 bg-white overflow-hidden shadow-sm sm:rounded drop-shadow m-3 p-6 flex flex-col justify-center items-center">
                     <h1 class="font-bold text-xl capitalize">Historial de especímenes añadidos este año</h1>
                     <Bar id="my-chart-id" :data="chartData" :options="chartOptions" />
                 </div>

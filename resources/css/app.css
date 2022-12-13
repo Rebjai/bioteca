@@ -5,11 +5,31 @@
 @tailwind utilities;
 
 .slide-down{
-    animation: slide-down 2.5s ease-out;
+  filter: opacity(0);
+  animation: slide-down 2.5s ease-out forwards;
+}
+.slide-up{
+  /* opacity:0; */
+  filter: opacity(0);
+
+  animation: slide-up 2.5s ease-out forwards;
+}
+.animation-delay{
+  animation-delay: 1.5s;
 }
 @keyframes slide-down {
     from {
       transform: translateY(-50%);
+      filter: opacity(0);
+    }
+    to {
+        transform: translateY(0);
+        filter: opacity(1);
+    }
+  }
+  @keyframes slide-up {
+    from {
+      transform: translateY(+50%);
       filter: opacity(0);
     }
     to {
