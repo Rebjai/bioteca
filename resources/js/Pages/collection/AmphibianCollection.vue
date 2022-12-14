@@ -29,7 +29,7 @@ function saveMeasures() {
     <div class="bg-white m-5 rounded-lg p-5 max-h-full drop-shadow">
 
         <div id="title" class="text-center font-bold text-xl uppercase py-5">
-            <h2 class="text-base mb-5 capitalize">Mamíferos #{{measurable.id}}</h2>
+            <h2 class="text-base mb-5 capitalize">Anfibios #{{measurable.id}}</h2>
             <h1>Medidas del espécimen</h1>
         </div>
         <form action="" class="flex flex-col bg-zinc-300 rounded p-5 items-center content-between"

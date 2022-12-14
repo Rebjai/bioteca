@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Specimen;
 
 use App\Http\Controllers\Controller;
 use App\Models\Catalogs\BioSpecies;
-use App\Models\Specimen\MammalMeasure;
-use App\Models\Specimen\Specimen;
+use App\Models\Collection\Amphibian;
+use App\Models\Collection\Bird;
+use App\Models\Collection\MammalMeasure;
+use App\Models\Collection\Reptile;
+use App\Models\Collection\Specimen;
 use DateTime;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -64,14 +67,37 @@ class SpecimenController extends Controller
         $data = $request->validate(Specimen::$rules);
         $specimen = Specimen::create($data);
         $species = BioSpecies::find($request->species_id);
+        $newSpecimenClass = $species->genus->family->order->class->scientific_name;
 
-        if ($species->genus->family->order->class->scientific_name == 'Mammalia') {
+        if ($newSpecimenClass == 'Mammalia') {
             $mammal = MammalMeasure::create();
             $mammal->specimen()->save($specimen);
             $mammal->specimen_id = $specimen->id;
             $mammal->save();
-            // $specimen->measurable_id = $mammal->id;
-            // $specimen->measurable_type = 'Mammal';
+
+            return redirect(route('collection.edit', $specimen->id));
+        }
+        if ($newSpecimenClass == 'Aves') {
+            $bird = Bird::create();
+            $bird->specimen()->save($specimen);
+            $bird->specimen_id = $specimen->id;
+            $bird->save();
+
+            return redirect(route('collection.edit', $specimen->id));
+        }
+        if ($newSpecimenClass == 'Amphibia') {
+            $amphibian = Amphibian::create();
+            $amphibian->specimen()->save($specimen);
+            $amphibian->specimen_id = $specimen->id;
+            $amphibian->save();
+
+            return redirect(route('collection.edit', $specimen->id));
+        }
+        if ($newSpecimenClass == 'Reptilia') {
+            $reptile = Reptile::create();
+            $reptile->specimen()->save($specimen);
+            $reptile->specimen_id = $specimen->id;
+            $reptile->save();
 
             return redirect(route('collection.edit', $specimen->id));
         }
@@ -103,7 +129,18 @@ class SpecimenController extends Controller
         // dd($specimen);
         // dd('aaa');
         $specimen->load(['measurable', 'species', 'location', 'assistant']);
-        return Inertia::render('collection/SpecimenMeasurements', compact('specimen'));
+        if ($specimen->measurable_type == MammalMeasure::class) {
+            return Inertia::render('collection/SpecimenMeasurements', compact('specimen'));
+        }
+        if ($specimen->measurable_type == Bird::class) {
+            return Inertia::render('collection/BirdCollection', compact('specimen'));
+        }
+        if ($specimen->measurable_type == Amphibian::class) {
+            return Inertia::render('collection/AmphibianCollection', compact('specimen'));
+        }
+        if ($specimen->measurable_type == Reptile::class) {
+            return Inertia::render('collection/ReptileCollection', compact('specimen'));
+        }
     }
 
     /**

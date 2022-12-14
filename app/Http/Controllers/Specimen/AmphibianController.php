@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Specimen;
 
 use App\Http\Controllers\Controller;
-use App\Models\Specimen\Amphibian;
+use App\Models\Collection\Amphibian;
 use Illuminate\Http\Request;
 
 class AmphibianController extends Controller
@@ -42,7 +42,7 @@ class AmphibianController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Specimen\Amphibian  $amphibian
+     * @param  \App\Models\Collection\Amphibian  $amphibian
      * @return \Illuminate\Http\Response
      */
     public function show(Amphibian $amphibian)
@@ -53,7 +53,7 @@ class AmphibianController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Specimen\Amphibian  $amphibian
+     * @param  \App\Models\Collection\Amphibian  $amphibian
      * @return \Illuminate\Http\Response
      */
     public function edit(Amphibian $amphibian)
@@ -65,7 +65,7 @@ class AmphibianController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Specimen\Amphibian  $amphibian
+     * @param  \App\Models\Collection\Amphibian  $amphibian
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Amphibian $amphibian)
@@ -76,7 +76,7 @@ class AmphibianController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Specimen\Amphibian  $amphibian
+     * @param  \App\Models\Collection\Amphibian  $amphibian
      * @return \Illuminate\Http\Response
      */
     public function destroy(Amphibian $amphibian)

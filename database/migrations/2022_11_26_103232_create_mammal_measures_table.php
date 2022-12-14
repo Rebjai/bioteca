@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Specimen\Specimen;
+use App\Models\Collection\Specimen;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;

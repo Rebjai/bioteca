@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\Specimen\Amphibian;
-use App\Models\Specimen\Bird;
-use App\Models\Specimen\MammalMeasure;
-use App\Models\Specimen\Reptile;
-use App\Models\Specimen\Specimen;
+use App\Models\Collection\Amphibian;
+use App\Models\Collection\Bird;
+use App\Models\Collection\MammalMeasure;
+use App\Models\Collection\Reptile;
+use App\Models\Collection\Specimen;
 use DateTime;
 use Illuminate\Http\Request;
 use Inertia\Inertia;

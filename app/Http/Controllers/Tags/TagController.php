@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Tags;
 
 use App\Http\Controllers\Controller;
-use App\Models\Specimen\Specimen;
+use App\Models\Collection\Specimen;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 

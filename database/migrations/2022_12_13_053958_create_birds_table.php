@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Specimen\Specimen;
+use App\Models\Collection\Specimen;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create('birds', function (Blueprint $table) {
             $table->id();
             $table->boolean('gender')->nullable();
-            $table->float('gonads')->nullable();
+            // $table->float('gonads')->nullable();
             $table->float('lt')->nullable();
             $table->float('cv')->nullable();
             $table->float('wingspan')->nullable();

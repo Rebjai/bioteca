@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories\Specimen;
+namespace Database\Factories\Collection;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Specimen;
+namespace App\Models\Collection;
 
 use App\Models\Assistant;
 use App\Models\Catalogs\BioSpecies;
@@ -63,8 +63,17 @@ class Specimen extends Model
 
     public function getColectionName($str)
     {
-        if ($str == 'App\Models\Specimen\MammalMeasure') {
+        if ($str == MammalMeasure::class) {
             return 'Mamíferos';
+        }
+        if ($str == Reptile::class) {
+            return 'Reptiles';
+        }
+        if ($str == Bird::class) {
+            return 'Aves';
+        }
+        if ($str == Amphibian::class) {
+            return 'Anfibios';
         }
     }
 

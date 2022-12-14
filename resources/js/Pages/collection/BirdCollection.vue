@@ -1,22 +1,18 @@
 <script setup>
 import SpecimenForm from '@/Components/forms/specimen/SpecimenForm.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue'
+import { useForm } from '@inertiajs/inertia-vue3';
+
 const props = defineProps({ specimen: {} })
 console.log(props.specimen);
 console.log(props.specimen.measurable?.id);
 const measurable = props.specimen.measurable?.id ? useForm(props.specimen.measurable) :
     useForm({
         gender: '',
-        gonads: '',
         lt: '',
-        lc: '',
-        pt: '',
-        o: '',
-        ab: '',
+        cv: '',
+        wingsapn: '',
         weight: '',
-        skull: false,
-        skin: false,
-        body: false,
         observations: '',
     })
 function saveMeasures() {
@@ -29,8 +25,9 @@ function saveMeasures() {
     <div class="bg-white m-5 rounded-lg p-5 max-h-full drop-shadow">
 
         <div id="title" class="text-center font-bold text-xl uppercase py-5">
-            <h2 class="text-base mb-5 capitalize">Mamíferos #{{measurable.id}}</h2>
+            <h2 class="text-base mb-5 capitalize">Aves #{{measurable.id}}</h2>
             <h1>Medidas del espécimen</h1>
+            
         </div>
         <form action="" class="flex flex-col bg-zinc-300 rounded p-5 items-center content-between"
             @submit.prevent="saveMeasures()">
@@ -43,58 +40,26 @@ function saveMeasures() {
                 </select>
             </div>
             <div class="form-group my-2 flex flex-col text-center">
-                <label for="gonads">Medida de Gónadas (mm)</label>
-                <input v-model="measurable.gonads" class="min-w-full border-none rounded drop-shadow-sm "
-                    placeholder='N/A' type="number" name="gonads" id="gonads">
-            </div>
-            <div class="form-group my-2 flex flex-col text-center">
                 <label for="lt">LT</label>
                 <input v-model="measurable.lt" class="min-w-full border-none rounded drop-shadow-sm "
                     placeholder='N/A' type="number" name="lt" id="lt">
             </div>
             <div class="form-group my-2 flex flex-col text-center">
-                <label for="lc">LC</label>
-                <input v-model="measurable.lc" class="min-w-full border-none rounded drop-shadow-sm "
-                    placeholder='N/A' type="number" name="lc" id="lc">
+                <label for="cv">CV</label>
+                <input v-model="measurable.cv" class="min-w-full border-none rounded drop-shadow-sm "
+                    placeholder='N/A' type="number" name="cv" id="cv">
             </div>
             <div class="form-group my-2 flex flex-col text-center">
-                <label for="pt">PT</label>
-                <input v-model="measurable.pt" class="min-w-full border-none rounded drop-shadow-sm "
-                    placeholder='N/A' type="number" name="pt" id="pt">
-            </div>
-            <div class="form-group my-2 flex flex-col text-center">
-                <label for="o">O</label>
-                <input v-model="measurable.o" class="min-w-full border-none rounded drop-shadow-sm "
-                    placeholder='N/A' type="number" name="o" id="o">
-            </div>
-            <div class="form-group my-2 flex flex-col text-center">
-                <label for="ab">AB</label>
-                <input v-model="measurable.ab" class="min-w-full border-none rounded drop-shadow-sm "
-                    placeholder='N/A' type="number" name="ab" id="ab">
+                <label for="pt">Envergadura</label>
+                <input v-model="measurable.wingspan" class="min-w-full border-none rounded drop-shadow-sm "
+                    placeholder='N/A' type="number" name="wingspan" id="wingspan">
             </div>
             <div class="form-group my-2 flex flex-col text-center">
                 <label for="weight">Peso (gr)</label>
                 <input v-model="measurable.weight" class="min-w-full border-none rounded drop-shadow-sm "
                     placeholder='N/A' type="number" name="weight" id="weight">
             </div>
-            <div class="options flex min-w-[200px] justify-between items-center">
-
-                <div class="form-group my-2 flex flex-col text-center items-center">
-                    <label for="has-skull">Cráneo</label>
-                    <input v-model="measurable.skull" class="border-none rounded drop-shadow-sm "
-                        type="checkbox" name="has-skull" id="has-skull">
-                </div>
-                <div class="form-group my-2 flex flex-col text-center items-center">
-                    <label for="has-skull">Piel</label>
-                    <input v-model="measurable.skin" class="border-none rounded drop-shadow-sm "
-                        type="checkbox" name="has-skull" id="has-skull">
-                </div>
-                <div class="form-group my-2 flex flex-col text-center items-center">
-                    <label for="has-body">Cuerpo</label>
-                    <input v-model="measurable.body" class="border-none rounded drop-shadow-sm "
-                        type="checkbox" name="has-body" id="has-body">
-                </div>
-            </div>
+            
             <div class="form-group my-2 flex flex-col text-center flex flex-col">
                 <label for="has-skull">Observaciones</label>
                 <textarea v-model="measurable.observations" name="observations" id="observations" cols="30"
@@ -113,7 +78,6 @@ function saveMeasures() {
 
 <script>
 import Layout from '@/Layouts/AuthenticatedLayout.vue';
-import { useForm } from '@inertiajs/inertia-vue3';
 
 
 export default {

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Specimen;
 
 use App\Http\Controllers\Controller;
-use App\Models\Specimen\Reptile;
+use App\Models\Collection\Reptile;
 use Illuminate\Http\Request;
 
 class ReptileController extends Controller
@@ -42,7 +42,7 @@ class ReptileController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Specimen\Reptile  $reptile
+     * @param  \App\Models\Collection\Reptile  $reptile
      * @return \Illuminate\Http\Response
      */
     public function show(Reptile $reptile)
@@ -53,7 +53,7 @@ class ReptileController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Specimen\Reptile  $reptile
+     * @param  \App\Models\Collection\Reptile  $reptile
      * @return \Illuminate\Http\Response
      */
     public function edit(Reptile $reptile)
@@ -65,7 +65,7 @@ class ReptileController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Specimen\Reptile  $reptile
+     * @param  \App\Models\Collection\Reptile  $reptile
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Reptile $reptile)
@@ -76,7 +76,7 @@ class ReptileController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Specimen\Reptile  $reptile
+     * @param  \App\Models\Collection\Reptile  $reptile
      * @return \Illuminate\Http\Response
      */
     public function destroy(Reptile $reptile)

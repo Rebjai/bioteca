@@ -1,12 +1,15 @@
 <?php
 
-namespace Database\Factories\Specimen;
+namespace Database\Factories\Collection;
 
 use App\Models\Assistant;
 use App\Models\Catalogs\BioClass;
 use App\Models\Catalogs\BioPhylum;
 use App\Models\Catalogs\BioSpecies;
-use App\Models\Specimen\MammalMeasure;
+use App\Models\Collection\Amphibian;
+use App\Models\Collection\Bird;
+use App\Models\Collection\MammalMeasure;
+use App\Models\Collection\Reptile;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -26,29 +29,13 @@ class SpecimenFactory extends Factory
             MammalMeasure::class,
             // A::class,
         ];
-        // dd('a');
-        // $type = random_int(1, count($measurables));
-        // $measurable_type = $measurables[$type - 1];
-        // $collectionClass = BioClass::whereScientificName($this->getScientificName($type))->first();
-        // $species = BioSpecies::whereHas(
-        //     'genus.family.order.class',
-        //     function ($q) use ($collectionClass) {
-        //         return $q->where('id', $collectionClass->id);
-        //     }
-        // )->get()->random();
-        // dd($species);
-        // $species = BioSpecies::with('genus.family.order.class')->where('bio_class.scientific_name', $collectionClass->scientific_name)->get()->random();
-        // $species = BioSpecies::has('genus.family.order.class', $collectionClass->id)->dd();
-        // $measurable = Factory::factoryForModel($measurable_type)->create();
         $creationDate = fake()->dateTimeBetween('-1 years');
 
         return [
             //
-            'collection_date' => fake()->dateTimeBetween($creationDate),
+            'collection_date' => fake()->dateTimeBetween($creationDate)->format('d/m/Y'),
             'species_id' => function (array $attributes) {
-                
                 $collectionClass = BioClass::whereScientificName($this->getScientificName($attributes['measurable_type']))->first();
-                // dd($collectionClass);
                 return BioSpecies::whereHas(
                     'genus.family.order.class',
                     function ($q) use ($collectionClass) {
@@ -81,13 +68,13 @@ class SpecimenFactory extends Factory
         if ($str == MammalMeasure::class) {
             return "Mammalia";
         }
-        if ($str == 2) {
+        if ($str == Reptile::class) {
             return "Reptilia";
         }
-        if ($str == 3) {
+        if ($str == Bird::class) {
             return "Aves";
         }
-        if ($str == 4) {
+        if ($str == Amphibian::class) {
             return "Amphibia";
         }
     }
@@ -104,6 +91,9 @@ class SpecimenFactory extends Factory
         return $this->faker->randomElement(
             [
                 MammalMeasure::class,
+                Bird::class,
+                Amphibian::class,
+                Reptile::class,
             ]
         );
     }

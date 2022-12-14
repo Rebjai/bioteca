@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Specimen;
 
 use App\Http\Controllers\Controller;
-use App\Models\Specimen\MammalMeasure;
+use App\Models\Collection\MammalMeasure;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -43,7 +43,7 @@ class MammalMeasureController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Specimen\MammalMeasure  $mammalMeasure
+     * @param  \App\Models\Collection\MammalMeasure  $mammalMeasure
      * @return \Illuminate\Http\Response
      */
     public function show(MammalMeasure $mammalMeasure)
@@ -54,7 +54,7 @@ class MammalMeasureController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Specimen\MammalMeasure  $mammalMeasure
+     * @param  \App\Models\Collection\MammalMeasure  $mammalMeasure
      * @return \Illuminate\Http\Response
      */
     public function edit(MammalMeasure $mammalMeasure)
@@ -67,7 +67,7 @@ class MammalMeasureController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Specimen\MammalMeasure  $mammalMeasure
+     * @param  \App\Models\Collection\MammalMeasure  $mammalMeasure
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, MammalMeasure $mammalMeasure)
@@ -84,7 +84,7 @@ class MammalMeasureController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Specimen\MammalMeasure  $mammalMeasure
+     * @param  \App\Models\Collection\MammalMeasure  $mammalMeasure
      * @return \Illuminate\Http\Response
      */
     public function destroy(MammalMeasure $mammalMeasure)

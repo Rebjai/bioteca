@@ -3,8 +3,8 @@
 namespace Database\Seeders\Specimen;
 
 use App\Models\Catalogs\BioClass;
-use App\Models\Specimen\MammalMeasure;
-use App\Models\Specimen\Specimen;
+use App\Models\Collection\MammalMeasure;
+use App\Models\Collection\Specimen;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Seeder;
@@ -33,7 +33,7 @@ class SpecimenSeeder extends Seeder
         // Specimen::factory()->count(50)->for(
         //     $measurable, 'measurable'
         // )->create();
-        for ($i=0; $i < 10; $i++) { 
+        for ($i=0; $i < 100; $i++) { 
             Specimen::factory()->create();
             # code...
         }
