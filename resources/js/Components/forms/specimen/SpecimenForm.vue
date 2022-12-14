@@ -4,8 +4,14 @@ import { useForm } from '@inertiajs/inertia-vue3'
 import { ref } from '@vue/reactivity';
 import axios from 'axios';
 import { Inertia } from '@inertiajs/inertia';
+import { useToast } from 'vue-toastification';
+import flatpickr from "flatpickr";
+import { Spanish } from "flatpickr/dist/l10n/es";
+import { onMounted } from '@vue/runtime-core';
 // import { Multiselect } from 'vue-multiselect';
+const toast = useToast()
 const props = defineProps({ specimen: Object })
+const collectionDate = ref([''])
 const speciesOptions = ref([''])
 const locationOptions = ref([''])
 const assistantOptions = ref([''])
@@ -20,34 +26,45 @@ const specimen = useForm(props.specimen ? props.specimen :
         collector: '',
         assistant_id: '',
         species: null,
-        location:null,
+        location: null,
 
     }
 )
+onMounted(() => {
+    const collectionDateDatePicker = flatpickr(collectionDate.value,
+        {
+            dateFormat: "d/m/Y",
+            locale: Spanish,
+            allowInput: true,
+        });
+})
 
 
 function addSpecimen(e) {
     console.log({ specimen });
-    specimen.post(route('collection.store'))
+    specimen.post(route('collection.store'), {
+        onError: (err) => Object.values(err).forEach(e => toast.error(e, {})),
+        onSuccess: (data) => console.log(data)
+    })
 
 }
 
 async function searchSpecies(search, loading) {
     console.log({ search });
     const res = await axios.get('/api/species/search', { params: { name: search.target.value } })
-    speciesOptions.value = res.data.length ?res.data[0]: []
+    speciesOptions.value = res.data.length ? res.data[0] : []
 }
 
 async function searchLocations(search, loading) {
     console.log({ search });
     const res = await axios.get('/api/locations/search', { params: { name: search.target.value } })
-    locationOptions.value = res.data.length ? res.data[0]: []
+    locationOptions.value = res.data.length ? res.data[0] : []
 }
 
 async function searchAssistants(search, loading) {
     console.log({ search });
     const res = await axios.get('/api/assistants/search', { params: { name: search.target.value } })
-    assistantOptions.value = res.data.length ? res.data[0]: []
+    assistantOptions.value = res.data.length ? res.data[0] : []
 }
 
 function selectSpecies(option, id) {
@@ -72,7 +89,8 @@ searchAssistants({ target: { value: '' } })
         <div class="row flex flex-col items-center ">
 
             <label for="collection-date">Fecha de colecta:</label>
-            <input class="min-w-full rounded border-none drop-shadow-sm " v-model="specimen.collection_date" type="date" name="collection-date" id="collection-date">
+            <input ref="collectionDate" class="min-w-full rounded border-none drop-shadow-sm " v-model="specimen.collection_date" type="text"
+                name="collection-date" id="collection-date">
 
             <label for="especie">Especie:</label>
             <!-- <multiselect class="min-w-[200px]" label="scientific_name" v-model="specimen.species" :options="speciesOptions"
@@ -97,33 +115,33 @@ searchAssistants({ target: { value: '' } })
                 <div class="flex flex-col lg:flex-row">
                     <div class="flex flex-col p-3 capitalize">
                         <label for="latitude">Latitud:</label>
-                        <input class="min-w-full rounded border-none drop-shadow-sm " v-model="specimen.latitude" type="text" id="latitude" name="latitude"
-                            placeholder="Latitud">
+                        <input class="min-w-full rounded border-none drop-shadow-sm " v-model="specimen.latitude"
+                            type="text" id="latitude" name="latitude" placeholder="Latitud">
                     </div>
                     <div class="flex flex-col p-3 capitalize">
                         <label for="longitude">longitud:</label>
-                        <input class="min-w-full rounded border-none drop-shadow-sm " v-model="specimen.longitude" type="text" id="longitude" name="longitude"
-                            placeholder="Longitud">
+                        <input class="min-w-full rounded border-none drop-shadow-sm " v-model="specimen.longitude"
+                            type="text" id="longitude" name="longitude" placeholder="Longitud">
                     </div>
                     <div class="flex flex-col p-3 capitalize">
                         <label for="altitude">altitud <span class="text-sm lowercase font-thin">(msnm)</span>:</label>
-                        <input class="min-w-full rounded border-none drop-shadow-sm " v-model="specimen.altitude" type="text" id="altitude" name="altitude"
-                            placeholder="Altitud">
+                        <input class="min-w-full rounded border-none drop-shadow-sm " v-model="specimen.altitude"
+                            type="text" id="altitude" name="altitude" placeholder="Altitud">
                     </div>
 
                 </div>
             </div>
             <label for="collector">Nombre del colector:</label>
-            <input class="min-w-full rounded border-none drop-shadow-sm " v-model="specimen.collector" type="text" name="collector" id="collector"
-                placeholder="Nombre del colector">
+            <input class="min-w-full rounded border-none drop-shadow-sm " v-model="specimen.collector" type="text"
+                name="collector" id="collector" placeholder="Nombre del colector">
             <label for="assistant_id">Preparador:</label>
-            <multiselect id="assistant" placeholder="Selecciona una opción" label="name" @input="searchAssistants"
+            <multiselect id="assistant" name="assistant_id" placeholder="Selecciona una opción" label="name" @input="searchAssistants"
                 :preserveSearch="true" :internalSearch="false" :options="assistantOptions" :allow-empty="false"
                 @select="selectAssistant" v-model="specimen.assistant">
 
             </multiselect>
-            <input class="min-w-full rounded border-none drop-shadow-sm " v-model="specimen.assistant_id" type="text" id="assistant_id" name="assistant_id"
-                placeholder="Preparador">
+            <!-- <input class="min-w-full rounded border-none drop-shadow-sm " v-model="specimen.assistant_id" type="text"
+                id="assistant_id" name="assistant_id" placeholder="Preparador"> -->
 
             <primary-button class="mt-5 capitalize">{{ specimen.id ? 'Guardar' : 'agregar'}}</primary-button>
         </div>

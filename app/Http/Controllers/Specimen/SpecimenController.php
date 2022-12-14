@@ -102,7 +102,7 @@ class SpecimenController extends Controller
         // dd($specimen);
         // dd($specimen);
         // dd('aaa');
-        $specimen->load(['measurable', 'species', 'location']);
+        $specimen->load(['measurable', 'species', 'location', 'assistant']);
         return Inertia::render('collection/SpecimenMeasurements', compact('specimen'));
     }
 

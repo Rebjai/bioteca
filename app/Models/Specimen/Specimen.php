@@ -2,6 +2,7 @@
 
 namespace App\Models\Specimen;
 
+use App\Models\Assistant;
 use App\Models\Catalogs\BioSpecies;
 use App\Models\Location\Location;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -26,9 +27,9 @@ class Specimen extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'created_at' => 'datetime:d-m-Y',
-        'updated_at' => 'datetime:d-m-Y',
-        'collection_date' => 'datetime:d-m-Y',
+        'created_at' => 'datetime:d/m/Y',
+        'updated_at' => 'datetime:d/m/Y',
+        'collection_date' => 'datetime:d/m/Y',
     ];
 
     protected $appends=['collection_name'];
@@ -84,5 +85,15 @@ class Specimen extends Model
     public function location(): BelongsTo
     {
         return $this->belongsTo(Location::class);
+    }
+
+    /**
+     * Get the assistant that owns the Specimen
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function assistant(): BelongsTo
+    {
+        return $this->belongsTo(Assistant::class);
     }
 }
