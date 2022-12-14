@@ -10,12 +10,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Support\Carbon;
 
 class Specimen extends Model
 {
     use HasFactory;
     static $rules =  [
-        'collection_date' => ['required', 'date'],
+        'collection_date' => ['required', 'date_format:d/m/Y'],
         'species_id' => ['required', 'integer'],
         'location_id' => ['required', 'integer'],
         'latitude' => ['required'],
@@ -96,4 +97,15 @@ class Specimen extends Model
     {
         return $this->belongsTo(Assistant::class);
     }
+
+    public function collectionDate(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => (new Carbon($value))->format('d/m/y'),
+            set: fn ($value) => Carbon::createFromFormat('d/m/Y', $value),
+        );
+    }
+    // public function setDateAttribute( $value ) {
+    //     $this->attributes['date'] = (new Carbon($value))->format('d/m/y');
+    //   }
 }

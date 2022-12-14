@@ -33,7 +33,7 @@ class SpecimenController extends Controller
                         'species' => $item->species,
                         'location' => $item->location,
                         'collection_name' => $item->collectionName,
-                        'collection_date' => (new DateTime($item->collection_date))->format('d-m-Y'),
+                        'collection_date' => $item->collection_date,
                         // etc
                     ];
                 }
