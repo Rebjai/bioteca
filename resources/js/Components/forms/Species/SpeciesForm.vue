@@ -48,7 +48,7 @@
             <div class="row flex flex-col items-center ">
     
                 <label for="scientific_name">Nombre cientifico:</label>
-                <input class="min-w-full rounded border-none drop-shadow-sm " v-model="species.scientific_name" type="date" name="scientific_name" id="scientific_name"
+                <input class="min-w-full rounded border-none drop-shadow-sm " v-model="species.scientific_name" type="text" name="scientific_name" id="scientific_name"
                     placeholder="Nombre cientifico">
     
              
@@ -58,13 +58,41 @@
                     placeholder="Nombre comun">
 
 
-                <label for="status">Estatus:</label>
-                <input class="min-w-full rounded border-none drop-shadow-sm " v-model="species.status" type="text" id="status" name="status"
-                    placeholder="Estatus">
 
+                <label for="status">Estatus:</label>
+                <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="status" name="status" >
+                <label class="form-check-label">Valido </label> 
+                </div>
+                
+                <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="status" name="status" >
+                <label class="form-check-label">Sinonimo </label> 
+                </div>
+                
+             <!--    
+                <div class="form-check">
+                
+               <input class="min-w-full rounded border-none drop-shadow-sm " v-model="species.status" type="text" id="status" name="status"
+                    placeholder="Estatus"> 
+                
+                   
+                <label for="status">Valido:</label>
+                        <input class="mb-3 font-bold text-xl text-center" v-model="species.common_name" type="checkbox" name="status" id="status"  placeholder="Valido">
+
+                        
+                <label for="status">Sinonimo:</label>
+                        <input class="mb-3 font-bold text-xl text-center " v-model="species.common_name" type="checkbox" name="status" id="status"  placeholder="Sinonimo">
+                    
+                    </div>-->
+                       
+                 
+                   
+                   
+                  
                     <label for="bio_gender_id">ID Genero:</label>
                     <input class="min-w-full rounded border-none drop-shadow-sm " v-model="species.bio_gender_id" type="text" id="bio_gender_id" name="bio_gender_id"
-                        placeholder="Estatus">                    
+                        placeholder="ID Genero">                    
     
                 <primary-button class="mt-5 capitalize">{{ species.id ? 'Guardar' : 'agregar'}}</primary-button>
             </div>
