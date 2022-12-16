@@ -19,7 +19,9 @@ return new class extends Migration
             'assistants',
             function (Blueprint $table) {
                 $table->id();
-                // $table->string('name');
+                $table->string('name');
+                $table->string('first_surname');
+                $table->string('second_surname');
                 $table->foreignIdFor(User::class);
                 $table->timestamps();
             }

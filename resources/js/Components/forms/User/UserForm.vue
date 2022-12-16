@@ -37,6 +37,7 @@ user.post(route('user.store'))
             <select name="role" id="role" v-model="user.role">
                 <option value="">Elige un rol</option>
                 <option value="1">Preparador</option>
+                <option value="2">Supervisor</option>
                 <!-- <option value="0">Colector</option> -->
                 <option value="10">Administrador</option>
             </select>

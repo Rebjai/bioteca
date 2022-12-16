@@ -81,6 +81,9 @@ class User extends Authenticatable
         if ($role_id == 1) {
             return 'Assistant';
         }
+        if ($role_id == 2) {
+            return 'Supervisor';
+        }
         if ($role_id == 10) {
             return 'Admin';
         }

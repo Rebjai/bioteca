@@ -18,7 +18,7 @@ class UserController extends Controller
     public function index()
     {
         //
-        $users = User::latest()->paginate(5)->through(
+        $users = User::latest('updated_at')->paginate(5)->through(
             function (User $item) {
                 return [
                     'id' => $item->id,
