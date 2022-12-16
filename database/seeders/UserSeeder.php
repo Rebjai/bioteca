@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Assistant;
+use App\Models\Catalogs\Collector;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -54,6 +55,7 @@ class UserSeeder extends Seeder
             }
         )->create();
         Assistant::factory()->count(10)->create();
+        Collector::factory()->count(10)->create();
         // User::create(
         //     [
         //         'name' => 'asistente',

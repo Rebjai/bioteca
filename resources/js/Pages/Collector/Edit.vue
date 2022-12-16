@@ -1,14 +1,14 @@
 <script setup>
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import BioModal from '@/Components/BioModal.vue';
-import UserForm from '@/Components/forms/User/UserForm.vue';
+import CollectorForm from '@/Components/forms/Collector/CollectorForm.vue';
 import { ref } from '@vue/reactivity';
 import AssistantForm from '@/Components/forms/User/AssistantForm.vue';
 
 
-const props = defineProps({ user: {} })
+const props = defineProps({ collector: {} })
 const showModal = ref(false)
-const user = props.user ? props.user : {}
+const collector = props.collector ? props.collector : {}
 function addUser() {
 
 }
@@ -26,13 +26,9 @@ function addUser() {
     </div>
     <div class="bg-zinc-100 rounded-lg py-5 max-h-full">
         <h1 class="text-center text-2xl mb-5 font-bold">Datos Generales</h1>
-        <UserForm :user="user" />
+        <CollectorForm :collector="collector" />
     </div>
 
-    <div  v-if="(user.role == 1)"  class="bg-zinc-100 rounded-lg py-5 max-h-full">
-        <h1 class="text-center text-2xl mb-5 font-bold">Datos de preparador</h1>
-        <AssistantForm :assistant="user.profile" />
-    </div>
 </template>
 
 <script>

@@ -13,6 +13,7 @@ const toast = useToast()
 const props = defineProps({ specimen: Object })
 const collectionDate = ref([''])
 const speciesOptions = ref([''])
+const collectorOptions = ref([''])
 const locationOptions = ref([''])
 const assistantOptions = ref([''])
 const specimen = useForm(props.specimen ? props.specimen :
@@ -23,8 +24,10 @@ const specimen = useForm(props.specimen ? props.specimen :
         latitude: '',
         altitude: '',
         longitude: '',
+        collector_id: '',
         collector: '',
         assistant_id: '',
+        assistant: '',
         species: null,
         location: null,
 
@@ -66,6 +69,11 @@ async function searchAssistants(search, loading) {
     const res = await axios.get('/api/assistants/search', { params: { name: search.target.value } })
     assistantOptions.value = res.data.length ? res.data[0] : []
 }
+async function searchCollectors(search, loading) {
+    console.log({ search });
+    const res = await axios.get('/api/collectors/search', { params: { name: search.target.value } })
+    collectorOptions.value = res.data.length ? res.data[0] : []
+}
 
 function selectSpecies(option, id) {
     console.log({ option }, { id });
@@ -76,11 +84,14 @@ function selectLocation(option, id) {
 }
 function selectAssistant(option, id) {
     specimen.assistant_id = option.id
-
+}
+function selectCollector(option, id) {
+    specimen.collector_id = option.id
 }
 
 searchLocations({ target: { value: '' } })
 searchAssistants({ target: { value: '' } })
+searchCollectors({ target: { value: '' } })
 
 </script>
         
@@ -132,9 +143,12 @@ searchAssistants({ target: { value: '' } })
                 </div>
             </div>
             <label for="collector">Nombre del colector:</label>
-            <input class="min-w-full rounded border-none drop-shadow-sm " v-model="specimen.collector" type="text"
-                name="collector" id="collector" placeholder="Nombre del colector">
-            <label for="assistant_id">Preparador:</label>
+            <multiselect id="collector" name="collector_id" placeholder="Selecciona una opción" label="fullname" @input="searchCollectors"
+                :preserveSearch="true" :internalSearch="false" :options="collectorOptions" :allow-empty="false"
+                @select="selectCollector" v-model="specimen.collector">
+
+            </multiselect>
+            <label for="assistant_id">Nombre del preparador:</label>
             <multiselect id="assistant" name="assistant_id" placeholder="Selecciona una opción" label="name" @input="searchAssistants"
                 :preserveSearch="true" :internalSearch="false" :options="assistantOptions" :allow-empty="false"
                 @select="selectAssistant" v-model="specimen.assistant">

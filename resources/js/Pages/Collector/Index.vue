@@ -8,9 +8,9 @@ import Pagination from '@/Components/Pagination.vue';
 
 
 
-const props = defineProps({users:{}})
+const props = defineProps({collectors:{}})
 const showModal = ref(false)
-const users = props.users? props.users : []
+const collectors = props.collectors? props.collectors : []
 function addUser(){
 
     showModal.value = true
@@ -38,18 +38,20 @@ function addUser(){
                                 <!-- <th class="px-5">Colección</th> -->
                                 <!-- <th class="px-5">Colecta</th> -->
                                 <th class="px-5">Nombre</th>
-                                <th class="px-5">Rol</th>
+                                <th class="px-5">Apellido Paterno</th>
+                                <th class="px-5">Apellido Materno</th>
                                 <!-- shows address, map with coordinates -->
                                 <th>Acciones</th>
                             </thead>
-                            <tbody v-if="users?.data?.length">
-                                <tr v-for="user in users.data" :key="user.id">
-                                    <td class="px-3">{{user.id}}</td>
-                                    <!-- <td class="px-3">{{user.species.scientific_name}}</td> -->
-                                    <td class="px-3">{{user.name}}</td>
-                                    <td class="px-3">{{user.role_name}}</td>
+                            <tbody v-if="collectors?.data?.length">
+                                <tr v-for="collector in collectors.data" :key="collector.id">
+                                    <td class="px-3">{{collector.id}}</td>
+                                    <!-- <td class="px-3">{{collector.species.scientific_name}}</td> -->
+                                    <td class="px-3">{{collector.name}}</td>
+                                    <td class="px-3">{{collector.first_surname}}</td>
+                                    <td class="px-3">{{collector.second_surname}}</td>
                                     <td class="flex flex-col  text-center items-center justify-center">
-                                        <Link :href="route('user.show', user.id)" class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
+                                        <!-- <Link :href="route('collector.show', collector.id)" class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
                                         <button>
                                             <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -62,8 +64,8 @@ function addUser(){
                                                 </svg>
                                             </div>
                                         </button>
-                                        </Link>
-                                        <Link :href="route('user.edit', user.id)" class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
+                                        </Link> -->
+                                        <Link :href="route('collector.edit', collector.id)" class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
                                         <button>
                                             <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -76,7 +78,7 @@ function addUser(){
 
                                         </button>
                                         </Link>
-                                        <Link :href="route('user.destroy', user.id)" class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
+                                        <Link :href="route('collector.destroy', collector.id)" class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
                                         <button>
                                             <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -92,7 +94,7 @@ function addUser(){
                                     </td>
                                 </tr>
                             </tbody>
-                            <tbody v-if="!users?.data?.length">
+                            <tbody v-if="!collectors?.data?.length">
                                 <td>0</td>
                                 <td>Mamíferos</td>
                                 <td>06/10/2022</td>
@@ -139,7 +141,7 @@ function addUser(){
                                 </td>
                             </tbody>
                         </table>
-                        <pagination :links="users.links"></pagination>
+                        <pagination :links="collectors.links"></pagination>
                     </div>
                 </div>
             </div>

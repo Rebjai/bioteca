@@ -22,7 +22,7 @@ function saveUser() {
     <form action="" @submit.prevent="saveUser" class="flex flex-col justify-center">
         <div class="form-group flex flex-col items-center m-5 capitalize">
             <label for="id">id</label>
-            <input type="text" name="id" :disabled="!collector.id" id="id" v-model="collector.id">
+            <input type="text" name="id" :disabled="true" id="id" v-model="collector.id">
         </div>
         <div class="form-group flex flex-col items-center m-5 capitalize">
             <label for="name">nombre</label>
