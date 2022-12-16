@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CollectorController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Specimen\MammalMeasureController;
 use App\Http\Controllers\Specimen\SpecimenController;
@@ -56,6 +57,7 @@ Route::middleware(['auth', 'verified'])->group(
         Route::resource('mammal-measure', MammalMeasureController::class);
         Route::resource('user', UserController::class);
         Route::resource('species', SpeciesController::class);
+        Route::resource('collector', CollectorController::class);
     }
 );
 // Route::resource('specimen', SpecimenController::class);

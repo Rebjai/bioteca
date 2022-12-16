@@ -47,6 +47,12 @@ class UserSeeder extends Seeder
                 'role' => 10,
             ]
         );
+
+        User::factory()->count(3)->state(
+            function (array $attributes) {
+                return ['role' => 2];
+            }
+        )->create();
         Assistant::factory()->count(10)->create();
         // User::create(
         //     [
