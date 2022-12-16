@@ -1,6 +1,7 @@
 <script setup>
 import SpecimenForm from '@/Components/forms/specimen/SpecimenForm.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue'
+import BackButton from '@/Components/BackButton.vue'
 const props = defineProps({ specimen: {} })
 console.log(props.specimen);
 console.log(props.specimen.measurable?.id);
@@ -26,7 +27,9 @@ function saveMeasures() {
 
 </script>
 <template>
-    <div class="bg-white m-5 rounded-lg p-5 max-h-full drop-shadow">
+    <div class="text-center bg-white m-5 rounded-lg p-5 max-h-full drop-shadow">
+        <back-button :href="route('collection.index')">
+        </back-button>
 
         <div id="title" class="text-center font-bold text-xl uppercase py-5">
             <h2 class="text-base mb-5 capitalize">Anfibios #{{measurable.id}}</h2>
@@ -103,7 +106,7 @@ function saveMeasures() {
             <primary-button class="mt-5 capitalize">{{ measurable.id ? 'Guardar' : 'agregar' }}</primary-button>
         </form>
     </div>
-    <div class="bg-white m-5 rounded-lg p-5 max-h-full drop-shadow">
+    <div class="text-center bg-white m-5 rounded-lg p-5 max-h-full drop-shadow">
         <h1 class="text-center text-2xl mb-5 font-bold">Datos Generales</h1>
         <SpecimenForm :specimen="props.specimen" />
     </div>

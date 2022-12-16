@@ -1,6 +1,7 @@
 <script setup>
 import SpecimenForm from '@/Components/forms/specimen/SpecimenForm.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue'
+import BackButton from '@/Components/BackButton.vue'
 const props = defineProps({ specimen: {} })
 console.log(props.specimen);
 console.log(props.specimen.measurable?.id);
@@ -26,10 +27,12 @@ function saveMeasures() {
 
 </script>
 <template>
-    <div class="bg-white m-5 rounded-lg p-5 max-h-full drop-shadow">
+    <div class="text-center bg-white m-5 rounded-lg p-5 max-h-full drop-shadow">
+        <back-button :href="route('collection.index')">
+        </back-button>
 
         <div id="title" class="text-center font-bold text-xl uppercase py-5">
-            <h2 class="text-base mb-5 capitalize">Mamíferos #{{measurable.id}}</h2>
+            <h2 class="text-base mb-5 capitalize">Mamíferos #{{ measurable.id }}</h2>
             <h1>Medidas del espécimen</h1>
         </div>
         <form action="" class="flex flex-col bg-zinc-300 rounded p-5 items-center content-between"
@@ -49,28 +52,28 @@ function saveMeasures() {
             </div>
             <div class="form-group my-2 flex flex-col text-center">
                 <label for="lt">LT</label>
-                <input v-model="measurable.lt" class="min-w-full border-none rounded drop-shadow-sm "
-                    placeholder='N/A' type="number" name="lt" id="lt">
+                <input v-model="measurable.lt" class="min-w-full border-none rounded drop-shadow-sm " placeholder='N/A'
+                    type="number" name="lt" id="lt">
             </div>
             <div class="form-group my-2 flex flex-col text-center">
                 <label for="lc">LC</label>
-                <input v-model="measurable.lc" class="min-w-full border-none rounded drop-shadow-sm "
-                    placeholder='N/A' type="number" name="lc" id="lc">
+                <input v-model="measurable.lc" class="min-w-full border-none rounded drop-shadow-sm " placeholder='N/A'
+                    type="number" name="lc" id="lc">
             </div>
             <div class="form-group my-2 flex flex-col text-center">
                 <label for="pt">PT</label>
-                <input v-model="measurable.pt" class="min-w-full border-none rounded drop-shadow-sm "
-                    placeholder='N/A' type="number" name="pt" id="pt">
+                <input v-model="measurable.pt" class="min-w-full border-none rounded drop-shadow-sm " placeholder='N/A'
+                    type="number" name="pt" id="pt">
             </div>
             <div class="form-group my-2 flex flex-col text-center">
                 <label for="o">O</label>
-                <input v-model="measurable.o" class="min-w-full border-none rounded drop-shadow-sm "
-                    placeholder='N/A' type="number" name="o" id="o">
+                <input v-model="measurable.o" class="min-w-full border-none rounded drop-shadow-sm " placeholder='N/A'
+                    type="number" name="o" id="o">
             </div>
             <div class="form-group my-2 flex flex-col text-center">
                 <label for="ab">AB</label>
-                <input v-model="measurable.ab" class="min-w-full border-none rounded drop-shadow-sm "
-                    placeholder='N/A' type="number" name="ab" id="ab">
+                <input v-model="measurable.ab" class="min-w-full border-none rounded drop-shadow-sm " placeholder='N/A'
+                    type="number" name="ab" id="ab">
             </div>
             <div class="form-group my-2 flex flex-col text-center">
                 <label for="weight">Peso (gr)</label>
@@ -81,18 +84,18 @@ function saveMeasures() {
 
                 <div class="form-group my-2 flex flex-col text-center items-center">
                     <label for="has-skull">Cráneo</label>
-                    <input v-model="measurable.skull" class="border-none rounded drop-shadow-sm "
-                        type="checkbox" name="has-skull" id="has-skull">
+                    <input v-model="measurable.skull" class="border-none rounded drop-shadow-sm " type="checkbox"
+                        name="has-skull" id="has-skull">
                 </div>
                 <div class="form-group my-2 flex flex-col text-center items-center">
                     <label for="has-skull">Piel</label>
-                    <input v-model="measurable.skin" class="border-none rounded drop-shadow-sm "
-                        type="checkbox" name="has-skull" id="has-skull">
+                    <input v-model="measurable.skin" class="border-none rounded drop-shadow-sm " type="checkbox"
+                        name="has-skull" id="has-skull">
                 </div>
                 <div class="form-group my-2 flex flex-col text-center items-center">
                     <label for="has-body">Cuerpo</label>
-                    <input v-model="measurable.body" class="border-none rounded drop-shadow-sm "
-                        type="checkbox" name="has-body" id="has-body">
+                    <input v-model="measurable.body" class="border-none rounded drop-shadow-sm " type="checkbox"
+                        name="has-body" id="has-body">
                 </div>
             </div>
             <div class="form-group my-2 flex flex-col text-center flex flex-col">
@@ -103,7 +106,7 @@ function saveMeasures() {
             <primary-button class="mt-5 capitalize">{{ measurable.id ? 'Guardar' : 'agregar' }}</primary-button>
         </form>
     </div>
-    <div class="bg-white m-5 rounded-lg p-5 max-h-full drop-shadow">
+    <div class="text-center bg-white m-5 rounded-lg p-5 max-h-full drop-shadow">
         <h1 class="text-center text-2xl mb-5 font-bold">Datos Generales</h1>
         <SpecimenForm :specimen="props.specimen" />
     </div>

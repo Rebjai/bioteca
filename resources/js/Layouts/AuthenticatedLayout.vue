@@ -63,7 +63,9 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('species.index')" :active="route().current('species.index')">
                                     Especies
                                 </NavLink>
-                                
+                                <NavLink :href="route('collector.index')" :active="route().current('collector.index')">
+                                    Colectores
+                                </NavLink>
                             </div>
                         </div>
 

@@ -30,7 +30,7 @@ function saveMeasures() {
 <template>
 
        
-    <div class="bg-white m-5 rounded-lg p-5 max-h-full drop-shadow">
+    <div class="text-center bg-white m-5 rounded-lg p-5 max-h-full drop-shadow">
         <h1 class="text-center text-2xl mb-5 font-bold">Generar Etiqueta</h1>
         <bio-tag :specimen="props.specimen" />
     </div>
