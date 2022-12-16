@@ -45,8 +45,9 @@ class SpecimenFactory extends Factory
             },
             // 'species_id' => $species->id,
             'location_id' => mt_rand(1, 277330), //random location from the 277330 in db
+            'collector_id' => mt_rand(1, 10),
             'assistant_id' => mt_rand(1, 10),
-            'collector' => fake()->name(),
+            // 'collector' => fake()->name(),
             'latitude' => fake()->latitude(),
             'longitude' => fake()->longitude(),
             'altitude' => 1000, //fake()->localCoordinates(),

@@ -26,7 +26,7 @@ return new class extends Migration
                 // $table->foreignIdFor(User::class, 'curator_id');
                 // $table->foreignIdFor(User::class, '');
                 // $table->string('assistant_id');
-                $table->string('collector');
+                // $table->string('collector');
                 $table->double('latitude');
                 $table->double('longitude');
                 $table->double('altitude');

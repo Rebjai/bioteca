@@ -149,7 +149,7 @@ searchCollectors({ target: { value: '' } })
 
             </multiselect>
             <label for="assistant_id">Nombre del preparador:</label>
-            <multiselect id="assistant" name="assistant_id" placeholder="Selecciona una opción" label="name" @input="searchAssistants"
+            <multiselect id="assistant" name="assistant_id" placeholder="Selecciona una opción" label="fullname" @input="searchAssistants"
                 :preserveSearch="true" :internalSearch="false" :options="assistantOptions" :allow-empty="false"
                 @select="selectAssistant" v-model="specimen.assistant">
 

@@ -55,7 +55,8 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for(
             'search',
             function (Request $request) {
-                $key = $request->user()?->id ?: $request->ip();
+                // dd($request->path());
+                $key = $request->user()?->id ? $request->path().$request->user()?->id: $request->ip().$request->path();
                 if (RateLimiter::tooManyAttempts($key, 2) ) {
                     return response('2many att', 420);
                     RateLimiter::clear($key);

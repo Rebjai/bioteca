@@ -11,7 +11,7 @@ class Assistant extends Model
 {
     use HasFactory;
     protected $fillable = ['user_id', 'id'];
-    protected $appends = ['name'];
+    protected $appends = ['name', 'fullname'];
 
     /**
      * Get the user that owns the Assistant
@@ -27,7 +27,14 @@ class Assistant extends Model
     public function name(): Attribute
     {
         return new Attribute(
-            get: fn ($value, $atrrs) => $atrrs['id'].'.- '.$this->user->name,
+            get: fn ($value, $atrrs) => $value,
+            set: fn ($value) => $value,
+        );
+    }
+    public function fullname(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value, $atrrs) => $atrrs['id'] . '.- ' . "$this->name $this->first_surname $this->second_surname",
             set: fn ($value) => $value,
         );
     }

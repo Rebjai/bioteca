@@ -33,7 +33,10 @@ class AssistantController extends Controller
         $assistants->when(
             $name,
             function ($q, $name) {
-                return $q->whereHas(
+                $q->orwhereRaw('upper(name) like ?', '%' . strtoupper($name) . '%');
+                $q->orWhereRaw('upper(first_surname) like ?', '%' . strtoupper($name) . '%');
+                $q->orWhereRaw('upper(second_surname) like ?', '%' . strtoupper($name) . '%');
+                return $q->orWhereHas(
                     'user',
                     function ($q) use ($name) {
                         $q->whereRaw('upper(users.name) like ?', '%' . strtoupper($name) . '%');

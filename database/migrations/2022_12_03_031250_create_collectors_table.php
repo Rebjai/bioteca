@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Catalogs\Collector;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -21,6 +22,12 @@ return new class extends Migration
             // $table->foreignIdFor(User::class);
             $table->timestamps();
         });
+        Schema::table(
+            'specimens',
+            function (Blueprint $table) {
+                $table->foreignIdFor(Collector::class)->constrained();
+            }
+        );
     }
 
     /**
@@ -30,6 +37,13 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table(
+            'specimens',
+            function (Blueprint $table) {
+                $table->dropForeignIdFor(Collector::class);
+            }
+        );
         Schema::dropIfExists('collectors');
+        
     }
 };
