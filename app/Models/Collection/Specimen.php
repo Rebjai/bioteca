@@ -4,6 +4,7 @@ namespace App\Models\Collection;
 
 use App\Models\Assistant;
 use App\Models\Catalogs\BioSpecies;
+use App\Models\Catalogs\Collector;
 use App\Models\Location\Location;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,8 +23,9 @@ class Specimen extends Model
         'latitude' => ['required'],
         'longitude' => ['required'],
         'altitude' => ['required'],
-        'collector' => ['required'],
-        'assistant_id' => ['required'],
+        // 'collector' => ['required'],
+        'collector_id' => ['required', 'integer'],
+        'assistant_id' => ['required', 'integer'],
     ];
     protected $guarded = [];
 
@@ -105,6 +107,15 @@ class Specimen extends Model
     public function assistant(): BelongsTo
     {
         return $this->belongsTo(Assistant::class);
+    }
+    /**
+     * Get the collector that owns the Specimen
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function collector(): BelongsTo
+    {
+        return $this->belongsTo(Collector::class);
     }
 
     public function collectionDate(): Attribute

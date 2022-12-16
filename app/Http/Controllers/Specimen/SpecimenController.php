@@ -128,7 +128,7 @@ class SpecimenController extends Controller
         // dd($specimen);
         // dd($specimen);
         // dd('aaa');
-        $specimen->load(['measurable', 'species', 'location', 'assistant']);
+        $specimen->load(['measurable', 'species', 'location', 'assistant', 'collector']);
         if ($specimen->measurable_type == MammalMeasure::class) {
             return Inertia::render('collection/SpecimenMeasurements', compact('specimen'));
         }
