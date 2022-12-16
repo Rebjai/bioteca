@@ -17,9 +17,13 @@ class AssistantFactory extends Factory
      */
     public function definition()
     {
+        $user = User::factory()->create();
 
         return [
-            'user_id' => User::factory(),
+            'user_id' => $user->id,
+            'name' => $user->name,
+            'first_surname' => $user->first_surname,
+            'second_surname' => $user->second_surname,
             // 'content' => fake()->paragraph(),
             //
         ];

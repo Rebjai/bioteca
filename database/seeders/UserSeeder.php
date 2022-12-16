@@ -19,7 +19,9 @@ class UserSeeder extends Seeder
     {
         User::create(
             [
-                'name' => 'Jesús Rebollar',
+                'name' => 'Jesús',
+                'first_surname' => 'Pacheco',
+                'second_surname' => 'Rebollar',
                 'email' => 'l17920350@voaxaca.tecnm.mx',
                 'password' => Hash::make('pass1234'),
                 'role' => 10,
@@ -28,6 +30,8 @@ class UserSeeder extends Seeder
         User::create(
             [
                 'name' => 'José Canseco',
+                'first_surname' => 'Canseco',
+                'second_surname' => '',
                 'email' => 'l17920314@voaxaca.tecnm.mx',
                 'password' => Hash::make('pass1234'),
                 'role' => 10,
@@ -36,6 +40,8 @@ class UserSeeder extends Seeder
         User::create(
             [
                 'name' => 'Rosa María Gómez Ugalde',
+                'first_surname' => 'Gómez',
+                'second_surname' => 'Ugalde',
                 'email' => 'user@voaxaca.tecnm.mx',
                 'password' => Hash::make('pass1234'),
                 'role' => 10,
