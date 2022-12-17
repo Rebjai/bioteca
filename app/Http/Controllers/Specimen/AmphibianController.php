@@ -70,7 +70,13 @@ class AmphibianController extends Controller
      */
     public function update(Request $request, Amphibian $amphibian)
     {
-        //
+        $data = $request->validate(Amphibian::$rules);
+        // dd($mammalMeasure, $data);
+        // dd($data);
+        $amphibian->update($data);
+        $amphibian->refresh();
+
+        return redirect(route('collection.edit', $amphibian->specimen->id), 303);
     }
 
     /**

@@ -10,15 +10,15 @@ console.log(props.specimen.measurable?.id);
 const measurable = props.specimen.measurable?.id ? useForm(props.specimen.measurable) :
     useForm({
         gender: '',
-        lt: '',
+        total_length: '',
         cv: '',
-        wingsapn: '',
+        wingspan: '',
         weight: '',
         observations: '',
     })
 function saveMeasures() {
 
-    measurable.put(route('mammal-measure.update', measurable.id));
+    measurable.put(route('bird.update', measurable.id));
 }
 
 </script>
@@ -43,9 +43,9 @@ function saveMeasures() {
                 </select>
             </div>
             <div class="form-group my-2 flex flex-col text-center">
-                <label for="lt">LT</label>
-                <input v-model="measurable.lt" class="min-w-full border-none rounded drop-shadow-sm "
-                    placeholder='N/A' type="number" name="lt" id="lt">
+                <label for="tail_length">LT</label>
+                <input v-model="measurable.total_length" class="min-w-full border-none rounded drop-shadow-sm "
+                    placeholder='N/A' type="number" name="tail_length" id="tail_length">
             </div>
             <div class="form-group my-2 flex flex-col text-center">
                 <label for="cv">CV</label>

@@ -14,18 +14,25 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('birds', function (Blueprint $table) {
-            $table->id();
-            $table->boolean('gender')->nullable();
-            // $table->float('gonads')->nullable();
-            $table->float('lt')->nullable();
-            $table->float('cv')->nullable();
-            $table->float('wingspan')->nullable();
-            $table->float('weight')->nullable();
-            $table->string('observations')->nullable();
-            $table->foreignIdFor(Specimen::class)->nullable();
-            $table->timestamps();
-        });
+        Schema::create(
+            'birds',
+            function (Blueprint $table) {
+                $table->id();
+                $table->boolean('gender')->nullable();
+                $table->smallInteger('age')->nullable();
+                // $table->float('gonads')->nullable();
+                $table->float('total_length')->nullable();
+                $table->float('cv')->nullable();
+                $table->float('wingspan')->nullable();
+                $table->float('weight')->nullable();
+                $table->boolean('skull')->nullable();
+                $table->boolean('skin')->nullable();
+                $table->boolean('body')->nullable();
+                $table->string('observations')->nullable();
+                $table->foreignIdFor(Specimen::class)->nullable();
+                $table->timestamps();
+            }
+        );
     }
 
     /**

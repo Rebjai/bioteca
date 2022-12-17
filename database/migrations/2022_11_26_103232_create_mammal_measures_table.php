@@ -19,9 +19,10 @@ return new class extends Migration
             function (Blueprint $table) {
                 $table->id();
                 $table->boolean('gender')->nullable();
+                $table->smallInteger('age')->nullable();
                 $table->float('gonads')->nullable();
-                $table->float('lt')->nullable();
-                $table->float('lc')->nullable();
+                $table->float('total_length')->nullable();
+                $table->float('tail_length')->nullable();
                 $table->float('pt')->nullable();
                 $table->float('o')->nullable();
                 $table->float('ab')->nullable();

@@ -14,23 +14,25 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('reptiles', function (Blueprint $table) {
-            $table->id();
-            $table->boolean('gender')->nullable();
-            $table->float('gonads')->nullable();
-            $table->float('lt')->nullable();
-            $table->float('lc')->nullable();
-            $table->float('pt')->nullable();
-            $table->float('o')->nullable();
-            $table->float('ab')->nullable();
-            $table->float('weight')->nullable();
-            $table->boolean('skull')->nullable();
-            $table->boolean('skin')->nullable();
-            $table->boolean('body')->nullable();
-            $table->string('observations')->nullable();
-            $table->foreignIdFor(Specimen::class)->nullable();
-            $table->timestamps();
-        });
+        Schema::create(
+            'reptiles',
+            function (Blueprint $table) {
+                $table->id();
+                $table->boolean('gender')->nullable();
+                $table->smallInteger('age')->nullable();
+                $table->float('gonads')->nullable();
+                $table->float('total_length')->nullable();
+                $table->float('tail_length')->nullable();
+                $table->float('snout_vent_length')->nullable();
+                $table->float('weight')->nullable();
+                $table->boolean('skull')->nullable();
+                $table->boolean('skin')->nullable();
+                $table->boolean('body')->nullable();
+                $table->string('observations')->nullable();
+                $table->foreignIdFor(Specimen::class)->nullable();
+                $table->timestamps();
+            }
+        );
     }
 
     /**

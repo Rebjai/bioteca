@@ -70,7 +70,13 @@ class BirdController extends Controller
      */
     public function update(Request $request, Bird $bird)
     {
-        //
+        $data = $request->validate(Bird::$rules);
+        // dd($mammalMeasure, $data);
+        // dd($data);
+        $bird->update($data);
+        $bird->refresh();
+
+        return redirect(route('collection.edit', $bird->specimen->id), 303);
     }
 
     /**

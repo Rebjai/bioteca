@@ -9,9 +9,27 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 class Bird extends Model
 {
     use HasFactory;
+    static $rules = [
+        // 'id' => ['required'],
+        'age' => ['integer'],
+        'gender' => ['boolean'],
+        'gonads' => ['nullable', 'numeric'],
+        'total_length' => ['nullable', 'numeric'],
+        'tail_length' => ['nullable', 'numeric'],
+        'wingspan' => ['nullable', 'numeric'],
+        'weight' => ['nullable', 'numeric'],
+        'skull' => ['nullable', 'boolean'],
+        'skin' => ['nullable', 'boolean'],
+        'body' => ['nullable', 'boolean'],
+        'observation' => ['nullable', 'string'],
+    ];
+    protected $guarded = ['id'];
+    protected $casts = [
+        'gender' => 'boolean',
+    ];
 
     /**
-     * Get the specimen associated with the MammalMeasure
+     * Get the specimen associated with the Bird
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */

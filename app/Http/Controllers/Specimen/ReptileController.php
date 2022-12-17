@@ -70,7 +70,13 @@ class ReptileController extends Controller
      */
     public function update(Request $request, Reptile $reptile)
     {
-        //
+        $data = $request->validate(Reptile::$rules);
+        // dd($mammalMeasure, $data);
+        // dd($data);
+        $reptile->update($data);
+        $reptile->refresh();
+
+        return redirect(route('collection.edit', $reptile->specimen->id), 303);
     }
 
     /**

@@ -9,8 +9,8 @@ const measurable = props.specimen.measurable?.id ? useForm(props.specimen.measur
     useForm({
         gender: '',
         gonads: '',
-        lt: '',
-        lc: '',
+        total_length: '',
+        tail_length: '',
         pt: '',
         o: '',
         ab: '',
@@ -51,14 +51,14 @@ function saveMeasures() {
                     placeholder='N/A' type="number" name="gonads" id="gonads">
             </div>
             <div class="form-group my-2 flex flex-col text-center">
-                <label for="lt">LT</label>
-                <input v-model="measurable.lt" class="min-w-full border-none rounded drop-shadow-sm " placeholder='N/A'
-                    type="number" name="lt" id="lt">
+                <label for="tail_length">LT</label>
+                <input v-model="measurable.total_length" class="min-w-full border-none rounded drop-shadow-sm " placeholder='N/A'
+                    type="number" name="tail_length" id="tail_length">
             </div>
             <div class="form-group my-2 flex flex-col text-center">
-                <label for="lc">LC</label>
-                <input v-model="measurable.lc" class="min-w-full border-none rounded drop-shadow-sm " placeholder='N/A'
-                    type="number" name="lc" id="lc">
+                <label for="tail_length">LC</label>
+                <input v-model="measurable.tail_length" class="min-w-full border-none rounded drop-shadow-sm " placeholder='N/A'
+                    type="number" name="tail_length" id="tail_length">
             </div>
             <div class="form-group my-2 flex flex-col text-center">
                 <label for="pt">PT</label>

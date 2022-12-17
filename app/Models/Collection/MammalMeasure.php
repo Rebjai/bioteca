@@ -11,11 +11,12 @@ class MammalMeasure extends Model
     use HasFactory;
 
     static $rules = [
-        'id' => ['required'],
+        // 'id' => ['required'],
+        'age' => ['integer'],
         'gender' => ['boolean'],
         'gonads' => ['nullable', 'numeric'],
-        'lt' => ['nullable', 'numeric'],
-        'lc' => ['nullable', 'numeric'],
+        'total_length' => ['nullable', 'numeric'],
+        'tail_length' => ['nullable', 'numeric'],
         'pt' => ['nullable', 'numeric'],
         'o' => ['nullable', 'numeric'],
         'ab' => ['nullable', 'numeric'],
@@ -25,7 +26,7 @@ class MammalMeasure extends Model
         'body' => ['nullable', 'boolean'],
         'observation' => ['nullable', 'string'],
     ];
-    protected $guarded = [];
+    protected $guarded = ['id'];
     protected $casts = [
         'gender' => 'boolean',
     ];

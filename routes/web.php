@@ -10,6 +10,9 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Species\SpeciesController;
+use App\Http\Controllers\Specimen\AmphibianController;
+use App\Http\Controllers\Specimen\BirdController;
+use App\Http\Controllers\Specimen\ReptileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,10 +57,14 @@ Route::middleware(['auth', 'verified'])->group(
     function () {
         Route::get('collection/{specimen}/tag', [TagController::class, 'show'])->name('collection.tag');
         Route::resource('collection', SpecimenController::class)->parameters(['collection' => 'specimen']);
-        Route::resource('mammal-measure', MammalMeasureController::class);
         Route::resource('user', UserController::class);
-        Route::resource('species', SpeciesController::class);
         Route::resource('collector', CollectorController::class);
+        Route::resource('species', SpeciesController::class);
+        //collections - measures
+        Route::resource('mammal-measure', MammalMeasureController::class);
+        Route::resource('bird', BirdController::class);
+        Route::resource('reptile', ReptileController::class);
+        Route::resource('amphibian', AmphibianController::class);
     }
 );
 // Route::resource('specimen', SpecimenController::class);

@@ -10,8 +10,8 @@ const measurable = props.specimen.measurable?.id ? useForm(props.specimen.measur
     useForm({
         gender: '',
         gonads: '',
-        lt: '',
-        lc: '',
+        total_length: '',
+        tail_length: '',
         pt: '',
         o: '',
         ab: '',
