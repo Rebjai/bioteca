@@ -7,6 +7,7 @@ console.log(props.specimen);
 console.log(props.specimen.measurable?.id);
 const measurable = props.specimen.measurable?.id ? useForm(props.specimen.measurable) :
     useForm({
+        age: '',
         gender: '',
         gonads: '',
         total_length: '',
@@ -37,6 +38,15 @@ function saveMeasures() {
         </div>
         <form action="" class="flex flex-col bg-zinc-300 rounded p-5 items-center content-between"
             @submit.prevent="saveMeasures()">
+            <div class="form-group my-2 flex flex-col text-center">
+                <label for="age">Edad</label>
+                <select name="age" id="age" v-model="measurable.age">
+                    <option value="">Selecciona una opción</option>
+                    <option :value="1">Adulto</option>
+                    <option :value="2">Sub-adulto</option>
+                    <option :value="3">juvenil</option>
+                </select>
+            </div>
             <div class="form-group my-2 flex flex-col text-center">
                 <label for="gender">Sexo</label>
                 <select name="gender" id="gender" v-model="measurable.gender">

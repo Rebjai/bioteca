@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Specimen;
 use App\Http\Controllers\Controller;
 use App\Models\Collection\MammalMeasure;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Enum;
 use Inertia\Inertia;
 
 class MammalMeasureController extends Controller
@@ -73,6 +74,7 @@ class MammalMeasureController extends Controller
     public function update(Request $request, MammalMeasure $mammalMeasure)
     {
         $data = $request->validate(MammalMeasure::$rules);
+        $request->validate(['age' => new Enum(SpecimenAge::class)]);
         // dd($mammalMeasure, $data);
         // dd($data);
         $mammalMeasure->update($data);
