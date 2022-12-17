@@ -29,7 +29,7 @@ class Location extends Model
     public function name(): Attribute
     {
         return new Attribute(
-            get: fn ($value, $attr) => strtoupper($value).', '.$this->municipality->name.', '.$this->municipality->state->name,
+            get: fn ($value, $attr) => $this->municipality->state->name.', '.$this->municipality->name.', '.$value,
             set: fn ($value) => $value,
         );
     }

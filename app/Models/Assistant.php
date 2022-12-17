@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Assistant extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'id'];
-    protected $appends = ['name', 'fullname'];
+    protected $fillable = ['user_id', 'id', 'name', 'first_surname', 'second_surname'];
+    protected $appends = [ 'fullname'];
 
     /**
      * Get the user that owns the Assistant
@@ -27,7 +27,7 @@ class Assistant extends Model
     public function name(): Attribute
     {
         return new Attribute(
-            get: fn ($value, $atrrs) => $value,
+            get: fn ($value) => $value,
             set: fn ($value) => $value,
         );
     }
