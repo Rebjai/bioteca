@@ -2,6 +2,7 @@
 
 namespace App\Models\Collection;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
@@ -15,7 +16,7 @@ class Bird extends Model
         'gender' => ['boolean'],
         'gonads' => ['nullable', 'numeric'],
         'total_length' => ['nullable', 'numeric'],
-        'tail_length' => ['nullable', 'numeric'],
+        'cv' => ['nullable', 'numeric'],
         'wingspan' => ['nullable', 'numeric'],
         'weight' => ['nullable', 'numeric'],
         'skull' => ['nullable', 'boolean'],
@@ -36,5 +37,21 @@ class Bird extends Model
     public function specimen(): MorphOne
     {
         return $this->morphOne(Specimen::class, 'measurable');
+    }
+
+    /**
+     * Get the measure text to print on the tag associated with the Bird
+     *
+     * @return Attribute
+     */
+    public function measureLabel(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => $this->total_length .
+                '-' . $this->$this->cv .
+                '-' . $this->wingspan .
+                '-' . $this->weight,
+            set: fn ($value) => $value,
+        );
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Specimen;
 use App\Http\Controllers\Controller;
 use App\Models\Collection\Reptile;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\Enum;
 
 class ReptileController extends Controller
 {
@@ -71,6 +72,8 @@ class ReptileController extends Controller
     public function update(Request $request, Reptile $reptile)
     {
         $data = $request->validate(Reptile::$rules);
+        $request->validate(['age' => new Enum(SpecimenAge::class)]);
+
         // dd($mammalMeasure, $data);
         // dd($data);
         $reptile->update($data);
