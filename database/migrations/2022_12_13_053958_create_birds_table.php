@@ -20,7 +20,8 @@ return new class extends Migration
                 $table->id();
                 $table->boolean('gender')->nullable();
                 $table->smallInteger('age')->nullable();
-                // $table->float('gonads')->nullable();
+                // $table->float('gonads_width')->nullable();
+                $table->float('gonads_height')->nullable();
                 $table->float('total_length')->nullable();
                 $table->float('cv')->nullable();
                 $table->float('wingspan')->nullable();

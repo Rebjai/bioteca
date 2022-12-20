@@ -21,7 +21,8 @@ class MammalMeasureFactory extends Factory
         return [
             'age' => fake()->randomElement(array_column(SpecimenAge::cases(), 'value')),
             'gender' => $gender,
-            'gonads' => $gender ? fake()->numberBetween(1, 100): null,
+            'gonads_width' => $gender ? fake()->numberBetween(1, 100) : null,
+            'gonads_height' => $gender ? fake()->numberBetween(1, 100) : null,
             'total_length' => fake()->numberBetween(1, 100),
             'tail_length' => fake()->numberBetween(1, 100),
             'pt' => fake()->numberBetween(1, 100),

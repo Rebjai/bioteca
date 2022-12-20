@@ -10,7 +10,8 @@ const measurable = props.specimen.measurable?.id ? useForm(props.specimen.measur
     useForm({
         age: '',
         gender: '',
-        gonads: '',
+        gonads_width: '',
+        gonads_height: '',
         total_length: '',
         tail_length: '',
         snout_vent_length: '',
@@ -54,10 +55,18 @@ function saveMeasures() {
                     <option :value="true">Macho</option>
                 </select>
             </div>
-            <div class="form-group my-2 flex flex-col text-center">
-                <label for="gonads">Medida de Gónadas (mm)</label>
-                <input v-model="measurable.gonads" class="min-w-full border-none rounded drop-shadow-sm "
-                    placeholder='N/A' type="number" name="gonads" id="gonads">
+            <div class="form-group my-2 flex flex-col text-center p-5">
+                <label class="font-bold" for="gonads">Medida de Gónadas (mm)</label>
+                <div class="form-group my-2 flex flex-col text-center">
+                    <label class="text-sm" for="gonads_height">Largo</label>
+                    <input v-model="measurable.gonads_height" class="min-w-full border-none rounded drop-shadow-sm "
+                        placeholder='N/A' type="number" name="gonads_height" id="gonads_height">
+                </div>
+                <div class="form-group my-2 flex flex-col text-center">
+                    <label class="text-sm" for="gonads_width">Ancho</label>
+                    <input v-model="measurable.gonads_width" class="min-w-full border-none rounded drop-shadow-sm "
+                        placeholder='N/A' type="number" name="gonads_width" id="gonads_width">
+                </div>
             </div>
             <div class="form-group my-2 flex flex-col text-center">
                 <label for="total_length">LT</label>

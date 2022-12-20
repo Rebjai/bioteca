@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Specimen;
 
 use App\Http\Controllers\Controller;
 use App\Models\Collection\Reptile;
+use App\Models\Utils\SpecimenAge;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Enum;
 
