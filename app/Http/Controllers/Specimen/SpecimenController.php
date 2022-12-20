@@ -10,6 +10,7 @@ use App\Models\Collection\MammalMeasure;
 use App\Models\Collection\Reptile;
 use App\Models\Collection\Specimen;
 use DateTime;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -20,14 +21,81 @@ class SpecimenController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $title = 'Colección';
+        $collection_types = [Amphibian::class, Bird::class, MammalMeasure::class, Reptile::class];
+        $data = $request->validate(
+            [
+                'collection_type' => ['nullable', 'integer', 'max:' . count($collection_types)],
+                'collection_date1' => ['nullable', 'dateFormat:d/m/Y'],
+                'collection_date2' => ['nullable', 'dateFormat:d/m/Y'],
+                'collector' => ['nullable'],
+                'collector.id' => ['nullable', 'required_with:collector'],
+                'assistant' => ['nullable'],
+                'assistant.id' => ['nullable', 'required_with:assistant', 'integer'],
+                'species' => ['nullable'],
+                'species.id' => ['nullable', 'required_with:species', 'integer'],
+            ]
+        );
+
+        $assistant_id = $request->filled('assistant.id') ? $request->input('assistant.id') : false;
+        $collector_id = $request->filled('collector.id') ? $request->input('collector.id') : false;
+        $collection_date1 = $request->filled('collection_date1') ? $request->date('collection_date1', 'd/m/Y') : false;
+        $collection_date2 = $request->filled('collection_date2') ? $request->date('collection_date2', 'd/m/Y') : false;
+        $species = $request->species;
+        $collector = $request->collector;
+        $assistant = $request->assistant;
+        // dd(
+        //     $assistant_id,
+        //     $collector_id,
+        //     $collection_date1,
+        //     $collection_date2,
+        // );
         // $specimens = Specimen::with(['species','measurable', 'location'])->get();
+        // dd(!$request->filled('collection_type')?:'a');
+        $collection_type = $request->filled('collection_type') ? $collection_types[$request->collection_type - 1] : false;
         $specimens = Specimen::with(
             ['species', 'location']
-        )->latest()
+        );
+        // dd(
+
+        // );
+        // dd($request->isNotFilled('collection_type'));
+        $specimens->when(
+            $collection_type,
+            function (Builder $q, string $collection_type) {
+                return $q->where('measurable_type', $collection_type);
+            }
+        );
+        $specimens->when(
+            $collection_date1,
+            function (Builder $q, string $collection_date1) {
+                return $q->where('collection_date', '>', $collection_date1);
+            }
+        );
+        $specimens->when(
+            $collection_date2,
+            function (Builder $q, string $collection_date2) {
+                return $q->where('collection_date', '<', $collection_date2);
+            }
+        );
+        $specimens->when(
+            $collector_id,
+            function (Builder $q, string $collector_id) {
+                return $q->where('collector_id', $collector_id);
+            }
+        );
+        $specimens->when(
+            $assistant_id,
+            function (Builder $q, string $assistant_id) {
+                return $q->where('assistant_id', $assistant_id);
+            }
+        );
+        $specimens = $specimens
+            ->latest('collection_date')
             ->paginate(5)
+            ->withQueryString()
             ->through(
                 function ($item) {
                     // dd($item)
@@ -41,9 +109,20 @@ class SpecimenController extends Controller
                     ];
                 }
             );
+        $collection_type = $collection_type ?: '';
+        $collection_date1 = $collection_date1 ? $collection_date1->format('d/m/Y') : null;
+        $collection_date2 = $collection_date2 ? $collection_date2->format('d/m/Y') : null;
+        $search_params = compact(
+            'collection_type',
+            'collection_date1',
+            'collection_date2',
+            'collector',
+            'assistant',
+            'species',
+        );
         // ;
         // $specimens = Specimen::with(['species', 'location'])->get();
-        return Inertia::render('collection/index', compact('title', 'specimens'));
+        return Inertia::render('collection/index', compact('title', 'specimens', 'search_params'));
     }
 
     /**

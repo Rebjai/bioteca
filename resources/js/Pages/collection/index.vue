@@ -2,15 +2,17 @@
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import BioModal from '@/Components/BioModal.vue';
+import SpecimenSearch from '@/Components/forms/specimen/SpecimenSearch.vue';
 import SpecimenForm from '@/Components/forms/specimen/SpecimenForm.vue';
 import { ref } from '@vue/reactivity';
 import Pagination from '@/Components/Pagination.vue';
 
 const showModal = ref()
-const props = defineProps({specimens:{}})
-const specimens = props.specimens ? props.specimens:[]
+defineProps({ specimens: {} , search_params: {}})
+// const props = defineProps({ specimens: {} })
+// const specimens = props.specimens ? props.specimens : []
 
-console.log({specimens});
+// console.log({ specimens });
 function addSpecimen(evt) {
     console.log(showModal.value = true);
     console.log(showModal);
@@ -29,7 +31,13 @@ function addSpecimen(evt) {
 
 
         <div class="py-12">
+            
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white mb-5 p-6 overflow-hidden shadow-sm sm:rounded flex flex-col justify-center items-center">
+                <!-- <div class="md:mx-5  bg-zinc-200 border-b overflow-x-auto border-gray-200 rounded-lg"> -->
+                    <SpecimenSearch :search_params="search_params"/>
+                <!-- </div> -->
+            </div>
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded flex flex-col justify-center items-center">
                     <primary-button class="m-5 max-w-sm" @click="addSpecimen">
                         Añadir nuevo
@@ -49,13 +57,14 @@ function addSpecimen(evt) {
                             </thead>
                             <tbody v-if="specimens.data.length">
                                 <tr v-for="specimen in specimens.data" :key="specimen.id">
-                                    <td class="px-3">{{specimen.id}}</td>
-                                    <td class="px-3">{{specimen.collection_name}}</td>
-                                    <td class="px-3">{{specimen.collection_date}}</td>
-                                    <td class="px-3">{{specimen.species.scientific_name}}</td>
-                                    <td class="px-3">{{specimen.location.name}}</td>
+                                    <td class="px-3">{{ specimen.id }}</td>
+                                    <td class="px-3">{{ specimen.collection_name }}</td>
+                                    <td class="px-3">{{ specimen.collection_date }}</td>
+                                    <td class="px-3">{{ specimen.species.scientific_name }}</td>
+                                    <td class="px-3">{{ specimen.location.name }}</td>
                                     <td class="flex flex-col  text-center items-center justify-center">
-                                        <Link :href="route('collection.tag', specimen.id)" class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
+                                        <Link :href="route('collection.tag', specimen.id)"
+                                            class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
                                         <button>
                                             <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -69,7 +78,8 @@ function addSpecimen(evt) {
                                             </div>
                                         </button>
                                         </Link>
-                                        <Link :href="route('collection.edit', specimen.id)" class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
+                                        <Link :href="route('collection.edit', specimen.id)"
+                                            class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
                                         <button>
                                             <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -82,7 +92,8 @@ function addSpecimen(evt) {
 
                                         </button>
                                         </Link>
-                                        <Link :href="route('collection.destroy', specimen.id)" class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
+                                        <Link :href="route('collection.destroy', specimen.id)"
+                                            class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
                                         <button>
                                             <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
