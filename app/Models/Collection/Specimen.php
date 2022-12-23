@@ -32,7 +32,7 @@ class Specimen extends Model
     protected $casts = [
         'created_at' => 'datetime:d/m/Y',
         'updated_at' => 'datetime:d/m/Y',
-        'collection_date' => 'datetime:d/m/Y',
+        'collection_date' => 'date:d/m/Y',
     ];
 
     protected $appends=['collection_name'];
@@ -121,7 +121,7 @@ class Specimen extends Model
     public function collectionDate(): Attribute
     {
         return new Attribute(
-            get: fn ($value) => (new Carbon($value))->format('d/m/y'),
+            get: fn ($value) => (new Carbon($value))->format('d/m/Y'),
             set: fn ($value) => Carbon::createFromFormat('d/m/Y', $value),
         );
     }
