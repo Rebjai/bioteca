@@ -1,5 +1,6 @@
 <script setup>
 import { useForm } from '@inertiajs/inertia-vue3';
+import {handleErrorMessages, handleSuccessMessages} from '@/Utils/toastMessages';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 PrimaryButton
 
@@ -12,10 +13,10 @@ const collector = props.collector ? useForm(props.collector) : useForm({
 })
 function saveUser() {
     if (collector.id) {
-        return collector.put(route('collector.update', collector.id))
+        return collector.put(route('collector.update', collector.id), {onError: handleErrorMessages, onSuccess: handleSuccessMessages})
 
     }
-    collector.post(route('collector.store'))
+    collector.post(route('collector.store'), {onError: handleErrorMessages, onSuccess: handleSuccessMessages})
 }
 </script>
 <template>

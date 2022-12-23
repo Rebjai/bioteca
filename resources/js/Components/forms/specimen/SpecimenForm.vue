@@ -39,6 +39,7 @@ onMounted(() => {
             dateFormat: "d/m/Y",
             locale: Spanish,
             allowInput: true,
+            defaultDate: specimen.collection_date
         });
 })
 

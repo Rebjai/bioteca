@@ -1,4 +1,6 @@
 <script setup>
+import { useForm } from '@inertiajs/inertia-vue3';
+import handleErrorMessages, { handleSuccessMessages } from '@/Utils/toastMessages';
 import SpecimenForm from '@/Components/forms/specimen/SpecimenForm.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue'
 import BackButton from '@/Components/BackButton.vue'
@@ -23,7 +25,10 @@ const measurable = props.specimen.measurable?.id ? useForm(props.specimen.measur
     })
 function saveMeasures() {
 
-    measurable.put(route('reptile.update', measurable.id));
+    measurable.put(route('reptile.update', measurable.id),{
+        onError: handleErrorMessages,
+        onSuccess: handleSuccessMessages,
+    });
 }
 
 </script>
@@ -124,7 +129,7 @@ function saveMeasures() {
 
 <script>
 import Layout from '@/Layouts/AuthenticatedLayout.vue';
-import { useForm } from '@inertiajs/inertia-vue3';
+
 
 
 export default {

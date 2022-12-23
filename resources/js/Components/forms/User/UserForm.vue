@@ -1,7 +1,7 @@
 <script setup>
 import { useForm } from '@inertiajs/inertia-vue3';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-PrimaryButton
+import handleErrorMessages, { handleSuccessMessages } from '@/Utils/toastMessages';
 
 const props = defineProps({ user: Object })
 const user = props.user ? useForm(props.user) : useForm({
@@ -12,10 +12,10 @@ const user = props.user ? useForm(props.user) : useForm({
 })
 function saveUser() {
 if (user.id) {
-    return user.put(route('user.update', user.id))
+    return user.put(route('user.update', user.id),{onError: handleErrorMessages, onSuccess: handleSuccessMessages})
     
 }
-user.post(route('user.store'))
+user.post(route('user.store'), {onError: handleErrorMessages, onSuccess: handleSuccessMessages})
 }
 </script>
 <template>

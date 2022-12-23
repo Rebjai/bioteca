@@ -1,4 +1,5 @@
 <script setup>
+import handleErrorMessages, { handleSuccessMessages } from '@/Utils/toastMessages';
 import SpecimenForm from '@/Components/forms/specimen/SpecimenForm.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue'
 import BackButton from '@/Components/BackButton.vue'
@@ -24,7 +25,10 @@ const measurable = props.specimen.measurable?.id ? useForm(props.specimen.measur
     })
 function saveMeasures() {
 
-    measurable.put(route('mammal-measure.update', measurable.id));
+    measurable.put(route('mammal-measure.update', measurable.id), {
+        onError: handleErrorMessages,
+        onSuccess: handleSuccessMessages
+    });
 }
 
 </script>

@@ -9,6 +9,7 @@ import DangerButton from '@/Components/DangerButton.vue'
 import { Multiselect } from 'vue-multiselect';
 import axios from 'axios';
 import { useToast } from 'vue-toastification'
+import handleErrorMessages, { handleSuccessMessages } from '@/Utils/toastMessages'
 const toast = useToast()
 const collectionDate1 = ref(null)
 const collectionDate2 = ref(null)
@@ -48,8 +49,8 @@ async function searchCollections(e) {
     specimenSearch.get(route('collection.index'), {
         preserveScroll: true,
         preserveState: true,
-
-        onError: (err) => Object.values(err).forEach(e => toast.error(e))
+        onError: handleErrorMessages,
+        onSuccess: handleSuccessMessages
     })
 }
 async function searchAssistants(search, loading) {

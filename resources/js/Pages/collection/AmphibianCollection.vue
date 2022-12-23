@@ -23,7 +23,10 @@ const measurable = props.specimen.measurable?.id ? useForm(props.specimen.measur
     })
 function saveMeasures() {
 
-    measurable.put(route('amphibian.update', measurable.id));
+    measurable.put(route('amphibian.update', measurable.id), {
+        onError: handleErrorMessages,
+        onSuccess: handleSuccessMessages,
+    });
 }
 
 </script>
@@ -125,6 +128,7 @@ function saveMeasures() {
 <script>
 import Layout from '@/Layouts/AuthenticatedLayout.vue';
 import { useForm } from '@inertiajs/inertia-vue3';
+import handleErrorMessages, { handleSuccessMessages } from '@/Utils/toastMessages';
 
 
 export default {
