@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\CollectorController;
 use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\Specimen\MammalMeasureController;
+use App\Http\Controllers\Specimen\MammalController;
 use App\Http\Controllers\Specimen\SpecimenController;
 use App\Http\Controllers\Tags\TagController;
 use App\Http\Controllers\UserController;
@@ -61,7 +61,7 @@ Route::middleware(['auth', 'verified'])->group(
         Route::resource('collector', CollectorController::class);
         Route::resource('species', SpeciesController::class);
         //collections - measures
-        Route::resource('mammal-measure', MammalMeasureController::class);
+        Route::resource('mammal-measure', MammalController::class);
         Route::resource('bird', BirdController::class);
         Route::resource('reptile', ReptileController::class);
         Route::resource('amphibian', AmphibianController::class);

@@ -75,7 +75,7 @@ class ReptileController extends Controller
         $data = $request->validate(Reptile::$rules);
         $request->validate(['age' => new Enum(SpecimenAge::class)]);
 
-        // dd($mammalMeasure, $data);
+        // dd($Mammal, $data);
         // dd($data);
         $reptile->update($data);
         $reptile->refresh();

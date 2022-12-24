@@ -148,7 +148,7 @@ function drawRectangularText(ctx, ctx2, rectWidth, rectHeight) {
     ctx2.textAlign = 'left'
     // ctx2.fillText(props.specimen.location.name, ctx.canvas.width / 2 - rectWidth / 2 + rectWidth * .22, ctx.canvas.height / 2 - rectHeight / 2 + (rectHeight * .5))
     wrapText(ctx2, props.specimen.location.name, ctx.canvas.width / 2 - rectWidth / 2 + rectWidth * .22, ctx.canvas.height / 2 - rectHeight / 2 + (rectHeight * .5), rectWidth - rectWidth * .25, 12)
-    ctx2.fillText(`${props.specimen.measurable.measures} `, ctx.canvas.width / 2 - rectWidth / 2 + rectWidth * .25, ctx.canvas.height / 2 - rectHeight / 2 + (rectHeight * .8))
+    ctx2.fillText(`${props.specimen.measurable.measures} `, ctx.canvas.width / 2 - rectWidth / 2 + rectWidth * .22, ctx.canvas.height / 2 - rectHeight / 2 + (rectHeight * .8))
 
 }
 
@@ -207,7 +207,7 @@ function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
         }
     }
     lineArray.forEach(function (item) {
-        ctx.fillText(item[0], item[1], item[2]-(lineHeight*.5 * (lineArray.length-1)));
+        ctx.fillText(item[0], item[1], item[2]-(lineHeight*.1 * (lineArray.length-1)));
     })
     return lineArray;
 }

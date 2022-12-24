@@ -31,7 +31,7 @@ class Reptile extends Model
     ];
 
     /**
-     * Get the specimen associated with the MammalMeasure
+     * Get the specimen associated with the Mammal
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */

@@ -3,7 +3,7 @@
 namespace Database\Seeders\Specimen;
 
 use App\Models\Catalogs\BioClass;
-use App\Models\Collection\MammalMeasure;
+use App\Models\Collection\Mammal;
 use App\Models\Collection\Specimen;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -19,7 +19,7 @@ class SpecimenSeeder extends Seeder
     public function run()
     {
         $measurables = [
-            MammalMeasure::class,
+            Mammal::class,
             // A::class,
         ];
         // dd('a');

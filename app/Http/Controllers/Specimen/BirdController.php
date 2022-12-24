@@ -73,7 +73,7 @@ class BirdController extends Controller
     {
         $data = $request->validate(Bird::$rules);
         $request->validate(['age' => new Enum(SpecimenAge::class)]);
-        // dd($mammalMeasure, $data);
+        // dd($Mammal, $data);
         // dd($data);
         $bird->update($data);
         $bird->refresh();

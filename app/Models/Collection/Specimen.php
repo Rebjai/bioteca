@@ -65,7 +65,7 @@ class Specimen extends Model
 
     public function getColectionName($str)
     {
-        if ($str == MammalMeasure::class) {
+        if ($str == Mammal::class) {
             return 'Mamíferos';
         }
         if ($str == Reptile::class) {

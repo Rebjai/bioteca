@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
-class MammalMeasure extends Model
+class Mammal extends Model
 {
     use HasFactory;
 
@@ -35,7 +35,7 @@ class MammalMeasure extends Model
 
     
     /**
-     * Get the specimen associated with the MammalMeasure
+     * Get the specimen associated with the Mammal
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */

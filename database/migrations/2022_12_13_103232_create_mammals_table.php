@@ -15,7 +15,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create(
-            'mammal_measures',
+            'mammals',
             function (Blueprint $table) {
                 $table->id();
                 $table->boolean('gender')->nullable();

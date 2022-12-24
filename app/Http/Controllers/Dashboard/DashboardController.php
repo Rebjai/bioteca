@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Collection\Amphibian;
 use App\Models\Collection\Bird;
-use App\Models\Collection\MammalMeasure;
+use App\Models\Collection\Mammal;
 use App\Models\Collection\Reptile;
 use App\Models\Collection\Specimen;
 use DateTime;
@@ -22,7 +22,7 @@ class DashboardController extends Controller
         $title = 'Dashboard';
         $latest = Specimen::select(['created_at', 'updated_at', 'collection_date', 'id', 'measurable_type', 'measurable_id'])->latest()->limit(5)->get();
         $count = Specimen::count();
-        $mammal_count = MammalMeasure::count();
+        $mammal_count = Mammal::count();
         $amphibian_count = Amphibian::count();
         $bird_count = Bird::count();
         $reptile_count = Reptile::count();

@@ -8,7 +8,7 @@ use App\Models\Catalogs\BioPhylum;
 use App\Models\Catalogs\BioSpecies;
 use App\Models\Collection\Amphibian;
 use App\Models\Collection\Bird;
-use App\Models\Collection\MammalMeasure;
+use App\Models\Collection\Mammal;
 use App\Models\Collection\Reptile;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -26,7 +26,7 @@ class SpecimenFactory extends Factory
     public function definition()
     {
         $measurables = [
-            MammalMeasure::class,
+            Mammal::class,
             // A::class,
         ];
         $creationDate = fake()->dateTimeBetween('-1 years');
@@ -65,8 +65,8 @@ class SpecimenFactory extends Factory
      */
     private function getScientificName(string $str)
     {
-        // dd(MammalMeasure::class, $str, $str == MammalMeasure::class);
-        if ($str == MammalMeasure::class) {
+        // dd(Mammal::class, $str, $str == Mammal::class);
+        if ($str == Mammal::class) {
             return "Mammalia";
         }
         if ($str == Reptile::class) {
@@ -91,7 +91,7 @@ class SpecimenFactory extends Factory
     {
         return $this->faker->randomElement(
             [
-                MammalMeasure::class,
+                Mammal::class,
                 Bird::class,
                 Amphibian::class,
                 Reptile::class,

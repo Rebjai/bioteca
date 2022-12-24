@@ -74,7 +74,7 @@ class AmphibianController extends Controller
     {
         $data = $request->validate(Amphibian::$rules);
         $request->validate(['age' => new Enum(SpecimenAge::class)]);
-        // dd($mammalMeasure, $data);
+        // dd($Mammal, $data);
         // dd($data);
         $amphibian->update($data);
         $amphibian->refresh();

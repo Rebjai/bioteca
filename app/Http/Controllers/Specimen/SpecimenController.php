@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Catalogs\BioSpecies;
 use App\Models\Collection\Amphibian;
 use App\Models\Collection\Bird;
-use App\Models\Collection\MammalMeasure;
+use App\Models\Collection\Mammal;
 use App\Models\Collection\Reptile;
 use App\Models\Collection\Specimen;
 use DateTime;
@@ -24,7 +24,7 @@ class SpecimenController extends Controller
     public function index(Request $request)
     {
         $title = 'Colección';
-        $collection_types = [Amphibian::class, Bird::class, MammalMeasure::class, Reptile::class];
+        $collection_types = [Amphibian::class, Bird::class, Mammal::class, Reptile::class];
         $data = $request->validate(
             [
                 'collection_type' => ['nullable', 'integer', 'max:' . count($collection_types)],
@@ -149,7 +149,7 @@ class SpecimenController extends Controller
         $newSpecimenClass = $species->genus->family->order->class->scientific_name;
 
         if ($newSpecimenClass == 'Mammalia') {
-            $mammal = MammalMeasure::create();
+            $mammal = Mammal::create();
             $mammal->specimen()->save($specimen);
             $mammal->specimen_id = $specimen->id;
             $mammal->save();
@@ -208,7 +208,7 @@ class SpecimenController extends Controller
         // dd($specimen);
         // dd('aaa');
         $specimen->load(['measurable', 'species', 'location', 'assistant', 'collector']);
-        if ($specimen->measurable_type == MammalMeasure::class) {
+        if ($specimen->measurable_type == Mammal::class) {
             return Inertia::render('collection/MammalCollection', compact('specimen'));
         }
         if ($specimen->measurable_type == Bird::class) {

@@ -19,7 +19,7 @@ function addSpecimen(evt) {
 }
 
 function parseCollectionType(type) {
-    if (type === 'App\\Models\\Specimen\\MammalMeasure') {
+    if (type === 'App\\Models\\Specimen\\Mammal') {
         return 'Mamíferos'
     }
     
