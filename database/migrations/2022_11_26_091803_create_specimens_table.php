@@ -22,11 +22,6 @@ return new class extends Migration
                 $table->date('collection_date');
                 $table->foreignIdFor(BioSpecies::class, 'species_id');
                 $table->foreignIdFor(Location::class);
-                // $table->foreignIdFor(User::class, 'assistant_id');
-                // $table->foreignIdFor(User::class, 'curator_id');
-                // $table->foreignIdFor(User::class, '');
-                // $table->string('assistant_id');
-                // $table->string('collector');
                 $table->double('latitude');
                 $table->double('longitude');
                 $table->double('altitude');

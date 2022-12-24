@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use Database\Seeders\Specimen\SpecimenSeeder;
+use Database\Seeders\Specimen\CollectionSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -51,6 +51,6 @@ class DatabaseSeeder extends Seeder
             ]
         );
         // specimen seeder
-        $this->call(SpecimenSeeder::class);
+        $this->call(CollectionSeeder::class);
     }
 }

@@ -23,7 +23,6 @@ class Specimen extends Model
         'latitude' => ['required'],
         'longitude' => ['required'],
         'altitude' => ['required'],
-        // 'collector' => ['required'],
         'collector_id' => ['required', 'integer'],
         'assistant_id' => ['required', 'integer'],
     ];
