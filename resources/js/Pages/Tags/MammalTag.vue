@@ -24,7 +24,7 @@ const measurable = props.specimen.measurable?.id ? useForm(props.specimen.measur
     })
 function saveMeasures() {
 
-    measurable.put(route('mammal-measure.update', measurable.id));
+    measurable.put(route('mammal.update', measurable.id));
 }
 
 </script>

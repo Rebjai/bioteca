@@ -61,7 +61,7 @@ Route::middleware(['auth', 'verified'])->group(
         Route::resource('collector', CollectorController::class);
         Route::resource('species', SpeciesController::class);
         //collections - measures
-        Route::resource('mammal-measure', MammalController::class);
+        Route::resource('mammal', MammalController::class);
         Route::resource('bird', BirdController::class);
         Route::resource('reptile', ReptileController::class);
         Route::resource('amphibian', AmphibianController::class);
