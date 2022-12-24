@@ -61,7 +61,7 @@ class MammalMeasureController extends Controller
     public function edit(MammalMeasure $mammalMeasure)
     {
         $measures = $mammalMeasure;
-        return Inertia::render('collection/SpecimenMeasurements', compact('measures'));
+        return Inertia::render('collection/MammalCollection', compact('measures'));
     }
     
     /**

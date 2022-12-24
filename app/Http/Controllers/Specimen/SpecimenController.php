@@ -193,7 +193,7 @@ class SpecimenController extends Controller
     {
         // dd($specimen);
         $specimen->load('measurable');
-        return Inertia::render('collection/SpecimenMeasurements', compact('specimen'));
+        return Inertia::render('collection/MammalCollection', compact('specimen'));
     }
 
     /**
@@ -209,7 +209,7 @@ class SpecimenController extends Controller
         // dd('aaa');
         $specimen->load(['measurable', 'species', 'location', 'assistant', 'collector']);
         if ($specimen->measurable_type == MammalMeasure::class) {
-            return Inertia::render('collection/SpecimenMeasurements', compact('specimen'));
+            return Inertia::render('collection/MammalCollection', compact('specimen'));
         }
         if ($specimen->measurable_type == Bird::class) {
             return Inertia::render('collection/BirdCollection', compact('specimen'));
