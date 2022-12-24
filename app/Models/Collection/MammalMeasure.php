@@ -2,6 +2,7 @@
 
 namespace App\Models\Collection;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
@@ -41,5 +42,18 @@ class MammalMeasure extends Model
     public function specimen(): MorphOne
     {
         return $this->morphOne(Specimen::class, 'measurable');
+    }
+
+    /**
+     * Get the measures for the model
+     */
+    public function measures(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => $this->total_length.'-'.$this->tail_length.'-'.
+            $this->sount_vent.'-'. $this->weight . '-'. $this->pt.
+            '-'. $this->o.'-'.$this->ab. '-'. $this->weight,
+            set: fn ($value) => $value,
+        );
     }
 }

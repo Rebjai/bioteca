@@ -14,8 +14,9 @@ class TagController extends Controller
      */
     public function show(Specimen $specimen)
     {
-
         $specimen->load(['measurable', 'location', 'species', 'assistant']);
+        // dd('aaaa');
+        $specimen->measurable->append('measures');
         # code...
         return Inertia::render('Tags/MammalTag', compact('specimen'));
     }

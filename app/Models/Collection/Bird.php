@@ -45,11 +45,11 @@ class Bird extends Model
      *
      * @return Attribute
      */
-    public function measureLabel(): Attribute
+    public function measures(): Attribute
     {
         return new Attribute(
             get: fn ($value) => $this->total_length .
-                '-' . $this->$this->cv .
+                '-' . $this->cv .
                 '-' . $this->wingspan .
                 '-' . $this->weight,
             set: fn ($value) => $value,
