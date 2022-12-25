@@ -2,7 +2,7 @@
 
 namespace App\Models\Collection;
 
-use App\Models\Assistant;
+use App\Models\Catalogs\Assistant;
 use App\Models\Catalogs\BioSpecies;
 use App\Models\Catalogs\Collector;
 use App\Models\Location\Location;

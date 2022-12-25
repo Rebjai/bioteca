@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Assistant;
+use App\Models\Catalogs\Assistant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
 // use Illuminate\Support\Facades\Response;
 
-class AssistantController extends Controller
+class ApiAssistantController extends Controller
 {
 
     /**
@@ -74,7 +74,7 @@ class AssistantController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Assistant  $assistant
+     * @param  \App\Models\Catalogs\Assistant  $assistant
      * @return \Illuminate\Http\Response
      */
     public function show(Assistant $assistant)
@@ -86,7 +86,7 @@ class AssistantController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Assistant  $assistant
+     * @param  \App\Models\Catalogs\Assistant  $assistant
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Assistant $assistant)
@@ -97,7 +97,7 @@ class AssistantController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Assistant  $assistant
+     * @param  \App\Models\Catalogs\Assistant  $assistant
      * @return \Illuminate\Http\Response
      */
     public function destroy(Assistant $assistant)

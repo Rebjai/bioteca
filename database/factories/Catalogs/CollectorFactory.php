@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Assistant>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Catalogs\Assistant>
  */
 class CollectorFactory extends Factory
 {

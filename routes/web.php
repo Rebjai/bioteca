@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssistantController;
 use App\Http\Controllers\CollectorController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Specimen\MammalController;
@@ -59,6 +60,7 @@ Route::middleware(['auth', 'verified'])->group(
         Route::resource('collection', SpecimenController::class)->parameters(['collection' => 'specimen']);
         Route::resource('user', UserController::class);
         Route::resource('collector', CollectorController::class);
+        Route::resource('assistant', AssistantController::class);
         Route::resource('species', SpeciesController::class);
         //collections - measures
         Route::resource('mammal', MammalController::class);

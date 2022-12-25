@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Assistant;
+use App\Models\Catalogs\Assistant;
 use App\Models\Catalogs\Collector;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;

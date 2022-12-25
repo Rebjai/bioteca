@@ -45,6 +45,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mammal_measures');
+        Schema::dropIfExists('mammals');
     }
 };

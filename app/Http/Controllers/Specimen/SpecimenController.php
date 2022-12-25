@@ -46,22 +46,10 @@ class SpecimenController extends Controller
         $species = $request->species;
         $collector = $request->collector;
         $assistant = $request->assistant;
-        // dd(
-        //     $assistant_id,
-        //     $collector_id,
-        //     $collection_date1,
-        //     $collection_date2,
-        // );
-        // $specimens = Specimen::with(['species','measurable', 'location'])->get();
-        // dd(!$request->filled('collection_type')?:'a');
         $collection_type = $request->filled('collection_type') ? $collection_types[$request->collection_type - 1] : false;
         $specimens = Specimen::with(
             ['species', 'location']
         );
-        // dd(
-
-        // );
-        // dd($request->isNotFilled('collection_type'));
         $specimens->when(
             $collection_type,
             function (Builder $q, string $collection_type) {

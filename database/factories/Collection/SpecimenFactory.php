@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Collection;
 
-use App\Models\Assistant;
+use App\Models\Catalogs\Assistant;
 use App\Models\Catalogs\BioClass;
 use App\Models\Catalogs\BioPhylum;
 use App\Models\Catalogs\BioSpecies;
