@@ -30,11 +30,6 @@ class BioClass extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-
-     public function biospecies(): MorphOne
-    {
-        return $this->morphOne(BioSpecies::class, 'bio_gender_id');
-    }
     public function bioPhylum(): BelongsTo
     {
         return $this->belongsTo(BioPhylum::class);

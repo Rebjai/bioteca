@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Species;
+
 use App\Http\Controllers\Controller;
 use App\Models\Catalogs\BioSpecies;
 
@@ -25,51 +26,29 @@ class SpeciesController extends Controller
             ->paginate(5)
             ->through(
                 function ($item) {
-        
+
                     return [
                         'id' => $item->id,
                         'common_name' => $item->common_name,
                         'status' => $item->status,
                         'scientific_name' => $item->scientific_name,
                         'bio_gender_id' => $item->bio_gender_id,
-                  
+
                     ];
                 }
             );
-            return Inertia::render('Species/index', compact('title', 'BioSpecies'));
+        return Inertia::render('Species/index', compact('title', 'BioSpecies'));
+    }
 
-        }
 
-        public function show(BioSpecies $BioSpecies)
-        {
-            return Inertia::render('Species/Edit', compact('BioSpecies'));
-        }  
-
-        public function update(Request $request, BioSpecies $species)
-        {
-            $data = $request->validate(BioSpecies::$rules);
-            $species->update($data);
-    
-            return redirect(route('species.index'), 303);
-            
-        }
-
-        public function store(Request $request)
-        {
-            $data = $request->validate(BioSpecies::$rules);
-            $BioSpecies = BioSpecies::create($data);
-            return redirect(route('species.edit', $BioSpecies->id));
-        }
-
-        public function edit(BioSpecies $species)
-        {
-            $BioSpecies=$species;
+    public function edit(BioSpecies $species)
+    {
+        $BioSpecies = $species;
         //    dd($BioSpecies);
-            return Inertia::render('Species/Edit', compact('BioSpecies'));
-            
-        }
+        return Inertia::render('Species/Edit', compact('BioSpecies'));
+    }
 
-  
+
 
     /**
      * Store a newly created resource in storage.
@@ -77,7 +56,13 @@ class SpeciesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-   
+    public function store(Request $request)
+    {
+        $data = $request->validate(BioSpecies::$rules);
+        $BioSpecies = BioSpecies::create($data);
+        return redirect(route('species.edit', $BioSpecies->id));
+    }
+
 
     /**
      * Display the specified resource.
@@ -85,7 +70,10 @@ class SpeciesController extends Controller
      * @param  \App\Models\Catalogs\BioSpecies  $bioSpecies
      * @return \Illuminate\Http\Response
      */
-            
+    public function show(BioSpecies $BioSpecies)
+    {
+        return Inertia::render('Species/Edit', compact('BioSpecies'));
+    }
 
 
     /**
@@ -94,7 +82,20 @@ class SpeciesController extends Controller
      * @param  \App\Models\Catalogs\BioSpecies  $bioSpecies
      * @return \Illuminate\Http\Response
      */
-  
+    public function update(Request $request, BioSpecies $species)
+    {
+        $data = $request->validate(BioSpecies::$rules);
+        $species->update($data);
+
+        return redirect(route('species.index'), 303);
+    }
+
+    /**
+     * Delete the specified resource.
+     *
+     * @param  \App\Models\Catalogs\BioSpecies  $bioSpecies
+     * @return \Illuminate\Http\Response
+     */
     public function destroy(BioSpecies $bioSpecies)
     {
         //
