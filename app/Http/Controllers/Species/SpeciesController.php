@@ -44,6 +44,7 @@ class SpeciesController extends Controller
     public function edit(BioSpecies $species)
     {
         $BioSpecies = $species;
+        $BioSpecies->load('genus'); //load model relation with upper taxonomical category
         //    dd($BioSpecies);
         return Inertia::render('Species/Edit', compact('BioSpecies'));
     }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ApiAssistantController;
 use App\Http\Controllers\Api\ApiCollectorController;
+use App\Http\Controllers\Api\ApiGenusController;
 use App\Http\Controllers\Api\AssistantController;
 use App\Http\Controllers\Api\speciesAPIController;
 use App\Http\Controllers\Api\LocationController;
@@ -36,6 +37,8 @@ Route::middleware('throttle:search')->group(
         Route::get('locations/search', [LocationController::class, 'search']);
         Route::get('assistants/search', [ApiAssistantController::class, 'search']);
         Route::get('collectors/search', [ApiCollectorController::class, 'search']);
+        // add route to api controller and specify method to use (index)
+        Route::get('genus/search', [ApiGenusController::class, 'index']);
 
 
     }

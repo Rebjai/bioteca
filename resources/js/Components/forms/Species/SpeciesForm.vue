@@ -9,10 +9,11 @@ import flatpickr from "flatpickr";
 import { Spanish } from "flatpickr/dist/l10n/es";
 import { onMounted } from '@vue/runtime-core';
 import handleErrorMessages, { handleSuccessMessages } from '@/Utils/toastMessages';
-
+import { Multiselect } from 'vue-multiselect';
 
 const toast = useToast()
  const props = defineProps({ biospecies: Object })
+ const genusOptions = ref ([])
 
     const biospecies = useForm(props.biospecies ? props.biospecies :
         {
@@ -34,8 +35,16 @@ biospecies.post(route('species.store'), {onError: handleErrorMessages, onSuccess
 
 }
 
+function selectGenus(option, id) {
+    biospecies.bio_gender_id = option.id
+}
+async function searchGenus(search, id) {
+    console.log({ search });
+    const res = await axios.get('/api/genus/search', { params: { name: search } })
+    genusOptions.value = res.data.length ? res.data[0] : []
+}
 
-   
+   searchGenus();
     
     </script>
             
@@ -55,9 +64,14 @@ biospecies.post(route('species.store'), {onError: handleErrorMessages, onSuccess
 
 
              
-                <label for="bio_gender_id">ID Genero:</label>
-                <input class="min-w-full rounded border-none drop-shadow-sm " v-model="biospecies.bio_gender_id" type="text" id="bio_gender_id" name="bio_gender_id"
-                        placeholder="ID Genero">   
+                <label for="genus">ID Genero:</label>
+                        <!-- en el v-model se usa el nombre de la relación "genus", 
+                        que se carga cuando se edita un modelo desde el controlador de laravel -->
+                <multiselect id="genux" name="genus" placeholder="Selecciona una opción" label="scientific_name" @SearchChange="searchGenus"
+                :preserveSearch="true" :internalSearch="false" :options="genusOptions" :allow-empty="false"
+                @select="selectGenus" v-model="biospecies.genus">
+
+                </multiselect>
                        
                        
                         <label for="status">Estatus:</label>
