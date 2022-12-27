@@ -36,5 +36,7 @@ Route::middleware('throttle:search')->group(
         Route::get('locations/search', [LocationController::class, 'search']);
         Route::get('assistants/search', [ApiAssistantController::class, 'search']);
         Route::get('collectors/search', [ApiCollectorController::class, 'search']);
+
+
     }
 );

@@ -5,24 +5,25 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import BioModal from '@/Components/BioModal.vue';
 import SpeciesForm from '@/Components/forms/Species/SpeciesForm.vue';
 import { ref } from '@vue/reactivity';
+import Pagination from '@/Components/Pagination.vue';
+
+
+
+
 
 
 const showModal = ref()
-const props = defineProps({species:{}})
-const species = props.species ? props.species:[]
+const props = defineProps({BioSpecies:{}})
+const BioSpecies = props.BioSpecies ? props.BioSpecies:[]
 
-console.log({species});
-function addSpecies(evt) {
+console.log({BioSpecies});
+function addBioSpecies(evt) {
     console.log(showModal.value = true);
     console.log(showModal);
 
 }
 
-//function parseCollectionType(type) {
-//    if (type === 'App\\Models\\Specimen\\Mammal') {
-//        return 'Mamíferos'
-//    }    
-//}
+
 </script>
 
 
@@ -37,7 +38,7 @@ function addSpecies(evt) {
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded flex flex-col justify-center items-center">
-                    <primary-button class="m-5 max-w-sm" @click="addSpecies">
+                    <primary-button class="m-5 max-w-sm" @click="addBioSpecies">
                         Añadir nuevo
                     </primary-button>
                     <!-- <button class="bg-green-800 text-zinc-100 font-bold tracking-wide rounded" >Añadir nuevo</button> -->
@@ -48,19 +49,19 @@ function addSpecies(evt) {
                                 <th class="px-5">Nombre cientifico</th>
                                 <th class="px-5">Nombre comun</th>
                                 <th class="px-5">Estatus</th>
-                                <th class="px-5">ID Genero</th>
+                                <th class="px-5">BioGender</th>
                                 <!-- shows address, map with coordinates -->
                                 <th>Acciones</th>
                             </thead>
-                            <tbody v-if="species.length">
-                                <tr v-for="species in species" :key="species.id">
-                                    <td class="px-3">{{species.id}}</td>
-                                    <td class="px-3">{{parseCollectionType(species.measurable_type)}}</td>
-                                    <td class="px-3">{{species.scientific_name}}</td>
-                                    <td class="px-3">{{species.common_name}}</td>
-                                    <td class="px-3">{{species.status}}</td>
+                            <tbody v-if="BioSpecies?.data?.length">
+                                <tr v-for="BioSpecie in BioSpecies.data" :key="BioSpecie.id">
+                                    <td class="px-3">{{BioSpecie.id}}</td>
+                                    <td class="px-3">{{BioSpecie.scientific_name}}</td>
+                                    <td class="px-3">{{BioSpecie.common_name}}</td>
+                                    <td class="px-3">{{BioSpecie.status}}</td>
+                                    <td class="px-3">{{BioSpecie.bio_gender_id}}</td>
                                     <td class="flex flex-col  text-center items-center justify-center">
-                                        <Link :href="route('collection.show', species.id)" class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
+                                        <!-- <Link :href="route('species.edit', BioSpecie.id)" class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
                                         <button>
                                             <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -73,8 +74,8 @@ function addSpecies(evt) {
                                                 </svg>
                                             </div>
                                         </button>
-                                        </Link>
-                                        <Link :href="route('collection.edit', species.id)" class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
+                                        </Link> -->
+                                        <Link :href="route('species.edit', BioSpecie.id)" class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
                                         <button>
                                             <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -87,7 +88,7 @@ function addSpecies(evt) {
 
                                         </button>
                                         </Link>
-                                        <Link :href="route('collection.destroy', species.id)" class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
+                                        <Link :href="route('species.destroy', BioSpecie.id)" class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
                                         <button>
                                             <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -103,12 +104,16 @@ function addSpecies(evt) {
                                     </td>
                                 </tr>
                             </tbody>
-                            <tbody v-if="!species.length">
+
+                            
+                            <tbody v-if="!BioSpecies?.data?.length">
                                 <td>0</td>
                                 <td>cientifico</td>
                                 <td>comun</td>
                                 <td>estatus</td>
                                 <td>bio</td>
+
+                                
                                 <td class="flex flex-col  text-center items-center justify-center">
                                     <Link class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
                                     <button>
@@ -148,8 +153,10 @@ function addSpecies(evt) {
                                     </Link>
 
                                 </td>
+                            
                             </tbody>
                         </table>
+                        <pagination :links="BioSpecies.links"></pagination>
                     </div>
                 </div>
             </div>
