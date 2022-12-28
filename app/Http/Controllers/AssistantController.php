@@ -15,6 +15,7 @@ class AssistantController extends Controller
      */
     public function index()
     {
+        $title = 'Asistentes';
         $assistants = Assistant::latest('updated_at')->paginate(5)->through(
             function (Assistant $item) {
                 return [
@@ -27,7 +28,7 @@ class AssistantController extends Controller
                 ];
             }
         );
-        return Inertia::render('Assistant/Index', compact('assistants'));
+        return Inertia::render('Assistant/Index', compact('assistants', 'title'));
     }
 
     
@@ -41,7 +42,7 @@ class AssistantController extends Controller
     {
         $data = $request->validate(Assistant::$rules);
         $assistant = Assistant::create($data);
-        return redirect(route('assistant.index'));
+        return redirect(route('assistant.edit', $assistant->id));
     }
 
     /**

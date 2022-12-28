@@ -15,6 +15,7 @@ class CollectorController extends Controller
      */
     public function index()
     {
+        $title='Colectores';
         $collectors = Collector::latest('updated_at')->paginate(5)->through(
             function (Collector $item) {
                 return [
@@ -26,7 +27,7 @@ class CollectorController extends Controller
                 ];
             }
         );
-        return Inertia::render('Collector/Index', compact('collectors'));
+        return Inertia::render('Collector/Index', compact('collectors', 'title'));
     }
 
     
@@ -40,7 +41,7 @@ class CollectorController extends Controller
     {
         $data = $request->validate(Collector::$rules);
         $collector = Collector::create($data);
-        return redirect(route('collector.index'));
+        return redirect(route('collector.edit', $collector->id));
     }
 
     /**

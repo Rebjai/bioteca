@@ -29,7 +29,7 @@ class BioSpecies extends Model
     ];
 
 
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     protected $casts = [
         'created_at' => 'datetime:d/m/Y',
