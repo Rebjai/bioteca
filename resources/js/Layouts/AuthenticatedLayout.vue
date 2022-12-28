@@ -29,7 +29,7 @@ const showingNavigationDropdown = ref(false);
                     <!-- </div> -->
                     <h1
                         class="capitalize text-[min(5vw,25px)] md:text-[min(3vw,50px)] text-zinc-100 col-span-2 col-start-2 md:col-span-1 md:col-start-2 grid md:row-start-1 font-bold">
-                        Laboratorio de biología <br/> de la conservación
+                        Laboratorio de biología <br /> de la conservación
                     </h1>
                 </div>
                 <!-- Primary Navigation Menu -->
@@ -39,12 +39,12 @@ const showingNavigationDropdown = ref(false);
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
                                 <Link :href="route('dashboard')">
-                                    
+
                                 <!-- <ApplicationLogo class="block h-9 w-auto" /> -->
                                 <p class="font-['Libre_Barcode_128_Text'] text-2xl text-zinc-200">BIOTECA</p>
 
-                                
-                            </Link>
+
+                                </Link>
                             </div>
 
 
@@ -53,30 +53,71 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </NavLink>
-                                <NavLink :href="route('collection.index')" :active="route().current('collection.index')">
+                                <NavLink :href="route('collection.index')"
+                                    :active="route().current('collection.index')">
                                     Colección
                                 </NavLink>
-                                <NavLink v-if="$page.props.auth" :href="route('user.index')" :active="route().current('user.index')">
+                                <NavLink v-if="$page.props.auth" :href="route('user.index')"
+                                    :active="route().current('user.index')">
                                     Usuarios
                                 </NavLink>
-                              
-                                <NavLink :href="route('species.index')" :active="route().current('species.index')">
+
+                                <!-- <NavLink :href="route('species.index')" :active="route().current('species.index')">
                                     Especies
                                 </NavLink>
                                 <NavLink :href="route('collector.index')" :active="route().current('collector.index')">
                                     Colectores
-                                </NavLink>
+                                </NavLink> -->
+                                <div
+                                    class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-zinc-800 hover:text-zinc-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                                    <!-- Settings Dropdown -->
+                                    <div class="relative">
+                                        <Dropdown align="right" width="48">
+                                            <template #trigger>
+                                                <span class="inline-flex rounded-md">
+                                                    <button type="button"
+                                                        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-zinc-800 hover:text-zinc-600 focus:outline-none transition ease-in-out duration-150">
+                                                        Catálogos
+
+                                                        <svg class="ml-2 -mr-0.5 h-4 w-4"
+                                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                                            fill="currentColor">
+                                                            <path fill-rule="evenodd"
+                                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                                clip-rule="evenodd" />
+                                                        </svg>
+                                                    </button>
+                                                </span>
+                                            </template>
+
+                                            <template #content>
+                                                <DropdownLink :href="route('assistant.index')"
+                                                    :active="route().current('assistant.index')">
+                                                    Assistentes
+                                                </DropdownLink>
+                                                <DropdownLink :href="route('collector.index')"
+                                                    :active="route().current('collector.index')">
+                                                    Colectores
+                                                </DropdownLink>
+                                                <DropdownLink :href="route('species.index')"
+                                                    :active="route().current('species.index')">
+                                                    Especies
+                                                </DropdownLink>
+                                            </template>
+                                        </Dropdown>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                         <!-- Page Heading -->
-                         <header class="" v-if="$page.props.title">
-                                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                                        <h2 class="font-semibold text-xl text-zinc-100 leading-tight tracking-wider">
-                                            {{$page.props.title}}
-                                        </h2>
-                                    </div>
-                                </header>
+                        <!-- Page Heading -->
+                        <header class="" v-if="$page.props.title">
+                            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                                <h2 class="font-semibold text-xl text-zinc-100 leading-tight tracking-wider">
+                                    {{ $page.props.title }}
+                                </h2>
+                            </div>
+                        </header>
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
                             <!-- Settings Dropdown -->
                             <div class="ml-3 relative">
@@ -108,15 +149,15 @@ const showingNavigationDropdown = ref(false);
 
                         <!-- Hamburger -->
                         <div class="-mr-2 flex items-center sm:hidden">
-                            <button @click="showingNavigationDropdown = ! showingNavigationDropdown"
+                            <button @click="showingNavigationDropdown = !showingNavigationDropdown"
                                 class="inline-flex items-center justify-center p-2 rounded-md bg-zinc-200 text-zinc-700 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
                                 <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                                     <path
-                                        :class="{'hidden': showingNavigationDropdown, 'inline-flex': ! showingNavigationDropdown }"
+                                        :class="{ 'hidden': showingNavigationDropdown, 'inline-flex': !showingNavigationDropdown }"
                                         stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M4 6h16M4 12h16M4 18h16" />
                                     <path
-                                        :class="{'hidden': ! showingNavigationDropdown, 'inline-flex': showingNavigationDropdown }"
+                                        :class="{ 'hidden': !showingNavigationDropdown, 'inline-flex': showingNavigationDropdown }"
                                         stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M6 18L18 6M6 6l12 12" />
                                 </svg>
@@ -126,7 +167,7 @@ const showingNavigationDropdown = ref(false);
                 </div>
 
                 <!-- Responsive Navigation Menu -->
-                <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}"
+                <div :class="{ 'block': showingNavigationDropdown, 'hidden': !showingNavigationDropdown }"
                     class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
