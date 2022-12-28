@@ -15,7 +15,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('bio_genders', function (Blueprint $table) {
-            $table->id();
+            $table->id()->startingValue(3021);//seeder values
             $table->string('scientific_name');
             $table->string('common_name', 400);
             $table->string('status');

@@ -14,14 +14,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('bio_phylums', function (Blueprint $table) {
-            $table->id();
-            $table->string('scientific_name');
-            $table->string('common_name', 400);
-            $table->string('status');
-            $table->foreignIdFor(BioKingdom::class);
-            $table->timestamps();
-        });
+        Schema::create(
+            'bio_phylums',
+            function (Blueprint $table) {
+                $table->id()->startingValue(28);
+                $table->string('scientific_name');
+                $table->string('common_name', 400);
+                $table->string('status');
+                $table->foreignIdFor(BioKingdom::class);
+                $table->timestamps();
+            }
+        );
     }
 
     /**

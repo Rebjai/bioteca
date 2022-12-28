@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create(
             'bio_species',
             function (Blueprint $table) {
-                $table->id();
+                $table->id()->startingValue(3244);
                 $table->string('scientific_name');
                 $table->string('common_name', 400);
                 $table->string('status');
