@@ -67,6 +67,8 @@ Route::middleware(['auth', 'verified'])->group(
         Route::resource('bird', BirdController::class);
         Route::resource('reptile', ReptileController::class);
         Route::resource('amphibian', AmphibianController::class);
+
+        Route::get('download', [SpecimenController::class, 'index'])->name('download');
     }
 );
 // Route::resource('specimen', SpecimenController::class);

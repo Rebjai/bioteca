@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Specimen;
 
+use App\Exports\SpecimenExport;
 use App\Http\Controllers\Controller;
 use App\Models\Catalogs\BioSpecies;
 use App\Models\Collection\Amphibian;
@@ -80,6 +81,11 @@ class SpecimenController extends Controller
                 return $q->where('assistant_id', $assistant_id);
             }
         );
+        if ($request->path() == 'download' && $request->user()->role == 10) {
+            // dd(new SpecimenExport($specimens));
+            
+            return new SpecimenExport($specimens);
+        }
         $specimens = $specimens
             ->latest('collection_date')
             ->paginate(5)
@@ -97,7 +103,7 @@ class SpecimenController extends Controller
                     ];
                 }
             );
-        $collection_type = $collection_type ?: '';
+        $collection_type = $request->filled('collection_type')?$request->input('collection_type'): '';
         $collection_date1 = $collection_date1 ? $collection_date1->format('d/m/Y') : null;
         $collection_date2 = $collection_date2 ? $collection_date2->format('d/m/Y') : null;
         $search_params = compact(

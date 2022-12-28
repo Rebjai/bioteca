@@ -64,12 +64,6 @@ async function searchCollectors(search, loading) {
     collectorOptions.value = res.data.length ? res.data[0] : []
 }
 
-// function selectAssistant(option, id) {
-//     specimen.assistant_id = option.id
-// }
-// function selectCollector(option, id) {
-//     specimen.collector_id = option.id
-// }
 </script>
 <template>
     <form action="#" @submit.prevent="searchCollections" :close-on-select="false"
@@ -127,14 +121,20 @@ async function searchCollectors(search, loading) {
 
         <div class="form-group my-2 flex flex-col md:items-center text-center">
 
-            <primary-button class="my-2">
+            <primary-button type="submit" class="my-2">
                 Buscar
             </primary-button>
-            <Link :href="route('collection.index')">
+            <Link :href="route('collection.index')" class="inline-flex flex-col">
             <danger-button class="mt-2">
                 Limpiar filtros
             </danger-button>
             </Link>
+            <a :href="route('download', search_params)" class="inline-block flex flex-col" replace>
+                <primary-button type="button" class="my-2">
+                    Descargar
+                </primary-button>
+            </a>
+
         </div>
     </form>
 </template>
