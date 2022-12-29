@@ -33,56 +33,7 @@ function generateTag(params) {
 
 
 }
-function draw2(params) {
-    const canvas = document.querySelector('#tag-canvas')
-    const canvas2 = document.querySelector('#tag-2-canvas')
-    console.log({ tag_type });
-    const scale = 1
-    const rectWidth = width.value * 3.77
-    const rectHeight = height.value * 3.77
-    // canvas.width = Math.floor(canvas.offsetWidth * scale);
-    // canvas.height = Math.floor(canvas.offsetHeight * scale);
-    canvas.width = width.value * 3.77
-    canvas.height = height.value * 3.77;
-    canvas2.width = width.value * 3.77
-    canvas2.height = height.value * 3.77;
-    const canvasWidth = canvas.width
-    const canvasHeight = canvas.height
-    const ctx = canvas.getContext('2d')
-    const ctx2 = canvas2.getContext('2d')
-    ctx.scale(scale, scale);
-    ctx2.scale(scale, scale);
-    drawTag(ctx, rectWidth, rectHeight)
-    drawTag(ctx2, rectWidth, rectHeight)
-    console.log({ ctx });
 
-    // ctx.fillStyle = '#222'
-    drawCircle(ctx, canvasWidth / 2 - rectWidth / 2 + rectWidth * .06, canvasHeight / 2 - canvasHeight / 6, rectHeight * .062)
-    drawCircle(ctx, canvasWidth / 2 - rectWidth / 2 + rectWidth * .06, canvasHeight / 2 + canvasHeight / 6, rectHeight * .062)
-    drawCircle(ctx2, canvasWidth / 2 - rectWidth / 2 + rectWidth * .06, canvasHeight / 2 - canvasHeight / 6, rectHeight * .062)
-    drawCircle(ctx2, canvasWidth / 2 - rectWidth / 2 + rectWidth * .06, canvasHeight / 2 + canvasHeight / 6, rectHeight * .062)
-    drawDivisorLine(ctx, canvasWidth / 2 - rectWidth / 2 + rectWidth * .20, canvasHeight * .25, canvasHeight * .75)
-    drawDivisorLine(ctx2, canvasWidth / 2 - rectWidth / 2 + rectWidth * .20, canvasHeight * .25, canvasHeight * .75)
-    drawCollectionNumber(ctx, props.specimen.measurable.id, canvasWidth / 2 - rectWidth / 2 + rectWidth * .15, canvasHeight / 2)
-    drawCollectionNumber(ctx2, props.specimen.measurable.id, canvasWidth / 2 - rectWidth / 2 + rectWidth * .15, canvasHeight / 2)
-    ctx.font = 'bold 10px sans';
-    ctx.fillStyle = 'black'
-    ctx.fillText("Instituto Tecnológico del Valle de Oaxaca", canvasWidth / 2 - rectWidth / 2 + rectWidth * .3, canvasHeight / 2 - rectHeight / 2 + rectHeight * .30, rectWidth - rectWidth * .35)
-    ctx.font = 'italic 9px sans';
-    ctx.textAlign = 'center'
-    const text = props.specimen.species.scientific_name ? props.specimen.species.scientific_name : 'mamal exemplaris'
-    ctx.fillText(text, canvasWidth / 2, (rectHeight * .6))
-    console.log(props.specimen.measurable);
-    ctx2.font = 'bold 12px sans';
-    ctx2.fillText(props.specimen.measurable.gender ? '♂' : '♀', canvasWidth / 2 - rectWidth / 2 + rectWidth * .22, canvasHeight / 2 - (rectHeight / 2 - (rectHeight / 4)))
-    ctx2.font = '9px sans';
-    ctx2.textAlign = 'right'
-    ctx2.fillText(`${props.specimen.assistant.name[0]}. ${props.specimen.assistant.first_surname} . ${props.specimen.assistant.second_surname[0]}.`, canvasWidth / 2 - rectWidth / 2 + rectWidth * .95, canvasHeight / 2 - (rectHeight / 2 - (rectHeight / 4)))
-    ctx2.fillText(`${props.specimen.collection_date} `, canvasWidth / 2 - rectWidth / 2 + rectWidth * .95, canvasHeight / 2 - rectHeight / 2 + (rectHeight * .8))
-    ctx2.textAlign = 'left'
-    ctx2.fillText(props.specimen.location.name, canvasWidth / 2 - rectWidth / 2 + rectWidth * .22, canvasHeight / 2 - rectHeight / 2 + (rectHeight * .5))
-
-}
 function draw() {
     const canvas = document.querySelector('#tag-canvas')
     const canvas2 = document.querySelector('#tag-2-canvas')
@@ -103,33 +54,82 @@ function draw() {
     const ctx2 = canvas2.getContext('2d')
     ctx.scale(scale, scale);
     ctx2.scale(scale, scale);
-    drawRectangularTag(ctx, ctx2, rectWidth, rectHeight)
-
+    if (tag_type.value == 'rectangular') {
+        return drawRectangularTag(ctx, ctx2, rectWidth, rectHeight)
+    }
+    if (tag_type.value == 'box') {
+        return drawBoxTag(ctx, ctx2, rectWidth, rectHeight)
+    }
+    return drawCircleTag(ctx, ctx2, rectWidth)
+        
 }
 function drawTag(ctx, w, h, type = 'rectangular') {
-    ctx.fillStyle = '#222'
-    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-    ctx.fillStyle = '#DDD'
     if (type !== 'circular') {
+        ctx.fillStyle = '#333'
+        ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+        ctx.fillStyle = '#DDD'
         ctx.fillRect(ctx.canvas.width / 2 - w / 2, ctx.canvas.height / 2 - h / 2, w, h)
         if (type == 'rectangular') {
-            drawCircle(ctx, ctx.canvas.width / 2 - w / 2 + w * .06, ctx.canvas.height / 2 - ctx.canvas.height / 6, h * .062, '#333')
-            drawCircle(ctx, ctx.canvas.width / 2 - w / 2 + w * .06, ctx.canvas.height / 2 + ctx.canvas.height / 6, h * .062, '#333')
+            drawCircle(ctx, ctx.canvas.width / 2 - w / 2 + w * .06, ctx.canvas.height / 2 - ctx.canvas.height / 6, (w-w*.85) * .15, '#333')
+            drawCircle(ctx, ctx.canvas.width / 2 - w / 2 + w * .06, ctx.canvas.height / 2 + ctx.canvas.height / 6, (w-w*.85) * .15, '#333')
             drawDivisorLine(ctx, ctx.canvas.width / 2 - w / 2 + w * .20, h * .25, h * .75)
         }
         return
     }
-    drawCircle(ctx, ctx.canvas.width / 2, ctx.canvas.height / 2, w)
+    ctx.fillStyle = '#DDD'
+    drawCircle(ctx, ctx.canvas.width / 2, ctx.canvas.height / 2, w/2)
+    drawCircle(ctx, ctx.canvas.width / 2, ctx.canvas.height / 2 - w/2 + w*.15, (w/2)*.1, '#333')
 
 }
 function drawRectangularTag(ctx, ctx2, rectWidth, rectHeight) {
-    // alert()
     drawTag(ctx, rectWidth, rectHeight)
     drawTag(ctx2, rectWidth, rectHeight)
     drawCollectionNumber(ctx, props.specimen.measurable.id, ctx.canvas.width / 2 - rectWidth / 2 + rectWidth * .15, ctx.canvas.height / 2)
     drawCollectionNumber(ctx2, props.specimen.measurable.id, ctx.canvas.width / 2 - rectWidth / 2 + rectWidth * .15, ctx.canvas.height / 2)
     drawRectangularText(ctx, ctx2, rectWidth, rectHeight)
 }
+function drawBoxTag(ctx, ctx2, rectWidth, rectHeight) {
+    drawTag(ctx, rectWidth, rectHeight, 'box')
+    drawBoxText(ctx, ctx2, rectWidth, rectHeight)
+}
+
+function drawCircleTag(ctx, ctx2, rectWidth, rectHeight){
+    drawTag(ctx, rectWidth, rectWidth, 'circular')
+    drawTag(ctx2, rectWidth, rectWidth, 'circular')
+    drawCircularText(ctx, ctx2, rectWidth)
+}
+
+function drawCircularText(ctx, ctx2, w) {
+    ctx.font = 'bold 10px sans';
+    ctx.textAlign = 'center'
+    ctx.fillStyle = 'black'
+
+    ctx.fillText(props.specimen.measurable_id, ctx.canvas.width / 2, ctx.canvas.height/2)
+    ctx2.font = '10px sans';
+    ctx2.textAlign = 'center'
+    ctx2.fillStyle = 'black'
+    ctx2.fillText(props.specimen.measurable.gender ? '♂' : '♀', ctx.canvas.width / 2 , ctx.canvas.height / 2 - w / 2 + (w *.3))
+    ctx2.fillText(props.specimen.measurable_id, ctx.canvas.width / 2 , ctx.canvas.height / 2 - w / 2 + (w *.55))
+    ctx2.fillText(`${props.specimen.assistant.name[0]}. ${props.specimen.assistant.first_surname[0]}. ${props.specimen.assistant.second_surname[0]}.`, ctx.canvas.width / 2, ctx.canvas.height / 2 - w /2 + w*.75)
+
+    
+}
+
+function drawBoxText(ctx, ctx2, rectWidth, rectHeight) {
+    ctx.font = 'bold 10px sans';
+    ctx.textAlign = 'center'
+    ctx.fillStyle = 'black'
+    ctx.fillText("Instituto Tecnológico del Valle de Oaxaca", ctx.canvas.width / 2, ctx.canvas.height / 2 - rectHeight/2 + rectHeight*.15, rectWidth )
+    ctx.fillText('N. '+props.specimen.measurable.id, ctx.canvas.width / 2, ctx.canvas.height / 2 - rectHeight/2 + rectHeight*.3, rectWidth )
+    ctx.font = '10px sans';
+    ctx.fillText(props.specimen.measurable.gender ? '♂' : '♀', ctx.canvas.width / 2 - rectWidth / 2 + rectWidth * .4, ctx.canvas.height / 2 - rectHeight / 2 + (rectHeight *.3))
+    const scientific_name = props.specimen.species.scientific_name ? props.specimen.species.scientific_name : 'mamal exemplaris'
+    ctx.fillText(scientific_name, ctx.canvas.width / 2, ctx.canvas.height/2 - rectHeight /2 + rectHeight*.5)
+    wrapText(ctx, props.specimen.location.name, ctx.canvas.width / 2, ctx.canvas.height / 2 - rectHeight / 2 + (rectHeight * .7), rectWidth *.7, 12)
+    ctx.fillText(`${props.specimen.collection_date} `, ctx.canvas.width / 2, ctx.canvas.height / 2 - rectHeight / 2 + (rectHeight * .9))
+}
+
+
 function drawRectangularText(ctx, ctx2, rectWidth, rectHeight) {
     ctx.font = 'bold 10px sans';
     ctx.fillStyle = 'black'
@@ -143,7 +143,7 @@ function drawRectangularText(ctx, ctx2, rectWidth, rectHeight) {
     ctx2.fillText(props.specimen.measurable.gender ? '♂' : '♀', ctx.canvas.width / 2 - rectWidth / 2 + rectWidth * .22, ctx.canvas.height / 2 - (rectHeight / 2 - (rectHeight / 4)))
     ctx2.font = '9px sans';
     ctx2.textAlign = 'right'
-    ctx2.fillText(`${props.specimen.assistant.name[0]}. ${props.specimen.assistant.first_surname} . ${props.specimen.assistant.second_surname[0]}.`, ctx.canvas.width / 2 - rectWidth / 2 + rectWidth * .95, ctx.canvas.height / 2 - (rectHeight / 2 - (rectHeight / 4)))
+    ctx2.fillText(`${props.specimen.assistant.name[0]}. ${props.specimen.assistant.first_surname}. ${props.specimen.assistant.second_surname[0]}.`, ctx.canvas.width / 2 - rectWidth / 2 + rectWidth * .95, ctx.canvas.height / 2 - (rectHeight / 2 - (rectHeight / 4)))
     ctx2.fillText(`${props.specimen.collection_date} `, ctx.canvas.width / 2 - rectWidth / 2 + rectWidth * .95, ctx.canvas.height / 2 - rectHeight / 2 + (rectHeight * .8))
     ctx2.textAlign = 'left'
     // ctx2.fillText(props.specimen.location.name, ctx.canvas.width / 2 - rectWidth / 2 + rectWidth * .22, ctx.canvas.height / 2 - rectHeight / 2 + (rectHeight * .5))
@@ -222,16 +222,16 @@ onMounted(() => {
         <h2 class="text-lg font-bold capitalize">Tipo</h2>
         <div class="tag-type flex justify-evenly">
             <div class="form-group flex flex-col items-center"><label for="rectangular">Rectangular</label><input
-                    type="radio" name="tag_type" v-model="tag_type" id="rectangular" value="rectangular" @click="draw">
+                    type="radio" name="tag_type" v-model="tag_type" id="rectangular" value="rectangular" @change="draw">
             </div>
             <div class="form-group flex flex-col items-center"><label for="box">Caja</label><input type="radio"
-                    name="tag_type" v-model="tag_type" id="box" value="box" @click="draw"></div>
+                    name="tag_type" v-model="tag_type" id="box" value="box" @change="draw"></div>
             <div class="form-group flex flex-col items-center"><label for="circular">Circular</label><input type="radio"
-                    name="tag_type" v-model="tag_type" id="circular" value="circular" @click="draw"></div>
+                    name="tag_type" v-model="tag_type" id="circular" value="circular" @change="draw"></div>
         </div>
         <h2 class="text-lg font-bold capitalize">medidas</h2>
         <div id="size">
-            <div class="form-group">
+            <div class="form-group" v-show="tag_type!='circular'">
                 <label class="capitalize" for="height">alto</label>
                 <input class="max-w-full py-2 w-[95%]" @input="draw" v-model="height" type="number">
             </div>
@@ -245,7 +245,7 @@ onMounted(() => {
             <canvas id="tag-canvas" class="max-w-full grid items-center">
             </canvas>
         </div>
-        <div class="flex justify-center bg-zinc-700 p-5">
+        <div v-show="tag_type != 'box'" class="flex justify-center bg-zinc-700 p-5">
             <canvas id="tag-2-canvas" class="max-w-full grid items-center">
             </canvas>
         </div>
