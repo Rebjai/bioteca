@@ -2,11 +2,13 @@
 
 namespace App\Models\Catalogs;
 
+use App\Models\Collection\Specimen;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Assistant extends Model
 {
@@ -19,6 +21,8 @@ class Assistant extends Model
     protected $fillable = ['user_id', 'id', 'name', 'first_surname', 'second_surname'];
     protected $appends = [ 'fullname'];
 
+    protected $collectionNumber = null;
+
     /**
      * Get the user that owns the Assistant
      *
@@ -27,6 +31,16 @@ class Assistant extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get all of the specimens for the Collector
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function specimens(): HasMany
+    {
+        return $this->hasMany(Specimen::class);
     }
 
     
@@ -40,8 +54,22 @@ class Assistant extends Model
     public function fullname(): Attribute
     {
         return new Attribute(
-            get: fn ($value, $atrrs) => $atrrs['id'] . '.- ' . "$this->name $this->first_surname $this->second_surname",
+            get: fn ($value, $atrrs) => ($this->collectionNumber?:$atrrs['id']) . '.- ' . "$this->name $this->first_surname $this->second_surname",
             set: fn ($value) => $value,
         );
+    }
+
+    /**
+     *Get the count of a specific collection type
+     *
+     * @return string
+     */
+    public function getCollectionNumber(string $bioClass = 'Mammalia')
+    {
+        $collectionClassName=Specimen::getCollectionClass($bioClass);
+        $this->collectionNumber =  $this->specimens()->where('measurable_type', $collectionClassName)->count();
+        $fullname = $this->collectionNumber. '.-11111 ' . "$this->name $this->first_surname $this->second_surname";
+        // dd($fullname);
+        return $this->collectionNumber;
     }
 }

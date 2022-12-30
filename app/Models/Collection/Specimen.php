@@ -17,6 +17,7 @@ class Specimen extends Model
 {
     use HasFactory;
     static $rules =  [
+        'id'=>['nullable'],
         'collection_date' => ['required', 'date_format:d/m/Y'],
         'species_id' => ['required', 'integer'],
         'location_id' => ['required', 'integer'],
@@ -24,7 +25,9 @@ class Specimen extends Model
         'longitude' => ['required'],
         'altitude' => ['required'],
         'collector_id' => ['required', 'integer'],
+        'collector_number' => ['required_with:id', 'integer'],
         'assistant_id' => ['required', 'integer'],
+        'assistant_number' => ['required_with:id', 'integer'],
     ];
     protected $guarded = [];
 
@@ -127,4 +130,22 @@ class Specimen extends Model
     // public function setDateAttribute( $value ) {
     //     $this->attributes['date'] = (new Carbon($value))->format('d/m/y');
     //   }
+
+
+    static function getCollectionClass(string $str)
+    {
+        # code...
+        if ($str == 'Mammalia') {
+            return Mammal::class;
+        }
+        if ($str == 'Aves') {
+            return Bird::class;
+        }
+        if ($str == 'Amphibia') {
+            return Amphibian::class;
+        }
+        if ($str == 'Reptilia') {
+            return Reptile::class;
+        }
+    }
 }

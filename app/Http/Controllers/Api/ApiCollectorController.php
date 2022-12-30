@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Catalogs\BioSpecies;
 use App\Models\Catalogs\Collector;
+use App\Models\Collection\Mammal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
@@ -21,6 +23,7 @@ class ApiCollectorController extends Controller
     public function search(Request $request)
     {
         $data = $request->query('name');
+        $species_id = $request->query('species');
         $id = is_numeric($data) ? $data : null;
         $name = !is_numeric($data) && $data !== null ? $data : null;
         $collectors = Collector::when(
@@ -43,8 +46,23 @@ class ApiCollectorController extends Controller
                 // );
             }
         );
+        $collectors = $collectors->limit(10)->get();
+        if ($species_id) {
+            $species = BioSpecies::find($species_id);
+            $bioClass = $species->genus->family->order->class->scientific_name;
+            // dd($species, $bioClass);
+            # code...
+            $collectors = $collectors->transform(
+                function (Collector $collector, $key) use ($bioClass) {
+                    $collector->fullname = $collector->getCollectionNumber($bioClass);
+                    return $collector;
+                }
+            );
+        }
+        $collectors->append(['fullname']);
+
         return Response::json(
-            [$collectors->limit(10)->get()]
+            [$collectors->all()]
         );
     }
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Catalogs\Assistant;
+use App\Models\Catalogs\BioSpecies;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
@@ -21,6 +22,7 @@ class ApiAssistantController extends Controller
     public function search(Request $request)
     {
         $data = $request->query('name');
+        $species_id = $request->query('species');
         $id = is_numeric($data) ? $data : null;
         $name = !is_numeric($data) && $data !== null ? $data : null;
         $assistants = Assistant::when(
@@ -44,8 +46,23 @@ class ApiAssistantController extends Controller
                 );
             }
         );
+
+        $assistants = $assistants->limit(10)->get();
+        if ($species_id) {
+            $species = BioSpecies::find($species_id);
+            $bioClass = $species->genus->family->order->class->scientific_name;
+            // dd($species, $bioClass);
+            # code...
+            $assistants = $assistants->transform(
+                function (Assistant $assistant, $key) use ($bioClass) {
+                    $assistant->fullname = $assistant->getCollectionNumber($bioClass);
+                    return $assistant;
+                }
+            );
+        }
+        $assistants->append(['fullname']);
         return Response::json(
-            [$assistants->limit(10)->get()]
+            [$assistants->all()]
         );
     }
 

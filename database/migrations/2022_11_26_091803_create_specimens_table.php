@@ -25,6 +25,8 @@ return new class extends Migration
                 $table->double('latitude');
                 $table->double('longitude');
                 $table->double('altitude');
+                $table->integer('collector_number');
+                $table->integer('assistant_number');
                 $table->integer('measurable_id')->nullable();
                 $table->string('measurable_type')->nullable();
                 $table->timestamps();

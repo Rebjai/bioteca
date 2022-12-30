@@ -6,6 +6,7 @@ use App\Models\Catalogs\Assistant;
 use App\Models\Catalogs\BioClass;
 use App\Models\Catalogs\BioPhylum;
 use App\Models\Catalogs\BioSpecies;
+use App\Models\Catalogs\Collector;
 use App\Models\Collection\Amphibian;
 use App\Models\Collection\Bird;
 use App\Models\Collection\Mammal;
@@ -47,7 +48,16 @@ class SpecimenFactory extends Factory
             'location_id' => mt_rand(1, 277330), //random location from the 277330 in db
             'collector_id' => mt_rand(1, 10),
             'assistant_id' => mt_rand(1, 10),
-            // 'collector' => fake()->name(),
+            'collector_number' => function (array $attributes) {
+                $collectionClass = BioClass::whereScientificName($this->getScientificName($attributes['measurable_type']))->first();
+                $collector = Collector::find($attributes['collector_id']);
+                return $collector->getCollectionNumber($collectionClass)+1;
+            },
+            'assistant_number' => function (array $attributes) {
+                $collectionClass = BioClass::whereScientificName($this->getScientificName($attributes['measurable_type']))->first();
+                $assistant = Assistant::find($attributes['assistant_id']);
+                return $assistant->getCollectionNumber($collectionClass)+1;
+            },
             'latitude' => fake()->latitude(),
             'longitude' => fake()->longitude(),
             'altitude' => 1000, //fake()->localCoordinates(),

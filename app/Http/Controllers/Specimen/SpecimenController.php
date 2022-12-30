@@ -83,7 +83,7 @@ class SpecimenController extends Controller
         );
         if ($request->path() == 'download' && $request->user()->role == 10) {
             // dd(new SpecimenExport($specimens));
-            
+
             return new SpecimenExport($specimens);
         }
         $specimens = $specimens
@@ -103,7 +103,7 @@ class SpecimenController extends Controller
                     ];
                 }
             );
-        $collection_type = $request->filled('collection_type')?$request->input('collection_type'): '';
+        $collection_type = $request->filled('collection_type') ? $request->input('collection_type') : '';
         $collection_date1 = $collection_date1 ? $collection_date1->format('d/m/Y') : null;
         $collection_date2 = $collection_date2 ? $collection_date2->format('d/m/Y') : null;
         $search_params = compact(
@@ -223,9 +223,11 @@ class SpecimenController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Specimen $specimen)
     {
-        //
+        $data = $request->validate(Specimen::$rules);
+        $specimen->update($data);
+        return redirect()->back(303);
     }
 
     /**
