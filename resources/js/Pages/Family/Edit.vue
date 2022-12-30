@@ -3,7 +3,6 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
 import BioModal from '@/Components/BioModal.vue';
 import BackButton from '@/Components/BackButton.vue';
 import { ref } from '@vue/reactivity';
-import GenusForm from '@/Components/forms/Genus/GenusForm.vue';
 import FamilyForm from '@/Components/forms/Family/FamilyForm.vue';
 
 const props = defineProps({ family: {} })

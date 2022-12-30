@@ -82,13 +82,20 @@ class GenusController extends Controller
      * @param  \App\Models\Catalogs\BioSpecies  $bioSpecies
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BioGender $genus)
+    public function update(Request $request, $genus)
     {
+        $genus=BioGender::find($genus);
         $data = $request->validate(BioGender::$rules);
         $genus->update($data);
-
         return redirect(route('genus.index'), 303);
     }
+// public function update(Request $request, BioGender $genus)
+// {
+//     $data = $request->validate(BioGender::$rules);
+//     $genus->update($data);
+//     dd($genus);
+//     return redirect(route('genus.index'), 303);
+// }
 
    
     public function destroy(BioGender $genus)
