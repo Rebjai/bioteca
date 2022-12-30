@@ -103,6 +103,14 @@ const showingNavigationDropdown = ref(false);
                                                     :active="route().current('species.index')">
                                                     Especies
                                                 </DropdownLink>
+                                                <DropdownLink :href="route('genus.index')"
+                                                    :active="route().current('genus.index')">
+                                                    Genero
+                                                </DropdownLink>
+                                                <DropdownLink :href="route('family.index')"
+                                                    :active="route().current('family.index')">
+                                                    Familia
+                                                </DropdownLink>
                                             </template>
                                         </Dropdown>
                                     </div>

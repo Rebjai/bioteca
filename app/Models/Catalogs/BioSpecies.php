@@ -3,18 +3,18 @@
 namespace App\Models\Catalogs;
 
 use App\Models\Catalogs\BioGender;
-use App\Models\Catalogs\BioPhylum;
-use App\Models\Catalogs\BioOrder;
-use App\Models\Catalogs\BioKingdom;
-use App\Models\Catalogs\BioFamily;
-use App\Models\Catalogs\BioClass;
+// use App\Models\Catalogs\BioPhylum;
+// use App\Models\Catalogs\BioOrder;
+// use App\Models\Catalogs\BioKingdom;
+// use App\Models\Catalogs\BioFamily;
+// use App\Models\Catalogs\BioClass;
 use App\Models\Collection\Specimen;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Support\Carbon;
+// use Illuminate\Database\Eloquent\Relations\MorphTo;
+// use Illuminate\Database\Eloquent\Casts\Attribute;
+// use Illuminate\Support\Carbon;
 
 
 class BioSpecies extends Model

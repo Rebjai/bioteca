@@ -26,7 +26,7 @@ const toast = useToast()
     
 function addBioSpecies(e) {
     if (biospecies.id) {
-        console.log(biospecies,'actualizando biospecies');
+      //  console.log(biospecies,'actualizando biospecies');
     return biospecies.put(route('species.update', biospecies.id),{onError: handleErrorMessages, onSuccess: handleSuccessMessages})
     
 }

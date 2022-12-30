@@ -3,21 +3,19 @@
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import BioModal from '@/Components/BioModal.vue';
-import SpeciesForm from '@/Components/forms/Species/SpeciesForm.vue';
 import { ref } from '@vue/reactivity';
 import Pagination from '@/Components/Pagination.vue';
-
-
+import GenusForm from '@/Components/forms/Genus/GenusForm.vue';
 
 
 
 
 const showModal = ref()
-const props = defineProps({BioSpecies:{}})
-const BioSpecies = props.BioSpecies ? props.BioSpecies:[]
+const props = defineProps({BioGender:{}})
+const BioGender = props.BioGender ? props.BioGender:[]
 
-console.log({BioSpecies});
-function addBioSpecies(evt) {
+console.log({BioGender});
+function addBioGender(evt) {
     console.log(showModal.value = true);
     console.log(showModal);
 
@@ -32,13 +30,13 @@ function addBioSpecies(evt) {
     <div>
 
 
-        <Head title="Especies" />
+        <Head title="Genero" />
 
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded flex flex-col justify-center items-center">
-                    <primary-button class="m-5 max-w-sm" @click="addBioSpecies">
+                    <primary-button class="m-5 max-w-sm" @click="addBioGender">
                         Añadir nuevo
                     </primary-button>
                     <!-- <button class="bg-green-800 text-zinc-100 font-bold tracking-wide rounded" >Añadir nuevo</button> -->
@@ -49,17 +47,17 @@ function addBioSpecies(evt) {
                                 <th class="px-5">Nombre cientifico</th>
                                 <th class="px-5">Nombre comun</th>
                                 <th class="px-5">Estatus</th>
-                                <th class="px-5">BioGender</th>
+                                <th class="px-5">BioFamily</th>
                                 <!-- shows address, map with coordinates -->
                                 <th>Acciones</th>
                             </thead>
-                            <tbody v-if="BioSpecies?.data?.length">
-                                <tr v-for="BioSpecie in BioSpecies.data" :key="BioSpecie.id">
-                                    <td class="px-3">{{BioSpecie.id}}</td>
-                                    <td class="px-3">{{BioSpecie.scientific_name}}</td>
-                                    <td class="px-3">{{BioSpecie.common_name}}</td>
-                                    <td class="px-3">{{BioSpecie.status}}</td>
-                                    <td class="px-3">{{BioSpecie.genus?.scientific_name}}</td>
+                            <tbody v-if="BioGender?.data?.length">
+                                <tr v-for="BioGen in BioGender.data" :key="BioGen.id">
+                                    <td class="px-3">{{BioGen.id}}</td>
+                                    <td class="px-3">{{BioGen.scientific_name}}</td>
+                                    <td class="px-3">{{BioGen.common_name}}</td>
+                                    <td class="px-3">{{BioGen.status}}</td>
+                                    <td class="px-3">{{BioGen.family?.scientific_name}}</td>
                                     <td class="flex flex-col  text-center items-center justify-center">
                                         <!-- <Link :href="route('species.edit', BioSpecie.id)" class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
                                         <button>
@@ -75,7 +73,7 @@ function addBioSpecies(evt) {
                                             </div>
                                         </button>
                                         </Link> -->
-                                        <Link :href="route('species.edit', BioSpecie.id)" class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
+                                        <Link :href="route('genus.edit', BioGen.id)" class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
                                         <button>
                                             <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -88,7 +86,7 @@ function addBioSpecies(evt) {
 
                                         </button>
                                         </Link>
-                                        <Link :href="route('species.destroy', BioSpecie.id)" class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
+                                        <Link :href="route('genus.destroy', BioGen.id)" class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">
                                         <button>
                                             <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -106,7 +104,7 @@ function addBioSpecies(evt) {
                             </tbody>
 
                             
-                            <tbody v-if="!BioSpecies?.data?.length">
+                            <tbody v-if="!BioGender?.data?.length">
                                 <td>0</td>
                                 <td>cientifico</td>
                                 <td>comun</td>
@@ -156,7 +154,7 @@ function addBioSpecies(evt) {
                             
                             </tbody>
                         </table>
-                        <pagination :links="BioSpecies.links"></pagination>
+                        <pagination :links="BioGender.links"></pagination>
                     </div>
                 </div>
             </div>
@@ -165,7 +163,7 @@ function addBioSpecies(evt) {
     <BioModal :isShowing="showModal" @close="showModal = false" title="Datos Generales">
         <div class="bg-zinc-100 rounded-lg py-5 max-h-full">
             <h1 class="text-center text-2xl mb-5 font-bold">Datos Generales</h1>
-            <SpeciesForm/>
+            <GenusForm/>
         </div>
 
     </BioModal>
