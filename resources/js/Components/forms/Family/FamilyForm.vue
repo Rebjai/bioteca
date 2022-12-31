@@ -64,7 +64,7 @@ async function searchOrder(search, id) {
 
 
              
-                <label for="order">ID Genero:</label>
+                <label for="order">Orden:</label>
                 <multiselect id="order" name="order" placeholder="Selecciona una opción" label="scientific_name" @SearchChange="searchOrder"
                 :preserveSearch="true" :internalSearch="false" :options="orderOptions" :allow-empty="false"
                 @select="selectOrder" v-model="biofamily.order">

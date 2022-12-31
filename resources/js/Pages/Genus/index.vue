@@ -47,7 +47,8 @@ function addBioGender(evt) {
                                 <th class="px-5">Nombre cientifico</th>
                                 <th class="px-5">Nombre comun</th>
                                 <th class="px-5">Estatus</th>
-                                <th class="px-5">BioFamily</th>
+                                <th class="px-5">Familia</th>
+                                <!-- BioFamily -->
                                 <!-- shows address, map with coordinates -->
                                 <th>Acciones</th>
                             </thead>

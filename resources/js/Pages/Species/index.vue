@@ -49,7 +49,8 @@ function addBioSpecies(evt) {
                                 <th class="px-5">Nombre cientifico</th>
                                 <th class="px-5">Nombre comun</th>
                                 <th class="px-5">Estatus</th>
-                                <th class="px-5">BioGender</th>
+                                <th class="px-5">Genero</th> 
+                                <!-- BioGender -->
                                 <!-- shows address, map with coordinates -->
                                 <th>Acciones</th>
                             </thead>

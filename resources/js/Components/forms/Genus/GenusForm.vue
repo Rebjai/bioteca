@@ -64,7 +64,7 @@ async function searchFamily(search, id) {
 
 
              
-                <label for="family">ID Genero:</label>
+                <label for="family">Familia:</label>
                 <multiselect id="family" name="family" placeholder="Selecciona una opción" label="scientific_name" @SearchChange="searchFamily"
                 :preserveSearch="true" :internalSearch="false" :options="familyOptions" :allow-empty="false"
                 @select="selectFamily" v-model="biogender.family">

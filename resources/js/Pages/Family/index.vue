@@ -46,7 +46,8 @@ function addBioFamily(evt) {
                                 <th class="px-5">Nombre cientifico</th>
                                 <th class="px-5">Nombre comun</th>
                                 <th class="px-5">Estatus</th>
-                                <th class="px-5">BioFamily</th>
+                                <th class="px-5">Orden</th>
+                                <!-- BioOrder -->
                                 <!-- shows address, map with coordinates -->
                                 <th>Acciones</th>
                             </thead>
