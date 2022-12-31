@@ -26,7 +26,7 @@ const toast = useToast()
     
 function addBioSpecies(e) {
     if (biospecies.id) {
-        console.log(biospecies,'actualizando biospecies');
+      //  console.log(biospecies,'actualizando biospecies');
     return biospecies.put(route('species.update', biospecies.id),{onError: handleErrorMessages, onSuccess: handleSuccessMessages})
     
 }
@@ -64,7 +64,7 @@ async function searchGenus(search, id) {
 
 
              
-                <label for="genus">ID Genero:</label>
+                <label for="genus">Genero:</label>
                         <!-- en el v-model se usa el nombre de la relación "genus", 
                         que se carga cuando se edita un modelo desde el controlador de laravel -->
                 <multiselect id="genux" name="genus" placeholder="Selecciona una opción" label="scientific_name" @SearchChange="searchGenus"

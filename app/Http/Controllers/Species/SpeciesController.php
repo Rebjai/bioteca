@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Species;
 
 use App\Http\Controllers\Controller;
 use App\Models\Catalogs\BioSpecies;
-
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -32,7 +31,7 @@ class SpeciesController extends Controller
                         'common_name' => $item->common_name,
                         'status' => $item->status,
                         'scientific_name' => $item->scientific_name,
-                        'bio_gender_id' => $item->bio_gender_id,
+                        'genus' => $item->genus,
 
                     ];
                 }
