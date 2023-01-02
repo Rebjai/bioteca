@@ -16,7 +16,7 @@ use App\Http\Controllers\Specimen\AmphibianController;
 use App\Http\Controllers\Specimen\BirdController;
 use App\Http\Controllers\Specimen\ReptileController;
 use App\Http\Controllers\Genus\GenusController;
-use App\Http\Controllers\family\FamilyController;
+use App\Http\Controllers\Family\FamilyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,8 +65,8 @@ Route::middleware(['auth', 'verified'])->group(
         Route::resource('collector', CollectorController::class);
         Route::resource('assistant', AssistantController::class);
         Route::resource('species', SpeciesController::class);
-        Route::resource('genus',GenusController::class);
-        Route::resource('family',FamilyController::class);
+        Route::resource('genus', GenusController::class);
+        Route::resource('family', FamilyController::class);
         //collections - measures
         Route::resource('mammal', MammalController::class);
         Route::resource('bird', BirdController::class);
