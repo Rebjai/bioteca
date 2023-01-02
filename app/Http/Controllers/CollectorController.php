@@ -8,6 +8,17 @@ use Inertia\Inertia;
 
 class CollectorController extends Controller
 {
+
+    /**
+     * Create the controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Collector::class, 'collector');
+        // dd($this);
+    }
     /**
      * Display a listing of the resource.
      *

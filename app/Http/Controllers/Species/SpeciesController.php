@@ -10,6 +10,17 @@ use Inertia\Inertia;
 
 class SpeciesController extends Controller
 {
+
+    /**
+     * Create the controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(BioSpecies::class, 'species');
+        // dd($this);
+    }
     /**
      * Display a listing of the resource.
      *

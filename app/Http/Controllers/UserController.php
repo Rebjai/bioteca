@@ -10,6 +10,18 @@ use Inertia\Inertia;
 
 class UserController extends Controller
 {
+
+    /**
+     * Create the controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(User::class, 'user');
+        // dd($this);
+    }
+
     /**
      * Display a listing of the resource.
      *

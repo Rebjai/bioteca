@@ -17,6 +17,20 @@ use Inertia\Inertia;
 
 class SpecimenController extends Controller
 {
+
+    /**
+     * Create the controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Specimen::class, 'collection');
+        // dd($this);
+    }
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -40,7 +54,8 @@ class SpecimenController extends Controller
             ]
         );
 
-        $assistant_id = $request->filled('assistant.id') ? $request->input('assistant.id') : false;
+        $assistantUser = $request->user()->role !== 10? $request->user()->profile()->id: false;
+        $assistant_id = $request->filled('assistant.id') && !$assistantUser ? $request->input('assistant.id') : false;
         $collector_id = $request->filled('collector.id') ? $request->input('collector.id') : false;
         $collection_date1 = $request->filled('collection_date1') ? $request->date('collection_date1', 'd/m/Y') : false;
         $collection_date2 = $request->filled('collection_date2') ? $request->date('collection_date2', 'd/m/Y') : false;
@@ -50,6 +65,12 @@ class SpecimenController extends Controller
         $collection_type = $request->filled('collection_type') ? $collection_types[$request->collection_type - 1] : false;
         $specimens = Specimen::with(
             ['species', 'location']
+        );
+        $specimens->when(
+            $assistantUser,
+            function (Builder $q, string $assistantUser) {
+                return $q->where('assistant_id', $assistantUser);
+            }
         );
         $specimens->when(
             $collection_type,

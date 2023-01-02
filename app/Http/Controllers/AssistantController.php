@@ -8,6 +8,17 @@ use Inertia\Inertia;
 
 class AssistantController extends Controller
 {
+
+    /**
+     * Create the controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Assistant::class, 'assistant');
+        // dd($this);
+    }
     /**
      * Display a listing of the resource.
      *

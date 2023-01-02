@@ -11,6 +11,18 @@ use Inertia\Inertia;
 
 class FamilyController extends Controller
 {
+
+    /**
+     * Create the controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(BioFamily::class, 'family');
+        // dd($this);
+    }
+
     /**
      * Display a listing of the resource.
      *

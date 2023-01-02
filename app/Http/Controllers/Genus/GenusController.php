@@ -11,6 +11,17 @@ use Inertia\Inertia;
 
 class GenusController extends Controller
 {
+
+    /**
+     * Create the controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(BioGender::class, 'genus');
+        // dd($this);
+    }
     /**
      * Display a listing of the resource.
      *
