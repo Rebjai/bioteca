@@ -53,14 +53,12 @@ class DashboardController extends Controller
      */
     public function getCountByMonth()
     {
-        # code...
         $firstDayOfYear = new DateTime('first day of January ' . date('Y'));
         $today = new DateTime();
-        $result = Specimen::where('created_at', '>', $firstDayOfYear)
-            ->where('created_at', '<', $today)->get()->groupBy(
+        $result = Specimen::where('collection_date', '>=', $firstDayOfYear)
+            ->where('collection_date', '<=', $today)->get()->groupBy(
                 function ($spec) {
-                    $datetime = new DateTime($spec->created_at);
-                    // $datetime->format('m');
+                    $datetime = DateTime::createFromFormat('d/m/Y', $spec->collection_date);
                     return $datetime->format('m');
                 }
             );
@@ -79,11 +77,7 @@ class DashboardController extends Controller
             } else {
                 $monthlyData[$month[$i - 1]] = 0;
             }
-            // $monthlyData[$i] = $month[$i - 1];
         }
-        // $res = ['data' => $monthlyData];
-        // dd($month);
-        // dd(array_values($month));
         return $monthlyData;
     }
 }
