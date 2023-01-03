@@ -17,17 +17,21 @@ console.log({ species: props.specimen.species });
 
 function generateTag(params) {
     const canvas = document.querySelector('#tag-canvas')
+    const canvas2 = document.querySelector('#tag-2-canvas')
     const pdfDoc = new jsPDF({ orientation: 'l', format: [width.value, height.value] });
-    // pdfDoc.text(props.specimen.species.scientific_name, width / 10, height / 10, { align: "center" },)
     console.log({ pdfDoc });
-    // previewData = pdfD
     html2canvas(canvas).then((c) => {
         console.log({ canvas });
         console.log({ c });
         const imgData = c.toDataURL('image/png')
         pdfDoc.addImage(imgData, 'PNG', 0, 0, width.value, height.value)
-        pdfDoc.autoPrint()
-        pdfDoc.save('autoprint.pdf')
+        return html2canvas(canvas2)
+        
+    }).then( c =>{
+        const imgData = c.toDataURL('image/png')
+        pdfDoc.addPage()
+        pdfDoc.addImage(imgData, 'PNG', 0, 0, width.value, height.value)
+        pdfDoc.save(`specimen-${props.specimen.id}.pdf`)
     })
 
 
