@@ -18,6 +18,7 @@ class Specimen extends Model
     use HasFactory;
     static $rules =  [
         'id'=>['nullable'],
+        'creator_id' => ['required', 'integer'],
         'collection_date' => ['required', 'date_format:d/m/Y'],
         'species_id' => ['required', 'integer'],
         'location_id' => ['required', 'integer'],
@@ -120,11 +121,23 @@ class Specimen extends Model
         return $this->belongsTo(Collector::class);
     }
 
+    /**
+     * Get the creator that owns the Specimen
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    
+
     public function collectionDate(): Attribute
     {
         return new Attribute(
             get: fn ($value) => (new Carbon($value))->format('d/m/Y'),
-            set: fn ($value) => Carbon::createFromFormat('d/m/Y', $value),
+            set: fn ($value) => Carbon::createFromFormat('d/m/Y', $value)->toDateTime(),
         );
     }
     // public function setDateAttribute( $value ) {

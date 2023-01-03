@@ -4,7 +4,6 @@ import { useForm } from '@inertiajs/inertia-vue3'
 import { ref } from '@vue/reactivity';
 import axios from 'axios';
 import { Inertia } from '@inertiajs/inertia';
-import { useToast } from 'vue-toastification';
 import flatpickr from "flatpickr";
 import { Spanish } from "flatpickr/dist/l10n/es";
 import { onMounted } from '@vue/runtime-core';
@@ -12,7 +11,6 @@ import handleErrorMessages, { handleSuccessMessages } from '@/Utils/toastMessage
 // import { Multiselect } from 'vue-multiselect';
 handleErrorMessages
 handleSuccessMessages
-const toast = useToast()
 const props = defineProps({ specimen: Object })
 const collectionDate = ref([''])
 const speciesOptions = ref([''])
@@ -22,6 +20,7 @@ const assistantOptions = ref([''])
 const specimen = useForm(props.specimen ? props.specimen :
     {
         collection_date: '',
+        creator_id: Inertia.page.props.auth.user.id,
         species_id: '',
         location_id: '',
         latitude: '',
@@ -46,6 +45,8 @@ onMounted(() => {
             allowInput: true,
             defaultDate: specimen.collection_date
         });
+    console.log({iniprop: Inertia});
+    // specimen.creator_id = Inertia.page.props.auth.user.id
 })
 
 

@@ -25,8 +25,7 @@ class SpecimenController extends Controller
      */
     public function __construct()
     {
-        $this->authorizeResource(Specimen::class, 'collection');
-        // dd($this);
+        $this->authorizeResource(Specimen::class, 'specimen');
     }
 
 
@@ -147,7 +146,7 @@ class SpecimenController extends Controller
      */
     public function create()
     {
-        //
+        return redirect(route('collection.index'));
     }
 
     /**
@@ -162,13 +161,13 @@ class SpecimenController extends Controller
         $specimen = Specimen::create($data);
         $species = BioSpecies::find($request->species_id);
         $newSpecimenClass = $species->genus->family->order->class->scientific_name;
-
+        // dd($specimen);
         if ($newSpecimenClass == 'Mammalia') {
             $mammal = Mammal::create();
             $mammal->specimen()->save($specimen);
             $mammal->specimen_id = $specimen->id;
             $mammal->save();
-
+            
             return redirect(route('collection.edit', $specimen->id));
         }
         if ($newSpecimenClass == 'Aves') {
@@ -176,7 +175,7 @@ class SpecimenController extends Controller
             $bird->specimen()->save($specimen);
             $bird->specimen_id = $specimen->id;
             $bird->save();
-
+            
             return redirect(route('collection.edit', $specimen->id));
         }
         if ($newSpecimenClass == 'Amphibia') {
@@ -184,7 +183,7 @@ class SpecimenController extends Controller
             $amphibian->specimen()->save($specimen);
             $amphibian->specimen_id = $specimen->id;
             $amphibian->save();
-
+            
             return redirect(route('collection.edit', $specimen->id));
         }
         if ($newSpecimenClass == 'Reptilia') {
@@ -192,6 +191,7 @@ class SpecimenController extends Controller
             $reptile->specimen()->save($specimen);
             $reptile->specimen_id = $specimen->id;
             $reptile->save();
+            // dd('mama4');
 
             return redirect(route('collection.edit', $specimen->id));
         }
@@ -206,7 +206,6 @@ class SpecimenController extends Controller
      */
     public function show(Specimen $specimen)
     {
-        // dd($specimen);
         $specimen->load('measurable');
         return Inertia::render('collection/MammalCollection', compact('specimen'));
     }
@@ -219,9 +218,6 @@ class SpecimenController extends Controller
      */
     public function edit(Specimen $specimen)
     {
-        // dd($specimen);
-        // dd($specimen);
-        // dd('aaa');
         $specimen->load(['measurable', 'species', 'location', 'assistant', 'collector']);
         if ($specimen->measurable_type == Mammal::class) {
             return Inertia::render('collection/MammalCollection', compact('specimen'));

@@ -11,6 +11,7 @@ use App\Models\Collection\Amphibian;
 use App\Models\Collection\Bird;
 use App\Models\Collection\Mammal;
 use App\Models\Collection\Reptile;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -31,6 +32,9 @@ class SpecimenFactory extends Factory
             // A::class,
         ];
         $creationDate = fake()->dateTimeBetween('-1 years');
+        $user = User::inRandomOrder()->first();
+        $assistant_id = $user->role == 1 ? $user->profile->id : mt_rand(1, 10);
+
 
         return [
             //
@@ -44,19 +48,19 @@ class SpecimenFactory extends Factory
                     }
                 )->get()->random()->id;
             },
-            // 'species_id' => $species->id,
+            'creator_id' => $user->id,
             'location_id' => mt_rand(1, 277330), //random location from the 277330 in db
             'collector_id' => mt_rand(1, 10),
-            'assistant_id' => mt_rand(1, 10),
+            'assistant_id' => $assistant_id,
             'collector_number' => function (array $attributes) {
                 $collectionClass = BioClass::whereScientificName($this->getScientificName($attributes['measurable_type']))->first();
                 $collector = Collector::find($attributes['collector_id']);
-                return $collector->getCollectionNumber($collectionClass)+1;
+                return $collector->getCollectionNumber($collectionClass) + 1;
             },
             'assistant_number' => function (array $attributes) {
                 $collectionClass = BioClass::whereScientificName($this->getScientificName($attributes['measurable_type']))->first();
                 $assistant = Assistant::find($attributes['assistant_id']);
-                return $assistant->getCollectionNumber($collectionClass)+1;
+                return $assistant->getCollectionNumber($collectionClass) + 1;
             },
             'latitude' => fake()->latitude(),
             'longitude' => fake()->longitude(),

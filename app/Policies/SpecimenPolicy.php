@@ -18,7 +18,6 @@ class SpecimenPolicy
      */
     public function before(User $user)
     {
-        // dd($user);
         if ($user->role == 10) {
             return true;
         }
@@ -34,7 +33,7 @@ class SpecimenPolicy
     {
         return true;
     }
-
+    
     /**
      * Determine whether the user can view the model.
      *
@@ -44,7 +43,6 @@ class SpecimenPolicy
      */
     public function view(User $user, Specimen $specimen)
     {
-        return true;
         if ($user->role == 6) {
             return true;
         }
@@ -52,6 +50,7 @@ class SpecimenPolicy
         if ($user->role == 1) {
             return $user->id == $specimen->creator_id;
         }
+        return false;
     }
 
     /**
@@ -81,6 +80,7 @@ class SpecimenPolicy
         if ($user->role == 1) {
             return $user->id == $specimen->creator_id;
         }
+        return false;
     }
 
     /**

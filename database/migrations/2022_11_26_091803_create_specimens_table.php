@@ -2,6 +2,7 @@
 
 use App\Models\Catalogs\BioSpecies;
 use App\Models\Location\Location;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,6 +21,7 @@ return new class extends Migration
             function (Blueprint $table) {
                 $table->id();
                 $table->date('collection_date');
+                $table->foreignIdFor(User::class, 'creator_id');
                 $table->foreignIdFor(BioSpecies::class, 'species_id');
                 $table->foreignIdFor(Location::class);
                 $table->double('latitude');
