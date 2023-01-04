@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\familyAPIcontroller;
 use App\Http\Controllers\AssistantController;
+use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\CollectorController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Specimen\MammalController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\Specimen\BirdController;
 use App\Http\Controllers\Specimen\ReptileController;
 use App\Http\Controllers\Genus\GenusController;
 use App\Http\Controllers\Family\FamilyController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +61,7 @@ Route::get(
 
 Route::middleware(['auth', 'verified'])->group(
     function () {
+        Route::resource('profile', ProfileController::class)->only(['index', 'update'])->parameters(['profile' => 'user']);
         Route::get('collection/{specimen}/tag', [TagController::class, 'show'])->name('collection.tag');
         Route::resource('collection', SpecimenController::class)->parameters(['collection' => 'specimen']);
         Route::resource('user', UserController::class);
@@ -74,6 +77,7 @@ Route::middleware(['auth', 'verified'])->group(
         Route::resource('amphibian', AmphibianController::class);
 
         Route::get('download', [SpecimenController::class, 'index'])->name('download');
+        Route::put('change-password', [PasswordController::class, 'update'])->name('change-password');
     }
 );
 // Route::resource('specimen', SpecimenController::class);
