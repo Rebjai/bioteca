@@ -4,7 +4,6 @@ import BioModal from '@/Components/BioModal.vue';
 import BackButton from '@/Components/BackButton.vue';
 import CollectorForm from '@/Components/forms/Collector/CollectorForm.vue';
 import { ref } from '@vue/reactivity';
-import AssistantForm from '@/Components/forms/User/AssistantForm.vue';
 
 
 const props = defineProps({ collector: {} })
