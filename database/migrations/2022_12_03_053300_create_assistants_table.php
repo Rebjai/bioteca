@@ -27,12 +27,6 @@ return new class extends Migration
             }
         );
         Schema::table(
-            'users',
-            function (Blueprint $table) {
-                $table->integer('role')->nullable()->default(0);
-            }
-        );
-        Schema::table(
             'specimens',
             function (Blueprint $table) {
                 $table->foreignIdFor(Assistant::class)->constrained();
@@ -54,7 +48,5 @@ return new class extends Migration
             }
         );
         Schema::dropIfExists('assistants');
-        Schema::dropColumns('users', ['role']);
-        
     }
 };
