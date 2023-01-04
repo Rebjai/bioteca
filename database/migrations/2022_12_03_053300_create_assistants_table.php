@@ -22,7 +22,7 @@ return new class extends Migration
                 $table->string('name');
                 $table->string('first_surname');
                 $table->string('second_surname');
-                $table->foreignIdFor(User::class);
+                $table->foreignIdFor(User::class)->nullable();
                 $table->timestamps();
             }
         );

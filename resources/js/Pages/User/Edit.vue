@@ -4,7 +4,7 @@ import BioModal from '@/Components/BioModal.vue';
 import BackButton from '@/Components/BackButton.vue';
 import UserForm from '@/Components/forms/User/UserForm.vue';
 import { ref } from '@vue/reactivity';
-import AssistantForm from '@/Components/forms/User/AssistantForm.vue';
+import AssistantForm from '@/Components/forms/Assistant/AssistantForm.vue';
 
 
 const props = defineProps({ user: {} })

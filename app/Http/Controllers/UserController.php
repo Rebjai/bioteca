@@ -61,17 +61,25 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate(
+        $data = $request->validate(User::$rules);
+        $request->validate(
             [
-                'name' => ['required', 'string'],
-                'email' => ['required', 'string'],
-                'role' => ['required', 'integer'],
+                'new_assistant' => ['required_if:role,1', 'boolean'],
+                'assistant_id' => ['required_if:new_assistant,false', 'nullable', 'integer'],
             ]
         );
         $data['password'] = Hash::make('bioteca1234');
         $user = User::create($data);
         if ($user->role_name ==  'Assistant') {
-            Assistant::create(['user_id' => $user->id]);
+            if ($request->boolean('new_assistant')) {
+                $assistantData = $request->validate(Assistant::$rules);
+                $assistantData['user_id'] = $user->id;
+                Assistant::create($assistantData);
+            } else {
+                $assistant = Assistant::find($request->integer('assistant_id'));
+                $assistant->user_id = $user->id;
+                $assistant->save();
+            }
         }
         if ($user->role_name ==  'Admin') {
         }
@@ -111,17 +119,19 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $data = $request->validate(
-            [
-                'name' => ['required', 'string'],
-                'email' => ['required', 'string'],
-                'role' => ['required', 'integer'],
-            ]
-        );
+        $data = $request->validate(User::$rules);
         // dd($data);
         if ($data['role'] !== $user->role) {
             if ($data['role'] == 1) {
-                Assistant::firstOrCreate(['user_id' => $user->id], ['user_id' => $user->id]);
+                $request->validate(
+                    [
+                        'new_assistant' => ['required_if:role,1', 'boolean'],
+                        'assistant_id' => ['required_if:new_assistant,false', 'nullable', 'integer'],
+                    ]
+                );
+                $assistantData = $request->validate(Assistant::$rules);
+                $assistantData['user_id'] = $user->id;
+                Assistant::firstOrCreate(['user_id' => $user->id], $assistantData);
             }
         }
         $done = $user->update($data);

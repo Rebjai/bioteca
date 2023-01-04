@@ -2,7 +2,7 @@
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import BioModal from '@/Components/BioModal.vue';
-import CollectorForm from '@/Components/forms/Collector/CollectorForm.vue';
+import AssistantForm from '@/Components/forms/Assistant/AssistantForm.vue';
 import { ref } from '@vue/reactivity';
 import Pagination from '@/Components/Pagination.vue';
 
@@ -149,8 +149,8 @@ function addUser(){
     </div>
     <BioModal :isShowing="showModal" @close="showModal = false" title="Datos Generales">
         <div class="bg-zinc-100 rounded-lg py-5 max-h-full">
-            <h1 class="text-center text-2xl mb-5 font-bold">Datos Generales</h1>
-            <CollectorForm />
+            <h1 class="text-center text-2xl mb-5 font-bold">Datos del Asistente</h1>
+            <AssistantForm />
         </div>
 
     </BioModal>
