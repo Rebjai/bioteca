@@ -51,7 +51,7 @@ class Bird extends Model
             get: fn ($value) => $this->total_length .
                 '-' . $this->cv .
                 '-' . $this->wingspan .
-                '-' . $this->weight,
+                '≡' . $this->weight,
             set: fn ($value) => $value,
         );
     }
