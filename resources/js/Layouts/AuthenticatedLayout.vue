@@ -28,8 +28,8 @@ const showingNavigationDropdown = ref(false);
                     </a>
                     <!-- </div> -->
                     <h1
-                    class=" md:text-[min(3vw,50px)] text-zinc-100 col-span-2 col-start-2 md:col-span-1 md:col-start-2 grid md:row-start-1 font-bold">
-                    <!-- class="capitalize text-[min(5vw,25px)] md:text-[min(3vw,50px)] text-zinc-100 col-span-2 col-start-2 md:col-span-1 md:col-start-2 grid md:row-start-1 font-bold"> -->
+                        class=" md:text-[min(3vw,50px)] text-zinc-100 col-span-2 col-start-2 md:col-span-1 md:col-start-2 grid md:row-start-1 font-bold">
+                        <!-- class="capitalize text-[min(5vw,25px)] md:text-[min(3vw,50px)] text-zinc-100 col-span-2 col-start-2 md:col-span-1 md:col-start-2 grid md:row-start-1 font-bold"> -->
                         Laboratorio de biología <br /> de la conservación
                     </h1>
                 </div>
@@ -183,25 +183,79 @@ const showingNavigationDropdown = ref(false);
                     class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                            Dashboard
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('collection.index')"
+                            :active="route().current('collection.index')">
                             Colección
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('tags')">
+                        <!-- <ResponsiveNavLink :href="route('collection.index')" :active="route().current('tags')">
                             Etiquetado
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('users')">
+                        </ResponsiveNavLink> -->
+                        <ResponsiveNavLink :href="route('user.index')" :active="route().current('user.index')">
                             Usuarios
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('species')">
+                        <!-- <ResponsiveNavLink :href="route('species.index')" :active="route().current('species.index')">
                             Especies
-                        </ResponsiveNavLink>
+                        </ResponsiveNavLink> -->
+                        <div
+                            class=" items-center px-1 pt-1  border-transparent font-medium leading-5 text-zinc-800 hover:text-zinc-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                            <!-- Settings Dropdown -->
+                            <div class="relative">
+                                <Dropdown align="right" width="48">
+                                    <template #trigger>
+                                        <span class="inline-flex rounded-md w-full">
+                                            <button type="button"
+                                                class="inline-flex w-full items-center px-3 py-2 border border-transparent leading-4 font-medium rounded-md text-zinc-200 hover:text-zinc-700 focus:outline-none  focus:font-bold transition ease-in-out duration-150">
+                                                Catálogos
+
+                                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd"
+                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                        clip-rule="evenodd" />
+                                                </svg>
+                                            </button>
+                                        </span>
+                                    </template>
+
+                                    <template #content>
+                                        <DropdownLink :href="route('assistant.index')"
+                                            :active="route().current('assistant.index')">
+                                            Assistentes
+                                        </DropdownLink>
+                                        <DropdownLink :href="route('collector.index')"
+                                            :active="route().current('collector.index')">
+                                            Colectores
+                                        </DropdownLink>
+                                        <DropdownLink :href="route('species.index')"
+                                            :active="route().current('species.index')">
+                                            Especies
+                                        </DropdownLink>
+                                        <DropdownLink :href="route('genus.index')"
+                                            :active="route().current('genus.index')">
+                                            Genero
+                                        </DropdownLink>
+                                        <DropdownLink :href="route('family.index')"
+                                            :active="route().current('family.index')">
+                                            Familia
+                                        </DropdownLink>
+                                    </template>
+                                </Dropdown>
+                            </div>
+                        </div>
+
                     </div>
 
                     <!-- Responsive Settings Options -->
                     <div class="pt-4 pb-1 border-t border-gray-300">
+                        <Link :href="route('profile.index')" >
                         <div class="px-4">
+
                             <div class="font-medium text-base text-zinc-300">{{ $page.props.auth.user.name }}</div>
                             <div class="font-medium text-sm text-gray-400">{{ $page.props.auth.user.email }}</div>
                         </div>
+                        </Link>
 
                         <div class="mt-3 space-y-1">
                             <ResponsiveNavLink :href="route('logout')" method="post" as="button">
