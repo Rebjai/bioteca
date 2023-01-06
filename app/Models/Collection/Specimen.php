@@ -17,7 +17,7 @@ class Specimen extends Model
 {
     use HasFactory;
     static $rules =  [
-        'id'=>['nullable'],
+        'id' => ['nullable'],
         'creator_id' => ['required', 'integer'],
         'collection_date' => ['required', 'date_format:d/m/Y'],
         'species_id' => ['required', 'integer'],
@@ -38,7 +38,7 @@ class Specimen extends Model
         'collection_date' => 'date:d/m/Y',
     ];
 
-    protected $appends=['collection_name'];
+    protected $appends = ['collection_name'];
 
     /**
      * Get the measurable associated with the Specimen
@@ -131,7 +131,7 @@ class Specimen extends Model
         return $this->belongsTo(User::class);
     }
 
-    
+
 
     public function collectionDate(): Attribute
     {

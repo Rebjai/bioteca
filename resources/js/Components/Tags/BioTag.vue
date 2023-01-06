@@ -6,6 +6,7 @@ import html2canvas from "html2canvas";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 PrimaryButton
 const tag_type = ref('rectangular')
+const fontSize = ref(11)
 const height = ref(23)
 const width = ref(88)
 const props = defineProps({ specimen: {} })
@@ -26,8 +27,8 @@ function generateTag(params) {
         const imgData = c.toDataURL('image/png')
         pdfDoc.addImage(imgData, 'PNG', 0, 0, width.value, height.value)
         return html2canvas(canvas2)
-        
-    }).then( c =>{
+
+    }).then(c => {
         const imgData = c.toDataURL('image/png')
         pdfDoc.addPage()
         pdfDoc.addImage(imgData, 'PNG', 0, 0, width.value, height.value)
@@ -49,6 +50,7 @@ function draw() {
     }
     const rectWidth = width.value * 3.77
     const rectHeight = height.value * 3.77
+    console.log('aaa');
     //setupcanvas
     canvas.width = width.value * 3.77
     canvas.height = height.value * 3.77;
@@ -56,6 +58,9 @@ function draw() {
     canvas2.height = height.value * 3.77;
     const ctx = canvas.getContext('2d')
     const ctx2 = canvas2.getContext('2d')
+    ctx.font = `bold ${fontSize.value}px sans`;
+    console.log(`bold ${fontSize.value}px sans`);
+    console.log(ctx.font);
     ctx.scale(scale, scale);
     ctx2.scale(scale, scale);
     if (tag_type.value == 'rectangular') {
@@ -65,7 +70,7 @@ function draw() {
         return drawBoxTag(ctx, ctx2, rectWidth, rectHeight)
     }
     return drawCircleTag(ctx, ctx2, rectWidth)
-        
+
 }
 function drawTag(ctx, w, h, type = 'rectangular') {
     if (type !== 'circular') {
@@ -74,15 +79,15 @@ function drawTag(ctx, w, h, type = 'rectangular') {
         ctx.fillStyle = '#DDD'
         ctx.fillRect(ctx.canvas.width / 2 - w / 2, ctx.canvas.height / 2 - h / 2, w, h)
         if (type == 'rectangular') {
-            drawCircle(ctx, ctx.canvas.width / 2 - w / 2 + w * .06, ctx.canvas.height / 2 - ctx.canvas.height / 6, (w-w*.85) * .15, '#333')
-            drawCircle(ctx, ctx.canvas.width / 2 - w / 2 + w * .06, ctx.canvas.height / 2 + ctx.canvas.height / 6, (w-w*.85) * .15, '#333')
+            drawCircle(ctx, ctx.canvas.width / 2 - w / 2 + w * .06, ctx.canvas.height / 2 - ctx.canvas.height / 6, (w - w * .85) * .15, '#333')
+            drawCircle(ctx, ctx.canvas.width / 2 - w / 2 + w * .06, ctx.canvas.height / 2 + ctx.canvas.height / 6, (w - w * .85) * .15, '#333')
             drawDivisorLine(ctx, ctx.canvas.width / 2 - w / 2 + w * .20, h * .25, h * .75)
         }
         return
     }
     ctx.fillStyle = '#DDD'
-    drawCircle(ctx, ctx.canvas.width / 2, ctx.canvas.height / 2, w/2)
-    drawCircle(ctx, ctx.canvas.width / 2, ctx.canvas.height / 2 - w/2 + w*.15, (w/2)*.1, '#333')
+    drawCircle(ctx, ctx.canvas.width / 2, ctx.canvas.height / 2, w / 2)
+    drawCircle(ctx, ctx.canvas.width / 2, ctx.canvas.height / 2 - w / 2 + w * .15, (w / 2) * .1, '#333')
 
 }
 function drawRectangularTag(ctx, ctx2, rectWidth, rectHeight) {
@@ -97,57 +102,62 @@ function drawBoxTag(ctx, ctx2, rectWidth, rectHeight) {
     drawBoxText(ctx, ctx2, rectWidth, rectHeight)
 }
 
-function drawCircleTag(ctx, ctx2, rectWidth, rectHeight){
+function drawCircleTag(ctx, ctx2, rectWidth, rectHeight) {
     drawTag(ctx, rectWidth, rectWidth, 'circular')
     drawTag(ctx2, rectWidth, rectWidth, 'circular')
     drawCircularText(ctx, ctx2, rectWidth)
 }
 
 function drawCircularText(ctx, ctx2, w) {
-    ctx.font = 'bold 10px sans';
+    ctx.font = `bold ${fontSize.value}px sans`;;
     ctx.textAlign = 'center'
     ctx.fillStyle = 'black'
 
-    ctx.fillText(props.specimen.measurable_id, ctx.canvas.width / 2, ctx.canvas.height/2)
-    ctx2.font = '10px sans';
+    ctx.fillText(props.specimen.measurable_id, ctx.canvas.width / 2, ctx.canvas.height / 2)
+    ctx2.font = `bold ${fontSize.value*1.25}px sans`;
     ctx2.textAlign = 'center'
     ctx2.fillStyle = 'black'
-    ctx2.fillText(props.specimen.measurable.gender ? '♂' : '♀', ctx.canvas.width / 2 , ctx.canvas.height / 2 - w / 2 + (w *.3))
-    ctx2.fillText(props.specimen.measurable_id, ctx.canvas.width / 2 , ctx.canvas.height / 2 - w / 2 + (w *.55))
-    ctx2.fillText(`${props.specimen.assistant.name[0]}. ${props.specimen.assistant.first_surname[0]}. ${props.specimen.assistant.second_surname[0]}.`, ctx.canvas.width / 2, ctx.canvas.height / 2 - w /2 + w*.75)
+    ctx2.fillText(props.specimen.measurable.gender ? '♂' : '♀', ctx.canvas.width / 2, ctx.canvas.height / 2 - w / 2 + (w * .3))
+    ctx2.font = `bold ${fontSize.value}px sans`;
+    ctx2.fillText(props.specimen.assistant_number, ctx.canvas.width / 2, ctx.canvas.height / 2 - w / 2 + (w * .55))
+    ctx2.font = `${fontSize.value}px sans`;
+    ctx2.fillText(`${props.specimen.assistant.name[0]}. ${props.specimen.assistant.first_surname[0]}. ${props.specimen.assistant.second_surname[0]}.`, ctx.canvas.width / 2, ctx.canvas.height / 2 - w / 2 + w * .75)
 
-    
+
 }
 
 function drawBoxText(ctx, ctx2, rectWidth, rectHeight) {
-    ctx.font = 'bold 10px sans';
+    ctx.font = `bold ${fontSize.value}px sans`;
     ctx.textAlign = 'center'
     ctx.fillStyle = 'black'
-    ctx.fillText("Instituto Tecnológico del Valle de Oaxaca", ctx.canvas.width / 2, ctx.canvas.height / 2 - rectHeight/2 + rectHeight*.15, rectWidth )
-    ctx.fillText('N. '+props.specimen.measurable.id, ctx.canvas.width / 2, ctx.canvas.height / 2 - rectHeight/2 + rectHeight*.3, rectWidth )
-    ctx.font = '10px sans';
-    ctx.fillText(props.specimen.measurable.gender ? '♂' : '♀', ctx.canvas.width / 2 - rectWidth / 2 + rectWidth * .4, ctx.canvas.height / 2 - rectHeight / 2 + (rectHeight *.3))
+    ctx.fillText("Instituto Tecnológico del Valle de Oaxaca", ctx.canvas.width / 2, ctx.canvas.height / 2 - rectHeight / 2 + rectHeight * .15, rectWidth)
+    ctx.fillText('N. ' + props.specimen.measurable.id, ctx.canvas.width / 2, ctx.canvas.height / 2 - rectHeight / 2 + rectHeight * .3, rectWidth)
+    ctx.font = `${fontSize.value}px sans`;
+    ctx.fillText(props.specimen.measurable.gender ? '♂' : '♀', ctx.canvas.width / 2 - rectWidth / 2 + rectWidth * .4, ctx.canvas.height / 2 - rectHeight / 2 + (rectHeight * .3))
     const scientific_name = props.specimen.species.scientific_name ? props.specimen.species.scientific_name : 'mamal exemplaris'
-    ctx.fillText(scientific_name, ctx.canvas.width / 2, ctx.canvas.height/2 - rectHeight /2 + rectHeight*.5)
-    wrapText(ctx, props.specimen.location.name, ctx.canvas.width / 2, ctx.canvas.height / 2 - rectHeight / 2 + (rectHeight * .7), rectWidth *.7, 12)
+    ctx.font = `italic ${fontSize.value}px sans`;
+    ctx.fillText(scientific_name, ctx.canvas.width / 2, ctx.canvas.height / 2 - rectHeight / 2 + rectHeight * .5)
+    ctx.font = `${fontSize.value}px sans`;
+    wrapText(ctx, props.specimen.location.name, ctx.canvas.width / 2, ctx.canvas.height / 2 - rectHeight / 2 + (rectHeight * .7), rectWidth * .7, 12)
     ctx.fillText(`${props.specimen.collection_date} `, ctx.canvas.width / 2, ctx.canvas.height / 2 - rectHeight / 2 + (rectHeight * .9))
 }
 
 
 function drawRectangularText(ctx, ctx2, rectWidth, rectHeight) {
-    ctx.font = 'bold 10px sans';
+    ctx.font = `bold ${fontSize.value*1.1}px sans`;
     ctx.fillStyle = 'black'
-    ctx.fillText("Instituto Tecnológico del Valle de Oaxaca", ctx.canvas.width / 2 - rectWidth / 2 + rectWidth * .3, ctx.canvas.height / 2 - rectHeight / 2 + rectHeight * .30, rectWidth - rectWidth * .35)
-    ctx.font = 'italic 9px sans';
+    // ctx.fillText("Instituto Tecnológico del Valle de Oaxaca", ctx.canvas.width / 2 - rectWidth / 2 + rectWidth * .3, ctx.canvas.height / 2 - rectHeight / 2 + rectHeight * .30, rectWidth - rectWidth * .35)
+    wrapText(ctx,"Instituto Tecnológico del Valle de Oaxaca", ctx.canvas.width / 2 - rectWidth / 2 + rectWidth * .3, ctx.canvas.height / 2 - rectHeight / 2 + rectHeight * .30, rectWidth - rectWidth * .35, fontSize.value*1.2)
+    ctx.font = `italic ${fontSize.value}px sans`;
     ctx.textAlign = 'center'
     const text = props.specimen.species.scientific_name ? props.specimen.species.scientific_name : 'mamal exemplaris'
     ctx.fillText(text, ctx.canvas.width / 2, (rectHeight * .6))
     console.log(props.specimen.measurable);
-    ctx2.font = 'bold 12px sans';
+    ctx2.font = `bold ${fontSize.value*1.25}px sans`;
     ctx2.fillText(props.specimen.measurable.gender ? '♂' : '♀', ctx.canvas.width / 2 - rectWidth / 2 + rectWidth * .22, ctx.canvas.height / 2 - (rectHeight / 2 - (rectHeight / 4)))
-    ctx2.font = '9px sans';
+    ctx2.font = `${fontSize.value*.95}px sans`;
     ctx2.textAlign = 'right'
-    ctx2.fillText(`${props.specimen.assistant.name[0]}. ${props.specimen.assistant.first_surname}. ${props.specimen.assistant.second_surname[0]}.`, ctx.canvas.width / 2 - rectWidth / 2 + rectWidth * .95, ctx.canvas.height / 2 - (rectHeight / 2 - (rectHeight / 4)))
+    ctx2.fillText(`${props.specimen.assistant_number}   ${props.specimen.assistant.name[0]}. ${props.specimen.assistant.first_surname}. ${props.specimen.assistant.second_surname[0]}.`, ctx.canvas.width / 2 - rectWidth / 2 + rectWidth * .95, ctx.canvas.height / 2 - (rectHeight / 2 - (rectHeight / 4)))
     ctx2.fillText(`${props.specimen.collection_date} `, ctx.canvas.width / 2 - rectWidth / 2 + rectWidth * .95, ctx.canvas.height / 2 - rectHeight / 2 + (rectHeight * .8))
     ctx2.textAlign = 'left'
     // ctx2.fillText(props.specimen.location.name, ctx.canvas.width / 2 - rectWidth / 2 + rectWidth * .22, ctx.canvas.height / 2 - rectHeight / 2 + (rectHeight * .5))
@@ -178,14 +188,13 @@ function drawCollectionNumber(ctx, text, x, y) {
     ctx.translate(x, y);
     ctx.rotate(-Math.PI / 2);
     ctx.textAlign = "center";
-    ctx.font = "bold 9px sans";
+    ctx.font = `bold ${fontSize.value}px sans`;
     ctx.letterSpacing = "5px";
     ctx.fillText(text, 0, 0);
     ctx.restore();
 
 }
-function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
-    // alert(x)
+function wrapText(ctx, text, x, y, maxWidth, lineHeight = fontSize.value) {
     // First, start by splitting all of our text into words, but splitting it into an array split by spaces
     let words = text.split(' ');
     let line = ''; // This will store the text of the current line
@@ -211,7 +220,7 @@ function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
         }
     }
     lineArray.forEach(function (item) {
-        ctx.fillText(item[0], item[1], item[2]-(lineHeight*.1 * (lineArray.length-1)));
+        ctx.fillText(item[0], item[1], item[2] - (lineHeight * .1 * (lineArray.length - 1)));
     })
     return lineArray;
 }
@@ -235,7 +244,7 @@ onMounted(() => {
         </div>
         <h2 class="text-lg font-bold capitalize">medidas</h2>
         <div id="size">
-            <div class="form-group" v-show="tag_type!='circular'">
+            <div class="form-group" v-show="tag_type != 'circular'">
                 <label class="capitalize" for="height">alto</label>
                 <input class="max-w-full py-2 w-[95%]" @input="draw" v-model="height" type="number">
             </div>
@@ -243,6 +252,10 @@ onMounted(() => {
                 <label class="capitalize" for="width">ancho</label>
                 <input class=" max-w-full py-2 w-[95%]" @input="draw" v-model="width" type="number">
             </div>
+        </div>
+        <div class="font-size">
+            <label class="capitalize" for="width">Tamaño de Fuente</label>
+            <input class=" max-w-full py-2 w-[95%]" @input="draw" v-model="fontSize" type="number">
         </div>
         <h2 class="text-lg font-bold capitalize m-2">Etiqueta (vista previa)</h2>
         <div class="flex justify-center bg-zinc-700 p-5">

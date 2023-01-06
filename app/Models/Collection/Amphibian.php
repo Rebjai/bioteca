@@ -47,7 +47,7 @@ class Amphibian extends Model
     {
         return new Attribute(
             get: fn ($value) => $this->total_length.'-'.$this->tail_length.'-'.
-            $this->sount_vent.'-'. $this->weight,
+            $this->sount_vent.'≡'. $this->weight,
             set: fn ($value) => $value,
         );
     }

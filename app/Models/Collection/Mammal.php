@@ -52,7 +52,7 @@ class Mammal extends Model
         return new Attribute(
             get: fn ($value) => $this->total_length.'-'.$this->tail_length.'-'.
             $this->sount_vent.'-'. $this->weight . '-'. $this->pt.
-            '-'. $this->o.'-'.$this->ab. '-'. $this->weight,
+            '-'. $this->o.'-'.$this->ab. '≡'. $this->weight,
             set: fn ($value) => $value,
         );
     }
