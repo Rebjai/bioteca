@@ -33,7 +33,7 @@ Route::middleware('auth:sanctum')->group(
         );
     }
 );
-Route::middleware('throttle:search')->group(
+Route::middleware(['throttle:search', 'auth:sanctum'])->group(
     function () {
         Route::get('species/search', [speciesAPIController::class, 'search']);
         Route::get('locations/search', [LocationController::class, 'search']);
@@ -41,9 +41,7 @@ Route::middleware('throttle:search')->group(
         Route::get('collectors/search', [ApiCollectorController::class, 'search']);
         // add route to api controller and specify method to use (index)
         Route::get('genus/search', [ApiGenusController::class, 'index']);
-        Route::get('family/search',[familyAPIcontroller::class,'index']);
-        Route::get('order/search',[orderAPIcontroller::class,'index']);
-
-
+        Route::get('family/search', [familyAPIcontroller::class, 'index']);
+        Route::get('order/search', [orderAPIcontroller::class, 'index']);
     }
 );
