@@ -28,7 +28,8 @@ const showingNavigationDropdown = ref(false);
                     </a>
                     <!-- </div> -->
                     <h1
-                        class="capitalize text-[min(5vw,25px)] md:text-[min(3vw,50px)] text-zinc-100 col-span-2 col-start-2 md:col-span-1 md:col-start-2 grid md:row-start-1 font-bold">
+                    class=" md:text-[min(3vw,50px)] text-zinc-100 col-span-2 col-start-2 md:col-span-1 md:col-start-2 grid md:row-start-1 font-bold">
+                    <!-- class="capitalize text-[min(5vw,25px)] md:text-[min(3vw,50px)] text-zinc-100 col-span-2 col-start-2 md:col-span-1 md:col-start-2 grid md:row-start-1 font-bold"> -->
                         Laboratorio de biología <br /> de la conservación
                     </h1>
                 </div>
