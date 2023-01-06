@@ -23,6 +23,7 @@ const specimen = useForm(props.specimen ? props.specimen :
         creator_id: Inertia.page.props.auth.user.id,
         species_id: '',
         location_id: '',
+        locality: '',
         latitude: '',
         altitude: '',
         longitude: '',
@@ -45,7 +46,7 @@ onMounted(() => {
             allowInput: true,
             defaultDate: specimen.collection_date
         });
-    console.log({iniprop: Inertia});
+    console.log({ iniprop: Inertia });
     // specimen.creator_id = Inertia.page.props.auth.user.id
 })
 
@@ -148,6 +149,9 @@ searchCollectors({ target: { value: '' } })
                 @select="selectLocation" v-model="specimen.location">
 
             </multiselect>
+            <label for="locality">Localidad:</label>
+            <input class="min-w-full rounded border-none drop-shadow-sm " v-model="specimen.locality" type="text"
+                name="locality" id="locality">
 
             <div id="coordinates" class="py-5">
 

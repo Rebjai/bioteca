@@ -62,6 +62,7 @@ class SpecimenFactory extends Factory
                 $assistant = Assistant::find($attributes['assistant_id']);
                 return $assistant->getCollectionNumber($collectionClass) + 1;
             },
+            'locality' => fake()->text(100),
             'latitude' => fake()->latitude(),
             'longitude' => fake()->longitude(),
             'altitude' => 1000, //fake()->localCoordinates(),

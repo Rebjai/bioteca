@@ -24,6 +24,7 @@ return new class extends Migration
                 $table->foreignIdFor(User::class, 'creator_id');
                 $table->foreignIdFor(BioSpecies::class, 'species_id');
                 $table->foreignIdFor(Location::class);
+                $table->string('locality');
                 $table->double('latitude');
                 $table->double('longitude');
                 $table->double('altitude');
