@@ -45,7 +45,7 @@ Route::get(
             ]
         );
     }
-);
+)->middleware('guest');
 
 Route::get(
     '/dashboard',
