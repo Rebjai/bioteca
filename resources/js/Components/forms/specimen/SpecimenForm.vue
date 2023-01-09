@@ -1,5 +1,6 @@
 <script setup>
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+import CoordinatesComponent from '@/Components/CoordinatesComponent/CoordinatesComponent.vue';
 import { useForm } from '@inertiajs/inertia-vue3'
 import { ref } from '@vue/reactivity';
 import axios from 'axios';
@@ -9,14 +10,13 @@ import { Spanish } from "flatpickr/dist/l10n/es";
 import { onMounted } from '@vue/runtime-core';
 import handleErrorMessages, { handleSuccessMessages } from '@/Utils/toastMessages';
 // import { Multiselect } from 'vue-multiselect';
-handleErrorMessages
-handleSuccessMessages
 const props = defineProps({ specimen: Object })
 const collectionDate = ref([''])
 const speciesOptions = ref([''])
 const collectorOptions = ref([''])
 const locationOptions = ref([''])
 const assistantOptions = ref([''])
+const useDecimal = ref(false)
 const specimen = useForm(props.specimen ? props.specimen :
     {
         collection_date: '',
@@ -155,18 +155,27 @@ searchCollectors({ target: { value: '' } })
 
             <div id="coordinates" class="py-5">
 
-                <h1 class="mb-3 font-bold text-xl text-center">Coordenadas <span class="font-thin text-sm">(Grados
-                        Decimales)</span></h1>
-                <div class="flex flex-col lg:flex-row">
+                <h1 class="mb-3 font-bold text-xl text-center">Coordenadas</h1>
+                <div class="flex justify-center">
+
+                    <label class="text-center">
+                        <input type="checkbox" v-model="useDecimal" />
+                        Coordenadas decimales
+                    </label>
+                </div>
+
+                <div class="flex flex-col">
                     <div class="flex flex-col p-3 capitalize">
                         <label for="latitude">Latitud:</label>
-                        <input class="min-w-full rounded border-none drop-shadow-sm " v-model="specimen.latitude"
-                            type="text" id="latitude" name="latitude" placeholder="Latitud">
-                    </div>
-                    <div class="flex flex-col p-3 capitalize">
-                        <label for="longitude">longitud:</label>
-                        <input class="min-w-full rounded border-none drop-shadow-sm " v-model="specimen.longitude"
-                            type="text" id="longitude" name="longitude" placeholder="Longitud">
+                        <CoordinatesComponent v-model="specimen.latitude" :useDMS="useDecimal" />
+                        <!-- <input class="min-w-full rounded border-none drop-shadow-sm " v-model="specimen.latitude"
+                            type="text" id="latitude" name="latitude" placeholder="Latitud"> -->
+                        </div>
+                        <div class="flex flex-col p-3 capitalize">
+                            <label for="longitude">longitud:</label>
+                            <CoordinatesComponent v-model="specimen.longitude" :useDMS="useDecimal" />
+                            <!-- <input class="min-w-full rounded border-none drop-shadow-sm " v-model="specimen.longitude"
+                                type="text" id="longitude" name="longitude" placeholder="Longitud"> -->
                     </div>
                     <div class="flex flex-col p-3 capitalize">
                         <label for="altitude">altitud <span class="text-sm lowercase font-thin">(msnm)</span>:</label>
