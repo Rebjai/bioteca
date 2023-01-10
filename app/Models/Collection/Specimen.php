@@ -6,6 +6,7 @@ use App\Models\Catalogs\Assistant;
 use App\Models\Catalogs\BioSpecies;
 use App\Models\Catalogs\Collector;
 use App\Models\Location\Location;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -31,7 +32,7 @@ class Specimen extends Model
         'assistant_id' => ['required', 'integer'],
         'assistant_number' => ['required_with:id', 'integer'],
     ];
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     protected $casts = [
         'created_at' => 'datetime:d/m/Y',
