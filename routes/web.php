@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\familyAPIcontroller;
 use App\Http\Controllers\AssistantController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Catalogs\LocationController;
+use App\Http\Controllers\Catalogs\MunicipalityController;
 use App\Http\Controllers\CollectorController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Specimen\MammalController;
@@ -72,6 +73,7 @@ Route::middleware(['auth', 'verified'])->group(
         Route::resource('genus', GenusController::class);
         Route::resource('family', FamilyController::class);
         Route::resource('location', LocationController::class);
+        Route::resource('municipality', MunicipalityController::class);
         //collections - measures
         Route::resource('mammal', MammalController::class);
         Route::resource('bird', BirdController::class);

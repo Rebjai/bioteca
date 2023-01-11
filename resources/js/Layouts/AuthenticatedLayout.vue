@@ -116,6 +116,10 @@ const showingNavigationDropdown = ref(false);
                                                     :active="route().current('location.index')">
                                                     Localidad
                                                 </DropdownLink>
+                                                <DropdownLink :href="route('municipality.index')"
+                                                    :active="route().current('municipality.index')">
+                                                    Municipio
+                                                </DropdownLink>
                                             </template>
                                         </Dropdown>
                                     </div>
@@ -248,6 +252,10 @@ const showingNavigationDropdown = ref(false);
                                             :active="route().current('location.index')">
                                             Localidad
                                         </DropdownLink>
+                                        <DropdownLink :href="route('municipality.index')"
+                                                    :active="route().current('municipality.index')">
+                                                    Municipio
+                                                </DropdownLink>
                                     </template>
                                 </Dropdown>
                             </div>

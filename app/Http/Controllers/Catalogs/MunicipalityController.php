@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Catalogs;
 use App\Http\Controllers\Controller;
 use App\Models\Location\Municipality;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class MunicipalityController extends Controller
 {
@@ -15,17 +16,22 @@ class MunicipalityController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $title = 'Municipios';
+        $municipalities= Municipality::with(
+            ['state']
+        )->orderBy('id')
+            ->paginate(5)
+            ->through(
+                function ($item) {
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+                    return [
+                        'id' => $item->id,
+                        'name' => $item->name,
+                        'state' => $item->state,
+                    ];
+                }
+            );
+        return Inertia::render('Catalogs/Municipality/Index', compact('title', 'municipalities'));
     }
 
     /**
@@ -36,19 +42,11 @@ class MunicipalityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate(Municipality::$rules);
+        $municipality = Municipality::create($data);
+        return redirect(route('municipality.edit', $municipality->id));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Location\Municipality  $municipality
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Municipality $municipality)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -58,7 +56,8 @@ class MunicipalityController extends Controller
      */
     public function edit(Municipality $municipality)
     {
-        //
+        $municipality->load('state'); //load model relation
+        return Inertia::render('Catalogs/Municipality/Edit', compact('municipality'));
     }
 
     /**
@@ -70,7 +69,10 @@ class MunicipalityController extends Controller
      */
     public function update(Request $request, Municipality $municipality)
     {
-        //
+        $data = $request->validate(Municipality::$rules);
+        $municipality->update($data);
+
+        return redirect(route('municipality.index'), 303);
     }
 
     /**

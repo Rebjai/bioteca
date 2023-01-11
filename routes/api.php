@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\familyAPIcontroller;
 use App\Http\Controllers\Api\speciesAPIController;
 use App\Http\Controllers\Api\ApiLocationController;
 use App\Http\Controllers\Api\ApiMunicipalityController;
+use App\Http\Controllers\Api\ApiStateController;
 use App\Http\Controllers\Api\orderAPIcontroller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,7 @@ Route::middleware(['throttle:search', 'auth:sanctum'])->group(
         Route::get('species/search', [speciesAPIController::class, 'search']);
         Route::get('locations/search', [ApiLocationController::class, 'search']);
         Route::get('municipality/search', [ApiMunicipalityController::class, 'index']);
+        Route::get('state/search', [ApiStateController::class, 'index']);
         Route::get('assistants/search', [ApiAssistantController::class, 'search']);
         Route::get('collectors/search', [ApiCollectorController::class, 'search']);
         // add route to api controller and specify method to use (index)

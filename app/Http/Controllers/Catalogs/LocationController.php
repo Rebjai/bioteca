@@ -73,7 +73,6 @@ class LocationController extends Controller
     public function update(Request $request, Location $location)
     {
         $data = $request->validate(Location::$rules);
-        // dd($location);
         $location->update($data);
 
         return redirect(route('location.index'), 303);

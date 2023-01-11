@@ -1,0 +1,85 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Location\State;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
+
+class ApiStateController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        $data = $request->query('name');
+        $id = is_numeric($data) ? $data : null;
+        $name = !is_numeric($data) && $data !== null ? $data : null;
+        $state = State::when(
+            $id,
+            function ($q, $id) {
+                $q->where('id', 'like', '%' . $id . '%');
+            }
+        );
+        $state->when(
+            $name,
+            function ($q, $name) {
+                $q->whereRaw('upper(name) like ?', '%' . strtoupper($name) . '%');
+                // $q->orWhereRaw('upper(common_name) like ?', '%' . strtoupper($name) . '%');
+            }
+        );
+        return Response::json(
+            [$state->limit(10)->get()]
+        );
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Catalogs\BioGender  $bioGender
+     * @return \Illuminate\Http\Response
+     */
+    public function show(BioGender $bioGender)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Catalogs\BioGender  $bioGender
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, BioGender $bioGender)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Catalogs\BioGender  $bioGender
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(BioGender $bioGender)
+    {
+        //
+    }
+}

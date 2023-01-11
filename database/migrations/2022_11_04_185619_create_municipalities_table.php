@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create(
             'municipalities',
             function (Blueprint $table) {
-                $table->id();
+                $table->id()->startingValue(277331);
                 $table->string('name');
                 $table->foreignIdFor(State::class);
                 $table->timestamps();
