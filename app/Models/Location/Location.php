@@ -11,6 +11,18 @@ class Location extends Model
 {
     use HasFactory;
 
+    static $rules = [
+        'name'=>['required', 'string'],
+        'zip_code'=>['required', 'string'],
+        'latitude'=>['required', 'numeric'],
+        'longitude'=>['required', 'numeric'],
+        'altitude'=>['required', 'numeric'],
+        'municipality_id'=>['required', 'integer'],
+    ];
+
+    protected $fillable = ['name', 'zip_code', 'latitude', 'longitude', 'altitude', 'municipality_id'];
+    protected $appends = ['fullname'];
+
     /**
      * Get the municipality that owns the Location
      *
@@ -26,10 +38,10 @@ class Location extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function name(): Attribute
+    public function fullname(): Attribute
     {
         return new Attribute(
-            get: fn ($value, $attr) => $this->municipality->state->name.', '.$this->municipality->name.', '.$value,
+            get: fn ($value, $attr) => $this->municipality->state->name.', '.$this->municipality->name.', '.$this->name,
             set: fn ($value) => $value,
         );
     }

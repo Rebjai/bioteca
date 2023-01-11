@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
 
-class LocationController extends Controller
+class ApiLocationController extends Controller
 {
 
     /**

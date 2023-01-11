@@ -144,7 +144,7 @@ searchCollectors({ target: { value: '' } })
 
             </multiselect>
             <label for="especie">Lugar De Colecta:</label>
-            <multiselect id="species" placeholder="Selecciona una opción" label="name" @input="searchLocations"
+            <multiselect id="species" placeholder="Selecciona una opción" label="fullname" @input="searchLocations"
                 :preserveSearch="true" :internalSearch="false" :options="locationOptions" :allow-empty="false"
                 @select="selectLocation" v-model="specimen.location">
 
