@@ -27,6 +27,7 @@
         class="min-w-full rounded border-none drop-shadow-sm"
           id="seconds"
           type="number"
+          step="any"
           v-model.number="dmsCoordinates.seconds"
         />
       </div>
@@ -63,9 +64,9 @@ function dmsToDecimal(dms) {
 }
 
 function decimalToDMS(decimal) {
-  const degrees = Math.floor(decimal);
-  const minutes = Math.floor((decimal - degrees) * 60);
-  const seconds = ((decimal - degrees - minutes / 60) * 3600).toFixed(2);
+  const degrees = Math.trunc(decimal);
+  const minutes = Math.trunc((decimal - degrees) * 60);
+  const seconds = ((decimal - degrees - minutes / 60) * 3600).toFixed(4);
   return {
     degrees,
     minutes,
