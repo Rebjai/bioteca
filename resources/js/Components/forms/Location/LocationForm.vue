@@ -12,8 +12,11 @@ const useDecimal = ref(false)
 const location = props.location ? useForm(props.location) : useForm({
     id: '',
     name: '',
+    zip_code: '',
     latitude: '',
     longitude: '',
+    altitude: '',
+    municipality_id: '',
 })
 function saveUser() {
     if (location.id) {
