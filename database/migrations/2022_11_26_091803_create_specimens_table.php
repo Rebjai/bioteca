@@ -22,6 +22,7 @@ return new class extends Migration
                 $table->id();
                 $table->date('collection_date');
                 $table->foreignIdFor(User::class, 'creator_id');
+                $table->foreignIdFor(User::class, 'modified_by_id')->nullable();
                 $table->foreignIdFor(BioSpecies::class, 'species_id');
                 $table->foreignIdFor(Location::class);
                 $table->string('locality');

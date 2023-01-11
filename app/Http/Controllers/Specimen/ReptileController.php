@@ -78,6 +78,8 @@ class ReptileController extends Controller
         // dd($Mammal, $data);
         // dd($data);
         $reptile->update($data);
+        $reptile->specimen->modified_by_id = $request->user()->id;
+        $reptile->specimen->save();
         $reptile->refresh();
 
         return redirect(route('collection.edit', $reptile->specimen->id), 303);

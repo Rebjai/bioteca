@@ -64,6 +64,7 @@ class User extends Authenticatable
      */
     protected $appends = [
         'role_name',
+        'fullname',
         // 'profile',
     ];
 
@@ -79,6 +80,14 @@ class User extends Authenticatable
             // set: fn ($value) => $value,
         );
     }
+    public function fullname(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value, $atrrs) => "$this->name $this->first_surname $this->second_surname",
+            set: fn ($value) => $value,
+        );
+    }
+
 /**
      * Attribute getter.
      *

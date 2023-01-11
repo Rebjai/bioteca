@@ -20,7 +20,7 @@ class DashboardController extends Controller
     public function index()
     {
         $title = 'Dashboard';
-        $latest = Specimen::select(['created_at', 'updated_at', 'collection_date', 'id', 'measurable_type', 'measurable_id'])->latest()->limit(5)->get();
+        $latest = Specimen::with('modifiedBy')->select(['created_at', 'updated_at', 'collection_date', 'id', 'measurable_type', 'measurable_id', 'modified_by_id'])->latest('updated_at')->limit(5)->get();
         $count = Specimen::count();
         $mammal_count = Mammal::count();
         $amphibian_count = Amphibian::count();

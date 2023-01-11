@@ -290,6 +290,7 @@ class SpecimenController extends Controller
     public function update(Request $request, Specimen $specimen)
     {
         $data = $request->validate(Specimen::$rules);
+        $data['modified_by_id'] = $request->user()->id;
         $specimen->update($data);
         return redirect()->back(303);
     }

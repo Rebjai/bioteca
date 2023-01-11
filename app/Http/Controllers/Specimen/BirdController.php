@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Specimen;
 
 use App\Http\Controllers\Controller;
 use App\Models\Collection\Bird;
+use App\Models\Utils\SpecimenAge;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Enum;
 
@@ -76,6 +77,8 @@ class BirdController extends Controller
         // dd($Mammal, $data);
         // dd($data);
         $bird->update($data);
+        $bird->specimen->modified_by_id = $request->user()->id;
+        $bird->specimen->save();
         $bird->refresh();
 
         return redirect(route('collection.edit', $bird->specimen->id), 303);

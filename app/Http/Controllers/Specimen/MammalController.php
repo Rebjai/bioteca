@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Specimen;
 
 use App\Http\Controllers\Controller;
 use App\Models\Collection\Mammal;
+use App\Models\Utils\SpecimenAge;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Enum;
 use Inertia\Inertia;
@@ -78,9 +79,11 @@ class MammalController extends Controller
         // dd($Mammal, $data);
         // dd($data);
         $Mammal->update($data);
+        $Mammal->specimen->modified_by_id = $request->user()->id;
+        $Mammal->specimen->save();
         $Mammal->refresh();
 
-        return redirect(route('collection.edit', $Mammal->specimen_id), 303);
+        return redirect(route('collection.edit', $Mammal->specimen->id), 303);
     }
 
     /**

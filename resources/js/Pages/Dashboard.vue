@@ -85,7 +85,7 @@ function addSpecimen(evt) {
                         <thead>
                             <tr class="capitalize">
                                 <th>id</th>
-                                <th>fecha de creación</th>
+                                <th>Modificado por</th>
                                 <!-- <th>fecha de modificación</th> -->
                                 <th>fecha de colección</th>
                                 <th>colección</th>
@@ -103,7 +103,7 @@ function addSpecimen(evt) {
                         <tbody v-if="latest.length">
                             <tr v-for="specimen in latest" :key="specimen.id">
                                 <td class="px-2 font-bold text-sm italic">{{ specimen.measurable_id }}</td>
-                                <td class="px-2 font-bold text-sm italic">{{ specimen.created_at }}</td>
+                                <td class="px-2 font-bold text-sm italic truncate">{{ specimen.modified_by?.fullname }}</td>
                                 <!-- <td>{{specimen.updated_at}}</td> -->
                                 <td class="px-2 font-bold text-sm italic">{{ specimen.collection_date }}</td>
                                 <td class="px-2 font-bold text-sm italic">{{ specimen.collection_name }}</td>

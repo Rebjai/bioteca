@@ -77,6 +77,8 @@ class AmphibianController extends Controller
         // dd($Mammal, $data);
         // dd($data);
         $amphibian->update($data);
+        $amphibian->specimen->modified_by_id = $request->user()->id;
+        $amphibian->specimen->save();
         $amphibian->refresh();
 
         return redirect(route('collection.edit', $amphibian->specimen->id), 303);

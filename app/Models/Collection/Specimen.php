@@ -133,6 +133,16 @@ class Specimen extends Model
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * Get the modifiedBy that owns the Specimen
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function modifiedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
 
 
     public function collectionDate(): Attribute
