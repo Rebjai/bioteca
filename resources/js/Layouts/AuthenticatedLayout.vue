@@ -120,6 +120,10 @@ const showingNavigationDropdown = ref(false);
                                                     :active="route().current('municipality.index')">
                                                     Municipio
                                                 </DropdownLink>
+                                                <DropdownLink :href="route('state.index')"
+                                                    :active="route().current('state.index')">
+                                                    Estado
+                                                </DropdownLink>
                                             </template>
                                         </Dropdown>
                                     </div>
@@ -253,9 +257,13 @@ const showingNavigationDropdown = ref(false);
                                             Localidad
                                         </DropdownLink>
                                         <DropdownLink :href="route('municipality.index')"
-                                                    :active="route().current('municipality.index')">
-                                                    Municipio
-                                                </DropdownLink>
+                                            :active="route().current('municipality.index')">
+                                            Municipio
+                                        </DropdownLink>
+                                        <DropdownLink :href="route('state.index')"
+                                            :active="route().current('state.index')">
+                                            Estado
+                                        </DropdownLink>
                                     </template>
                                 </Dropdown>
                             </div>
@@ -265,7 +273,7 @@ const showingNavigationDropdown = ref(false);
 
                     <!-- Responsive Settings Options -->
                     <div class="pt-4 pb-1 border-t border-gray-300">
-                        <Link :href="route('profile.index')" >
+                        <Link :href="route('profile.index')">
                         <div class="px-4">
 
                             <div class="font-medium text-base text-zinc-300">{{ $page.props.auth.user.name }}</div>

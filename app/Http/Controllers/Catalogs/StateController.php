@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Catalogs;
 use App\Http\Controllers\Controller;
 use App\Models\Location\State;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class StateController extends Controller
 {
@@ -15,17 +16,20 @@ class StateController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $title = 'Estados';
+        $states = State::orderBy('id')
+            ->paginate(5)
+            ->through(
+                function ($item) {
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+                    return [
+                        'id' => $item->id,
+                        'name' => $item->name,
+                        // 'country' => $item->country,
+                    ];
+                }
+            );
+        return Inertia::render('Catalogs/State/Index', compact('title', 'states'));
     }
 
     /**
@@ -36,19 +40,11 @@ class StateController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate(State::$rules);
+        $state = State::create($data);
+        return redirect(route('state.edit', $state->id));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Location\State  $state
-     * @return \Illuminate\Http\Response
-     */
-    public function show(State $state)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -58,7 +54,8 @@ class StateController extends Controller
      */
     public function edit(State $state)
     {
-        //
+        // $state->load('state'); //load model relation
+        return Inertia::render('Catalogs/State/Edit', compact('state'));
     }
 
     /**
@@ -70,7 +67,10 @@ class StateController extends Controller
      */
     public function update(Request $request, State $state)
     {
-        //
+        $data = $request->validate(State::$rules);
+        $state->update($data);
+
+        return redirect(route('state.index'), 303);
     }
 
     /**
