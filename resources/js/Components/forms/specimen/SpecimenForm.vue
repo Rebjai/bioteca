@@ -81,7 +81,7 @@ async function searchLocations(search, loading) {
 
 async function searchAssistants(search, loading) {
     console.log({ search });
-    const res = await axios.get('/api/assistants/search', { params: { name: search.target.value, species: specimen.species_id } })
+    const res = await axios.get('/api/assistants/search', { params: { name: search.target.value} })
     assistantOptions.value = res.data.length ? res.data[0] : []
 }
 async function searchCollectors(search, loading) {
@@ -104,16 +104,16 @@ function selectLocation(option, id) {
     specimen.location_id = option.id
 }
 function selectAssistant(option, id) {
-    if (!specimen.species_id) {
-        specimen.assistant = null
-        return alert('Primero elige la especie a agregar')
-    }
+    // if (!specimen.species_id) {
+    //     specimen.assistant = null
+        // return alert('Primero elige la especie a agregar')
+    // }
     specimen.assistant_id = option.id
     specimen.assistant_number = parseInt(option.fullname.split('.')[0]) + 1
 }
 function selectCollector(option, id) {
     if (!specimen.species_id) {
-        specimen.collector = null
+        setTimeout( () => specimen.collector = null)
         return alert('Primero elige la especie a agregar')
     }
     specimen.collector_id = option.id

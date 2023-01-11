@@ -19,7 +19,7 @@ class Assistant extends Model
         'second_surname' => ['required'],
     ];
     protected $fillable = ['user_id', 'id', 'name', 'first_surname', 'second_surname'];
-    protected $appends = [ 'fullname'];
+    protected $appends = ['fullname'];
 
     protected $collectionNumber = null;
 
@@ -43,7 +43,7 @@ class Assistant extends Model
         return $this->hasMany(Specimen::class);
     }
 
-    
+
     public function name(): Attribute
     {
         return new Attribute(
@@ -54,7 +54,7 @@ class Assistant extends Model
     public function fullname(): Attribute
     {
         return new Attribute(
-            get: fn ($value, $atrrs) => ($this->collectionNumber?:$atrrs['id']) . '.- ' . "$this->name $this->first_surname $this->second_surname",
+            get: fn ($value, $atrrs) => ($this->getCollectionNumber() ?: $atrrs['id']) . '.- ' . "$this->name $this->first_surname $this->second_surname",
             set: fn ($value) => $value,
         );
     }
@@ -64,12 +64,9 @@ class Assistant extends Model
      *
      * @return string
      */
-    public function getCollectionNumber(string $bioClass = 'Mammalia')
+    public function getCollectionNumber()
     {
-        $collectionClassName=Specimen::getCollectionClass($bioClass);
-        $this->collectionNumber =  $this->specimens()->where('measurable_type', $collectionClassName)->count();
-        $fullname = $this->collectionNumber. '.-11111 ' . "$this->name $this->first_surname $this->second_surname";
-        // dd($fullname);
+        $this->collectionNumber =  $this->specimens()->count();
         return $this->collectionNumber;
     }
 }
