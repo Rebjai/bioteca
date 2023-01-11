@@ -19,7 +19,7 @@ class GenusController extends Controller
      */
     public function __construct()
     {
-        $this->authorizeResource(BioGender::class, 'genus');
+        $this->authorizeResource(BioGender::class, 'bio_gender');
         // dd($this);
     }
     /**
@@ -52,10 +52,11 @@ class GenusController extends Controller
     }
 
 
-    public function edit( $genus)
+    public function edit(BioGender $bioGender)
     {   
-        $genus=BioGender::find($genus);
-        $genus->load('family'); 
+        // dd($bioGender);
+        // $bioGender=BioGender::find($bioGender);
+        $genus = $bioGender->load('family'); 
         return Inertia::render('Genus/Edit', compact('genus'));
     }
 
@@ -93,11 +94,11 @@ class GenusController extends Controller
      * @param  \App\Models\Catalogs\BioSpecies  $bioSpecies
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $genus)
+    public function update(Request $request,BioGender $bioGender)
     {
-        $genus=BioGender::find($genus);
+        // $bioGender=BioGender::find($bioGender);
         $data = $request->validate(BioGender::$rules);
-        $genus->update($data);
+        $bioGender->update($data);
         return redirect(route('genus.index'), 303);
     }
 // public function update(Request $request, BioGender $genus)

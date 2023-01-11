@@ -71,7 +71,7 @@ Route::middleware(['auth', 'verified'])->group(
         Route::resource('collector', CollectorController::class);
         Route::resource('assistant', AssistantController::class);
         Route::resource('species', SpeciesController::class);
-        Route::resource('genus', GenusController::class);
+        Route::resource('genus', GenusController::class)->parameter('genus', 'bio_gender');
         Route::resource('family', FamilyController::class);
         Route::resource('location', LocationController::class);
         Route::resource('municipality', MunicipalityController::class);
