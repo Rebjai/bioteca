@@ -50,17 +50,28 @@ class SpecimenController extends Controller
                 'assistant.id' => ['nullable', 'required_with:assistant', 'integer'],
                 'species' => ['nullable'],
                 'species.id' => ['nullable', 'required_with:species', 'integer'],
+                'municipality' => ['nullable'],
+                'municipality.id' => ['nullable', 'required_with:municipality', 'integer'],
+                'state' => ['nullable'],
+                'state.id' => ['nullable', 'required_with:state', 'integer'],
             ]
         );
 
-        $assistantUser = $request->user()->role !== 10? $request->user()->profile()->id: false;
+        $assistantUser = $request->user()->role !== 10 ? $request->user()->profile()->id : false;
         $assistant_id = $request->filled('assistant.id') && !$assistantUser ? $request->input('assistant.id') : false;
         $collector_id = $request->filled('collector.id') ? $request->input('collector.id') : false;
+        $municipality_id = $request->filled('municipality.id') ? $request->input('municipality.id') : false;
+        // dd( $data, $municipality_id, $request->filled('municipality.id'));
+        $state_id = $request->filled('state.id') ? $request->input('state.id') : false;
         $collection_date1 = $request->filled('collection_date1') ? $request->date('collection_date1', 'd/m/Y') : false;
         $collection_date2 = $request->filled('collection_date2') ? $request->date('collection_date2', 'd/m/Y') : false;
         $species = $request->species;
         $collector = $request->collector;
         $assistant = $request->assistant;
+        $municipality = $request->municipality;
+        $state = $request->state;
+        $advanced_search = $request->advanced_search;
+        // dd($advanced_search);
         $collection_type = $request->filled('collection_type') ? $collection_types[$request->collection_type - 1] : false;
         $specimens = Specimen::with(
             ['species', 'location']
@@ -101,6 +112,39 @@ class SpecimenController extends Controller
                 return $q->where('assistant_id', $assistant_id);
             }
         );
+        $specimens->when(
+            $municipality_id,
+            function (Builder $q, int $municipality_id) {
+                return $q->whereHas(
+                    'location',
+                    function ($q) use ($municipality_id) {
+                        $q->where('municipality_id', $municipality_id);
+                    }
+                );
+            }
+        );
+        $specimens->when(
+            $state_id,
+            function (Builder $q, int $state_id) {
+                return $q->whereHas(
+                    'location.municipality',
+                    function ($q) use ($state_id) {
+                        $q->where('state_id', $state_id);
+                    }
+                );
+            }
+        );
+        // $specimens->when(
+        //     $municipality_id,
+        //     function ($q, $municipality_id) {
+        //         return $q->whereHas(
+        //             'location',
+        //             function ($q) use ($municipality_id) {
+        //                 $q->where('municipality_id', $municipality_id);
+        //             }
+        //         );
+        //     }
+        // );
         if ($request->path() == 'download' && $request->user()->role == 10) {
             // dd(new SpecimenExport($specimens));
 
@@ -133,6 +177,9 @@ class SpecimenController extends Controller
             'collector',
             'assistant',
             'species',
+            'municipality',
+            'state',
+            'advanced_search',
         );
         // ;
         // $specimens = Specimen::with(['species', 'location'])->get();
@@ -167,7 +214,7 @@ class SpecimenController extends Controller
             $mammal->specimen()->save($specimen);
             $mammal->specimen_id = $specimen->id;
             $mammal->save();
-            
+
             return redirect(route('collection.edit', $specimen->id));
         }
         if ($newSpecimenClass == 'Aves') {
@@ -175,7 +222,7 @@ class SpecimenController extends Controller
             $bird->specimen()->save($specimen);
             $bird->specimen_id = $specimen->id;
             $bird->save();
-            
+
             return redirect(route('collection.edit', $specimen->id));
         }
         if ($newSpecimenClass == 'Amphibia') {
@@ -183,7 +230,7 @@ class SpecimenController extends Controller
             $amphibian->specimen()->save($specimen);
             $amphibian->specimen_id = $specimen->id;
             $amphibian->save();
-            
+
             return redirect(route('collection.edit', $specimen->id));
         }
         if ($newSpecimenClass == 'Reptilia') {

@@ -61,7 +61,7 @@ function addSpecimen(evt) {
                                     <td class="px-3">{{ specimen.collection_name }}</td>
                                     <td class="px-3">{{ specimen.collection_date }}</td>
                                     <td class="px-3">{{ specimen.species.scientific_name }}</td>
-                                    <td class="px-3">{{ specimen.location.name }}</td>
+                                    <td class="px-3">{{ specimen.location.fullname }}</td>
                                     <td class="flex flex-col  text-center items-center justify-center">
                                         <Link :href="route('collection.tag', specimen.id)"
                                             class="m-1 md:m-2 py-2 px-3 bg-blue-00 rounded-lg text-base block">

@@ -10,6 +10,7 @@ import { Multiselect } from 'vue-multiselect';
 import axios from 'axios';
 import { useToast } from 'vue-toastification'
 import handleErrorMessages, { handleSuccessMessages } from '@/Utils/toastMessages'
+import Checkbox from '@/Components/Checkbox.vue';
 const toast = useToast()
 const collectionDate1 = ref(null)
 const collectionDate2 = ref(null)
@@ -20,7 +21,9 @@ const props = defineProps({ search_params: {} })
 console.log({ props });
 const collectorOptions = ref(props.search_params.collector ? [props.search_params.collector] : [''])
 const assistantOptions = ref(props.search_params.assistant ? [props.search_params.assistant] : [''])
-
+const municipalityOptions = ref(props.search_params.municipality ? [props.search_params.municipality] : [''])
+const stateOptions = ref(props.search_params.state ? [props.search_params.state] : [''])
+Checkbox
 const specimenSearch = useForm(props.search_params ? props.search_params : {
     collection_date1: '',
     collection_date2: '',
@@ -28,6 +31,9 @@ const specimenSearch = useForm(props.search_params ? props.search_params : {
     collector: '',
     assistant: '',
     species: '',
+    state: '',
+    municipality: '',
+    advanced_search: false,
 
 })
 onMounted(() => {
@@ -62,6 +68,16 @@ async function searchCollectors(search, loading) {
     console.log({ search });
     const res = await axios.get('/api/collectors/search', { params: { name: search.target.value } })
     collectorOptions.value = res.data.length ? res.data[0] : []
+}
+async function searchMunicipalities(search, loading) {
+    console.log({ search });
+    const res = await axios.get('/api/municipality/search', { params: { name: search.target.value } })
+    municipalityOptions.value = res.data.length ? res.data[0] : []
+}
+async function searchStates(search, loading) {
+    console.log({ search });
+    const res = await axios.get('/api/state/search', { params: { name: search.target.value } })
+    stateOptions.value = res.data.length ? res.data[0] : []
 }
 
 </script>
@@ -98,24 +114,55 @@ async function searchCollectors(search, loading) {
                 </div>
             </div>
         </div>
-        <div class="flex w-full justify-evenly items-center">
+        <div class="block mt-4 flex flex-col justify-center items-center">
 
-            <div class="form-group grow mx-2">
-                <label class="font-bold" for="collector">Nombre del colector:</label>
-                <multiselect id="collector" name="collector_id" placeholder="Selecciona una opción" label="fullname"
-                    @input="searchCollectors" :allowEmpty="true" :preserveSearch="true" :internalSearch="false"
-                    :options="collectorOptions" :allow-empty="false" v-model="specimenSearch.collector">
+            <label class="flex items-center">
+                <Checkbox name="advanced_search" v-model:checked="specimenSearch.advanced_search" />
+                <span class="ml-2 text-sm text-gray-600">Búsqueda avanzada</span>
+            </label>
+        </div>
+        <div class="advanced_search" v-if="specimenSearch.advanced_search">
 
-                </multiselect>
+            <div class="flex w-full justify-evenly items-center">
+
+                <div class="form-group grow mx-2">
+                    <label class="font-bold" for="collector">Nombre del colector:</label>
+                    <multiselect id="collector" name="collector_id" placeholder="Selecciona una opción" label="fullname"
+                        @input="searchCollectors" :allowEmpty="true" :preserveSearch="true" :internalSearch="false"
+                        :options="collectorOptions" :allow-empty="false" v-model="specimenSearch.collector">
+
+                    </multiselect>
+                </div>
+                <div class="form-group grow mx-2">
+                    <label class="font-bold" for="assistant_id">Nombre del preparador:</label>
+                    <multiselect id="assistant" name="assistant_id" placeholder="Selecciona una opción" label="fullname"
+                        @input="searchAssistants" @Remove="e => alert(e)" :allowEmpty="true" :preserveSearch="true"
+                        :internalSearch="false" :options="assistantOptions" :allow-empty="false"
+                        v-model="specimenSearch.assistant">
+
+                    </multiselect>
+                </div>
             </div>
-            <div class="form-group grow mx-2">
-                <label class="font-bold" for="assistant_id">Nombre del preparador:</label>
-                <multiselect id="assistant" name="assistant_id" placeholder="Selecciona una opción" label="fullname"
-                    @input="searchAssistants" @Remove="e => alert(e)" :allowEmpty="true" :preserveSearch="true"
-                    :internalSearch="false" :options="assistantOptions" :allow-empty="false"
-                    v-model="specimenSearch.assistant">
+            <div class="flex w-full justify-evenly items-center">
 
-                </multiselect>
+                <div class="form-group grow mx-2">
+                    <label class="font-bold" for="municipality">Municipio:</label>
+                    <multiselect id="municipality" name="municipality_id" placeholder="Selecciona una opción"
+                        label="fullname" @input="searchMunicipalities" :allowEmpty="true" :preserveSearch="true"
+                        :internalSearch="false" :options="municipalityOptions" :allow-empty="false"
+                        v-model="specimenSearch.municipality">
+
+                    </multiselect>
+                </div>
+                <div class="form-group grow mx-2">
+                    <label class="font-bold" for="state_id">Estado:</label>
+                    <multiselect id="state_id" name="state_id" placeholder="Selecciona una opción" label="fullname"
+                        @input="searchStates" @Remove="e => alert(e)" :allowEmpty="true" :preserveSearch="true"
+                        :internalSearch="false" :options="stateOptions" :allow-empty="false"
+                        v-model="specimenSearch.state">
+
+                    </multiselect>
+                </div>
             </div>
         </div>
 
