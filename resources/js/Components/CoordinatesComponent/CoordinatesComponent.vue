@@ -40,24 +40,13 @@
 </template>
   
   <script setup>
-import { ref, computed, watch, onUpdated } from "vue";
+import { ref, computed, watch, onUpdated, nextTick } from "vue";
 
 const props = defineProps({ modelValue: 0 , useDMS: false});
 const emit = defineEmits(["update:modelValue"]);
 const decimalCoordinates = ref(props.modelValue ? props.modelValue : 0);
 const dmsCoordinates = ref(decimalToDMS(props.modelValue));
 
-const coordinates = computed(() => {
-  alert();
-  emit("update:modelValue", decimalCoordinates.value);
-  const cords = 0;
-  if (useDMS.value) {
-    cords = dmsToDecimal(dmsCoordinates.value);
-  } else {
-    cords = decimalCoordinates.value;
-  }
-  return cords;
-});
 
 function dmsToDecimal(dms) {
   return dms.degrees + dms.minutes / 60 + dms.seconds / 3600;
@@ -74,16 +63,17 @@ function decimalToDMS(decimal) {
   };
 }
 
-watch(decimalCoordinates, (value) => {
+watch(decimalCoordinates, async (value) => {
   emit("update:modelValue", decimalCoordinates.value);
-
-  dmsCoordinates.value = decimalToDMS(value);
+  if (props.useDMS) {
+    dmsCoordinates.value = decimalToDMS(value);
+  }
 });
 
 watch(
   dmsCoordinates,
   (value) => {
-    console.log(!useDMS.value);
+    console.log(!props.useDMS);
     decimalCoordinates.value = dmsToDecimal(value);
   },
   { deep: true }
