@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create(
             'locations',
             function (Blueprint $table) {
-                $table->id();
+                $table->id()->startingValue(277331);
                 $table->string('name');
                 $table->string('zip_code')->nullable();
                 $table->double('latitude');
