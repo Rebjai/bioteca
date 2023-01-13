@@ -14,6 +14,7 @@ use App\Models\Catalogs\BioSpecies;
 use Database\Seeders\Collection\CollectionSeeder;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\App;
 
 class DatabaseSeeder extends Seeder
 {
@@ -107,6 +108,8 @@ class DatabaseSeeder extends Seeder
             ]
         );
         // specimen seeder
-        $this->call(CollectionSeeder::class);
+        if (!App::environment('production')) {
+            $this->call(CollectionSeeder::class);
+        }
     }
 }
