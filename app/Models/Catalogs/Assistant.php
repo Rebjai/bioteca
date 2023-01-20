@@ -19,7 +19,7 @@ class Assistant extends Model
         'second_surname' => ['required'],
     ];
     protected $fillable = ['user_id', 'id', 'name', 'first_surname', 'second_surname'];
-    protected $appends = ['fullname'];
+    protected $appends = ['fullname', 'label'];
 
     protected $collectionNumber = null;
 
@@ -52,6 +52,13 @@ class Assistant extends Model
         );
     }
     public function fullname(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value, $atrrs) => "$this->name $this->first_surname $this->second_surname",
+            set: fn ($value) => $value,
+        );
+    }
+    public function label(): Attribute
     {
         return new Attribute(
             get: fn ($value, $atrrs) => ($this->getCollectionNumber() ?: $atrrs['id']) . '.- ' . "$this->name $this->first_surname $this->second_surname",

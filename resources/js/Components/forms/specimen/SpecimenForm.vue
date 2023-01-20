@@ -186,7 +186,7 @@ searchCollectors({ target: { value: '' } })
                 </div>
             </div>
             <label for="collector">Nombre del colector:</label>
-            <multiselect id="collector" name="collector_id" placeholder="Selecciona una opción" label="fullname"
+            <multiselect id="collector" name="collector_id" placeholder="Selecciona una opción" label="label"
                 @input="searchCollectors" :preserveSearch="true" :internalSearch="false" :options="collectorOptions"
                 :allow-empty="false" @select="selectCollector" v-model="specimen.collector">
 
@@ -197,7 +197,7 @@ searchCollectors({ target: { value: '' } })
                     type="number" name="collector_number" id="collector_number">
             </div>
             <label for="assistant_id">Nombre del preparador:</label>
-            <multiselect id="assistant" name="assistant_id" placeholder="Selecciona una opción" label="fullname"
+            <multiselect id="assistant" name="assistant_id" placeholder="Selecciona una opción" label="label"
                 @input="searchAssistants" :preserveSearch="true" :internalSearch="false" :options="assistantOptions"
                 :allow-empty="false" @select="selectAssistant" v-model="specimen.assistant">
 

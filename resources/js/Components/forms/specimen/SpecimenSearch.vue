@@ -127,7 +127,7 @@ async function searchStates(search, loading) {
 
                 <div class="form-group grow mx-2">
                     <label class="font-bold" for="collector">Nombre del colector:</label>
-                    <multiselect id="collector" name="collector_id" placeholder="Selecciona una opción" label="fullname"
+                    <multiselect id="collector" name="collector_id" placeholder="Selecciona una opción" label="label"
                         @input="searchCollectors" :allowEmpty="true" :preserveSearch="true" :internalSearch="false"
                         :options="collectorOptions" :allow-empty="false" v-model="specimenSearch.collector">
 
@@ -135,7 +135,7 @@ async function searchStates(search, loading) {
                 </div>
                 <div class="form-group grow mx-2">
                     <label class="font-bold" for="assistant_id">Nombre del preparador:</label>
-                    <multiselect id="assistant" name="assistant_id" placeholder="Selecciona una opción" label="fullname"
+                    <multiselect id="assistant" name="assistant_id" placeholder="Selecciona una opción" label="label"
                         @input="searchAssistants" @Remove="e => alert(e)" :allowEmpty="true" :preserveSearch="true"
                         :internalSearch="false" :options="assistantOptions" :allow-empty="false"
                         v-model="specimenSearch.assistant">

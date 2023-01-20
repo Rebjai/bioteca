@@ -18,8 +18,15 @@ class Collector extends Model
         'second_surname' => ['required'],
     ];
     protected $collectionNumber = null;
-    protected $appends = ['fullname'];
+    protected $appends = ['fullname', 'label'];
     public function fullname(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value, $atrrs) => "$this->name $this->first_surname $this->second_surname",
+            set: fn ($value) => $value,
+        );
+    }
+    public function label(): Attribute
     {
         return new Attribute(
             get: fn ($value, $atrrs) => ($this->collectionNumber?:$atrrs['id']) . '.- ' . "$this->name $this->first_surname $this->second_surname",
