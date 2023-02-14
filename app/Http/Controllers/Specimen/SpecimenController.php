@@ -14,6 +14,7 @@ use DateTime;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SpecimenController extends Controller
 {
@@ -148,7 +149,9 @@ class SpecimenController extends Controller
         if ($request->path() == 'download' && $request->user()->role == 10) {
             // dd(new SpecimenExport($specimens));
 
-            return new SpecimenExport($specimens);
+            // return new SpecimenExport($specimens);
+            $export = new SpecimenExport($specimens);
+            return Excel::download($export, 'specimens.xlsx');
         }
         $specimens = $specimens
             ->latest('collection_date')

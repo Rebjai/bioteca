@@ -68,7 +68,7 @@ class Specimen extends Model
      * Get Collection Type Name
      */
 
-    public function getColectionName($str)
+    static public function getColectionName($str)
     {
         if ($str == Mammal::class) {
             return 'Mamíferos';
