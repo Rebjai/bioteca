@@ -11,6 +11,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+enum BioRoles: int
+{
+    case NoRole = 0;
+    case Assistant = 1;
+    case Supervisor = 2;
+    case Admin = 10;
+};
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -88,7 +96,7 @@ class User extends Authenticatable
         );
     }
 
-/**
+    /**
      * Attribute getter.
      *
      * * @param int role_id Description
@@ -96,16 +104,16 @@ class User extends Authenticatable
      */
     public function getRoleName(int $role_id = 0)
     {
-        if ($role_id == 0) {
+        if ($role_id == BioRoles::NoRole) {
             return 'No Role';
         }
-        if ($role_id == 1) {
+        if ($role_id == BioRoles::Assistant) {
             return 'Assistant';
         }
-        if ($role_id == 2) {
+        if ($role_id == BioRoles::Supervisor) {
             return 'Supervisor';
         }
-        if ($role_id == 10) {
+        if ($role_id == BioRoles::Admin) {
             return 'Admin';
         }
     }

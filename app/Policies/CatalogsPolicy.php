@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\BioRoles;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Database\Eloquent\Model;
@@ -20,7 +21,7 @@ class CatalogsPolicy
     public function before(User $user)
     {
         // dd($user);
-        if ($user->role == 10) {
+        if ($user->role == BioRoles::Admin) {
             return true;
         }
     }
@@ -56,7 +57,7 @@ class CatalogsPolicy
      */
     public function create(User $user)
     {
-        return $user->role == 2;
+        return $user->role == BioRoles::Supervisor;
     }
 
     /**
@@ -68,7 +69,7 @@ class CatalogsPolicy
      */
     public function update(User $user, Model $model)
     {
-        return $user->role == 2;
+        return $user->role == BioRoles::Supervisor;
 
     }
 
@@ -81,7 +82,7 @@ class CatalogsPolicy
      */
     public function delete(User $user, Model $model)
     {
-        return false;
+        return $user->role == BioRoles::Supervisor;
     }
 
     /**
