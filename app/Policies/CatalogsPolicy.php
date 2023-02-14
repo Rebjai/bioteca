@@ -21,7 +21,7 @@ class CatalogsPolicy
     public function before(User $user)
     {
         // dd($user);
-        if ($user->role == BioRoles::Admin) {
+        if ($user->role == BioRoles::Admin->value) {
             return true;
         }
     }

@@ -68,6 +68,7 @@ Route::middleware(['auth', 'verified'])->group(
         Route::get('collection/{specimen}/tag', [TagController::class, 'show'])->name('collection.tag');
         Route::resource('collection', SpecimenController::class)->parameters(['collection' => 'specimen']);
         Route::resource('user', UserController::class);
+        Route::post('user/reset-password/{user}', [UserController::class, 'resetPassword'])->name('user.reset-password');
         Route::resource('collector', CollectorController::class);
         Route::resource('assistant', AssistantController::class);
         Route::resource('species', SpeciesController::class);

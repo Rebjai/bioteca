@@ -113,7 +113,7 @@ class User extends Authenticatable
         if ($role_id == BioRoles::Supervisor) {
             return 'Supervisor';
         }
-        if ($role_id == BioRoles::Admin) {
+        if ($role_id == BioRoles::Admin->value) {
             return 'Admin';
         }
     }

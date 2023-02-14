@@ -1,6 +1,7 @@
 <script setup>
 import { useForm } from '@inertiajs/inertia-vue3';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+import DangerButton from '@/Components/DangerButton.vue';
 import Checkbox from '@/Components/Checkbox.vue';
 import handleErrorMessages, { handleSuccessMessages } from '@/Utils/toastMessages';
 import { ref } from '@vue/reactivity';
@@ -31,6 +32,8 @@ function saveUser() {
     return user.post(route('user.store'), { onError: handleErrorMessages, onSuccess: handleSuccessMessages })
 }
 
+
+
 async function searchAssistants(search = '', loading) {
     console.log({ search });
     const res = await axios.get('/api/assistants/search', { params: { name: search } })
@@ -44,6 +47,19 @@ function assistantChanged(e) {
         return
     }
     searchAssistants()
+}
+
+async function resetPassword(userId) {
+    if (!confirm('¿Seguro que desea reestablecer la contraseña del usuario?')) {
+        return 
+    }
+    user.post(
+        route('user.reset-password', userId),
+        {
+            onError: handleErrorMessages,
+            onSuccess: handleSuccessMessages,
+        });
+    return null
 }
 </script>
 <template>
@@ -94,8 +110,12 @@ function assistantChanged(e) {
 
             </multiselect>
         </div>
-        <div class="form-group flex justify-center">
-            <primary-button>{{ user.id ? 'Guardar' : 'Nuevo'}}</primary-button>
+        <div class="form-group flex flex-col items-center gap-3 justify-center">
+            <primary-button>{{ user.id ? 'Guardar' : 'Nuevo' }}</primary-button>
+            <danger-button v-if="$page.props.auth.user.role_name == 'Admin'" type="button" @click="resetPassword(user.id)">Reestablecer
+                contraseña</danger-button>
+
+                
         </div>
     </form>
 

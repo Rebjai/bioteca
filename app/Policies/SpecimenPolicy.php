@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\BioRoles;
 use App\Models\Collection\Specimen;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -18,8 +19,9 @@ class SpecimenPolicy
      */
     public function before(User $user)
     {
-        if ($user->role == 10) {
-            return true;
+        // dd($user);
+        if ($user->role == BioRoles::Admin->value) {
+            return false;
         }
     }
 
@@ -33,24 +35,18 @@ class SpecimenPolicy
     {
         return true;
     }
-    
+
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Specimen\Specimen  $specimen
+     * @param  \App\Models\Collection\Specimen  $specimen
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function view(User $user, Specimen $specimen)
     {
-        if ($user->role == 6) {
-            return true;
-        }
-
-        if ($user->role == 1) {
-            return $user->id == $specimen->creator_id;
-        }
-        return false;
+        return $user->role == BioRoles::Supervisor ||
+            $user->id == $specimen->creator_id;
     }
 
     /**
@@ -68,44 +64,32 @@ class SpecimenPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Specimen\Specimen  $specimen
+     * @param  \App\Models\Collection\Specimen  $specimen
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function update(User $user, Specimen $specimen)
     {
-        if ($user->role == 6) {
-            return true;
-        }
-
-        if ($user->role == 1) {
-            return $user->id == $specimen->creator_id;
-        }
-        return false;
+        return $user->role == BioRoles::Supervisor ||
+            $user->id == $specimen->creator_id;
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Specimen\Specimen  $specimen
+     * @param  \App\Models\Collection\Specimen  $specimen
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function delete(User $user, Specimen $specimen)
     {
-        if ($user->role == 6) {
-            return $user->id == $specimen->creator_id;
-        }
-
-        if ($user->role == 1) {
-            return false;
-        }
+        return $user->role == BioRoles::Supervisor;
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Specimen\Specimen  $specimen
+     * @param  \App\Models\Collection\Specimen  $specimen
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function restore(User $user, Specimen $specimen)
@@ -117,7 +101,7 @@ class SpecimenPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Specimen\Specimen  $specimen
+     * @param  \App\Models\Collection\Specimen  $specimen
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function forceDelete(User $user, Specimen $specimen)

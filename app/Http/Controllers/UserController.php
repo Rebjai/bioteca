@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BioRoles;
 use App\Models\Catalogs\Assistant;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\UnauthorizedException;
 use Inertia\Inertia;
 
 class UserController extends Controller
@@ -149,5 +152,22 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    /**
+     * Reset the specified user password.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function resetPassword(User $user)
+    {
+        if (Auth::user()->role !== BioRoles::Admin->value) {
+            Auth::logout();
+            return redirect()->back(303)->with(['errors'=>['unauthorized']]);
+        }
+        $user->update(['password'=> Hash::make('pass1234')]);
+        $user->save();
+        return response('Succesful password reset');
     }
 }
