@@ -21,7 +21,7 @@ class SpecimenPolicy
     {
         // dd($user);
         if ($user->role == BioRoles::Admin->value) {
-            return false;
+            return true;
         }
     }
 
