@@ -20,6 +20,11 @@ module.exports = {
             colors: {
                 'brownbg': '#D9D9D9',
             },
+            blur: {
+                xs1: '1px',
+                xs2: '2px',
+                xs3: '3px',
+            },
         },
     },
 
