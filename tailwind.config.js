@@ -25,6 +25,9 @@ module.exports = {
                 xs2: '2px',
                 xs3: '3px',
             },
+            dropShadow: {
+                'sharp': '-20px 27px 13px rgba(0, 0, 0, 0.35)',
+              }
         },
     },
 
