@@ -74,8 +74,8 @@ defineProps({
             <slot />
 
             <div
-                class="md:block z-50 absolute w-[40vw] overflow-visible -bottom-[25vh] -right-[10%] transform -rotate-transform -rotate-4">
-                <svg class="fill-green-700 stroke-green-800 filter blur-xs2 drop-shadow-sharp" version="1.1"
+                class="md:block z-50 absolute w-[40vw] md:w-[25vw] 2xl:w-[17vw] overflow-visible -bottom-[25vh] -right-[10%] md:right-[13%] 2xl:right-[23%]  md:-bottom-[25%] 2xl:-bottom-[23%] transform -rotate-transform -rotate-4">
+                <svg class="fill-green-700 w-full stroke-green-800 filter blur-xs1 drop-shadow-sharp" version="1.1"
                     viewBox="230 200 350 500" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
 
                     <defs>
