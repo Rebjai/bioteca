@@ -104,13 +104,13 @@ class User extends Authenticatable
      */
     public function getRoleName(int $role_id = 0)
     {
-        if ($role_id == BioRoles::NoRole) {
+        if ($role_id == BioRoles::NoRole->value) {
             return 'No Role';
         }
-        if ($role_id == BioRoles::Assistant) {
+        if ($role_id == BioRoles::Assistant->value) {
             return 'Assistant';
         }
-        if ($role_id == BioRoles::Supervisor) {
+        if ($role_id == BioRoles::Supervisor->value) {
             return 'Supervisor';
         }
         if ($role_id == BioRoles::Admin->value) {
@@ -136,10 +136,10 @@ class User extends Authenticatable
         if ($role_id == 0) {
             return 'No Role';
         }
-        if ($role_id == 1) {
+        if ($role_id == BioRoles::Supervisor->value) {
             return Assistant::where('user_id', '=', $this->id)->first();
         }
-        if ($role_id == 10) {
+        if ($role_id == BioRoles::Admin->value) {
             return 'Admin';
         }
     }
