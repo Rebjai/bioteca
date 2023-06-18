@@ -233,28 +233,28 @@ onMounted(() => {
     <div id="bg">
         <!-- <h1 class="text-2xl font-bold capitalize">Etiqueta</h1> -->
         <h2 class="text-lg font-bold capitalize">Tipo</h2>
-        <div class="tag-type flex justify-evenly">
-            <div class="form-group flex flex-col items-center"><label for="rectangular">Rectangular</label><input
+        <div class="tag-type flex justify-evenly mb-5">
+            <div class="form-group flex flex-col items-center"><label for="rectangular" class="text-gray-800 m-3">Rectangular</label><input
                     type="radio" name="tag_type" v-model="tag_type" id="rectangular" value="rectangular" @change="draw">
             </div>
-            <div class="form-group flex flex-col items-center"><label for="box">Caja</label><input type="radio"
+            <div class="form-group flex flex-col items-center"><label for="box" class="text-gray-800 m-3">Caja</label><input type="radio"
                     name="tag_type" v-model="tag_type" id="box" value="box" @change="draw"></div>
-            <div class="form-group flex flex-col items-center"><label for="circular">Circular</label><input type="radio"
+            <div class="form-group flex flex-col items-center"><label for="circular" class="text-gray-800 m-3">Circular</label><input type="radio"
                     name="tag_type" v-model="tag_type" id="circular" value="circular" @change="draw"></div>
         </div>
         <h2 class="text-lg font-bold capitalize">medidas</h2>
-        <div id="size">
-            <div class="form-group" v-show="tag_type != 'circular'">
-                <label class="capitalize" for="height">alto</label>
+        <div id="size" class="my-3">
+            <div class="form-group flex flex-col items-center my-3 text-gray-800" v-show="tag_type != 'circular'">
+                <label class="capitalize my-1" for="height">alto</label>
                 <input class="max-w-full py-2 w-[95%]" @input="draw" v-model="height" type="number">
             </div>
-            <div class="form-group">
-                <label class="capitalize" for="width">ancho</label>
+            <div class="form-group flex flex-col items-center my-3 text-gray-800">
+                <label class="capitalize my-1" for="width">ancho</label>
                 <input class=" max-w-full py-2 w-[95%]" @input="draw" v-model="width" type="number">
             </div>
         </div>
-        <div class="font-size">
-            <label class="capitalize" for="width">Tamaño de Fuente</label>
+        <div class="font-size text-gray-800">
+            <label class="capitalize " for="width">Tamaño de Fuente</label>
             <input class=" max-w-full py-2 w-[95%]" @input="draw" v-model="fontSize" type="number">
         </div>
         <h2 class="text-lg font-bold capitalize m-2">Etiqueta (vista previa)</h2>
